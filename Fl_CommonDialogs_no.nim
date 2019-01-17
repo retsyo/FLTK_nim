@@ -38,7 +38,7 @@ echo "flColorChooser2() = " & rr,gg,bb
 echo "flInput() = " & flInput("flInput:","type here ...")
 
 
-path = flDirChooser("select a folder", ExePath(), 1) # 1 = relative 0 = absolute path
+path = flDirChooser("select a folder", getAppDir(), 1) # 1 = relative 0 = absolute path
 if path<>0 :
  echo "flDirChooser() = " & path
 

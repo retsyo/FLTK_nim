@@ -1,3 +1,4 @@
+import os, posix
 import fltk_main
 
 #~ # test of:
@@ -14,7 +15,7 @@ proc TreeCB  (self: ptr Fl_Widget, tree: ptr Fl_Tree){.cdecl.} =
 #
 # main
 #
-#~ ChDir ExePath()
+discard chDir getAppDir()
 
 Fl_Register_Images() # be sure png,jpg ... loader#s are reistered
 

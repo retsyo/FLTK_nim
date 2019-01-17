@@ -1,4 +1,4 @@
-import random
+import random, posix, os
 import fltk_main
 
 proc DrawCB(self: ptr Fl_Widget, SaveButton: ptr Fl_Button){. cdecl .}=
@@ -38,7 +38,7 @@ proc LoadCB(self: ptr Fl_Widget, RightBox: ptr Fl_Box){. cdecl .}=
 #
 # main
 #
-#~ chdir exepath
+discard chdir getAppDir()
 var MainWindow = Fl_WindowNew(128 * 3, 128, "")
 var LeftBox    = Fl_BoxNew(  0, 0, 128, 128)
 var RightBox   = Fl_BoxNew(256, 0, 128, 128)

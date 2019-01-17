@@ -1,7 +1,7 @@
 import fltk_main
 
 proc CheckCB  (self: ptr FL_WIDGET, CheckButton: ptr Fl_Check_Button){.cdecl.} =
-  echo Fl_WidgetGetLabel(self)[0] & "[" & $Fl_ButtonGetValue(CheckButton) & "]"
+  echo $Fl_WidgetGetLabel(self) & "[" & $Fl_ButtonGetValue(CheckButton) & "]"
 
 
 var win = Fl_WindowNew(320,40,"Fl_CheckButton01.bas")

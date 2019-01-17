@@ -19,7 +19,7 @@ when not defined(fltk_tools_bi):
 
     when not defined(FLTK_MAIN_BI):
         #~ const FLTK_MAIN_BI* = true
-        include fltk_main
+       import fltk_main
 
 
     when defined(windows):
@@ -259,7 +259,7 @@ when not defined(fltk_tools_bi):
 
 
     #~ function BoxtypeAsString(byval btype as integer) as const zstring ptr
-    proc BoxtypeAsString*(btype: int32): string =
+    proc BoxtypeAsString*(btype: int32): cstring =
       case btype:
         of FL_NO_BOX                 :
           return "FL_NO_BOX"
@@ -387,36 +387,61 @@ when not defined(fltk_tools_bi):
           return "UNKNOW BOX TYPE"
 
 
-    #~ function EventAsString(byval event as Fl_Event) as const zstring ptr
-      #~ select case as const event
-      #~ case FL_EVENT_PUSH           : return @"FL_EVENT_PUSH (1)"
-      #~ case FL_EVENT_RELEASE        : return @"FL_EVENT_RELEASE (2)"
-      #~ case FL_EVENT_ENTER          : return @"FL_EVENT_ENTER (3)"
-      #~ case FL_EVENT_LEAVE          : return @"FL_EVENT_LEAVE (4)"
-      #~ case FL_EVENT_DRAG           : return @"FL_EVENT_DRAG (5)"
-      #~ case FL_EVENT_FOCUS          : return @"FL_EVENT_FOCUS (6)"
-      #~ case FL_EVENT_UNFOCUS        : return @"FL_EVENT_UNFOCUS (7)"
-      #~ case FL_EVENT_KEYDOWN        : return @"FL_EVENT_KEYDOWN (8)"
-      #~ case FL_EVENT_KEYUP          : return @"FL_EVENT_KEYUP (9)"
-      #~ case FL_EVENT_CLOSE          : return @"FL_EVENT_CLOSE (10)"
-      #~ case FL_EVENT_MOVE           : return @"FL_EVENT_MOVE (11)"
-      #~ case FL_EVENT_SHORTCUT       : return @"FL_EVENT_SHORTCUT (12)"
-      #~ case FL_EVENT_DEACTIVATE     : return @"FL_EVENT_DEACTIVATE (13)"
-      #~ case FL_EVENT_ACTIVATE       : return @"FL_EVENT_ACTIVATE (14)"
-      #~ case FL_EVENT_HIDE           : return @"FL_EVENT_HIDE (15)"
-      #~ case FL_EVENT_SHOW           : return @"FL_EVENT_SHOW (16)"
-      #~ case FL_EVENT_PASTE          : return @"FL_EVENT_PASTE (17)"
-      #~ case FL_EVENT_SELECTIONCLEAR : return @"FL_EVENT_SELECTIONCLEAR (18)"
-      #~ case FL_EVENT_MOUSEWHEEL     : return @"FL_EVENT_MOUSEWHEEL (19)"
-      #~ case FL_EVENT_DND_ENTER      : return @"FL_EVENT_DND_ENTER (20)"
-      #~ case FL_EVENT_DND_DRAG       : return @"FL_EVENT_DND_DRAG (21)"
-      #~ case FL_EVENT_DND_LEAVE      : return @"FL_EVENT_DND_LEAVE (22)"
-      #~ case FL_EVENT_DND_RELEASE    : return @"FL_EVENT_DND_RELEASE (23)"
-      #~ case FL_EVENT_SCREEN_CONFIGURATION_CHANGED : return @"FL_EVENT_SCREEN_CONFIGURATION_CHANGED (24)"
-      #~ case FL_EVENT_FULLSCREEN     : return @"FL_EVENT_FULLSCREEN (25)"
-      #~ case else                    : return @"UNKNOW EVENT"
-      #~ end select
-    #~ end function
+    proc EventAsString*(event: Fl_Event): cstring {.cdecl.} =
+        case int(event)  :
+            of FL_EVENT_PUSH           :
+                return "FL_EVENT_PUSH (1)"
+            of FL_EVENT_RELEASE        :
+                return "FL_EVENT_RELEASE (2)"
+            of FL_EVENT_ENTER          :
+                return "FL_EVENT_ENTER (3)"
+            of FL_EVENT_LEAVE          :
+                return "FL_EVENT_LEAVE (4)"
+            of FL_EVENT_DRAG           :
+                return "FL_EVENT_DRAG (5)"
+            of FL_EVENT_FOCUS          :
+                return "FL_EVENT_FOCUS (6)"
+            of FL_EVENT_UNFOCUS        :
+                return "FL_EVENT_UNFOCUS (7)"
+            of FL_EVENT_KEYDOWN        :
+                return "FL_EVENT_KEYDOWN (8)"
+            of FL_EVENT_KEYUP          :
+                return "FL_EVENT_KEYUP (9)"
+            of FL_EVENT_CLOSE          :
+                return "FL_EVENT_CLOSE (10)"
+            of FL_EVENT_MOVE           :
+                return "FL_EVENT_MOVE (11)"
+            of FL_EVENT_SHORTCUT       :
+                return "FL_EVENT_SHORTCUT (12)"
+            of FL_EVENT_DEACTIVATE     :
+                return "FL_EVENT_DEACTIVATE (13)"
+            of FL_EVENT_ACTIVATE       :
+                return "FL_EVENT_ACTIVATE (14)"
+            of FL_EVENT_HIDE           :
+                return "FL_EVENT_HIDE (15)"
+            of FL_EVENT_SHOW           :
+                return "FL_EVENT_SHOW (16)"
+            of FL_EVENT_PASTE          :
+                return "FL_EVENT_PASTE (17)"
+            of FL_EVENT_SELECTIONCLEAR :
+                return "FL_EVENT_SELECTIONCLEAR (18)"
+            of FL_EVENT_MOUSEWHEEL     :
+                return "FL_EVENT_MOUSEWHEEL (19)"
+            of FL_EVENT_DND_ENTER      :
+                return "FL_EVENT_DND_ENTER (20)"
+            of FL_EVENT_DND_DRAG       :
+                return "FL_EVENT_DND_DRAG (21)"
+            of FL_EVENT_DND_LEAVE      :
+                return "FL_EVENT_DND_LEAVE (22)"
+            of FL_EVENT_DND_RELEASE    :
+                return "FL_EVENT_DND_RELEASE (23)"
+            of FL_EVENT_SCREEN_CONFIGURATION_CHANGED :
+                return "FL_EVENT_SCREEN_CONFIGURATION_CHANGED (24)"
+            of FL_EVENT_FULLSCREEN     :
+                return "FL_EVENT_FULLSCREEN (25)"
+            else :
+                return "UNKNOW EVENT"
+
 
 
 #~ #endif ' __fltk_tools_bi__

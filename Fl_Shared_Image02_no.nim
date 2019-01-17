@@ -15,13 +15,15 @@ Fl_Shared_ImageGet("media/renata.png")
 Fl_Shared_ImageGet("media/renata.gif")
 Fl_Shared_ImageGet("media/renata.jpg")
 
-var win=Fl_WindowNew(10+Fl_Shared_ImageNumImages()*138,148,"Fl_Shared_Image02.bas")
+var win=Fl_WindowNew(10+Fl_Shared_ImageNumImages()*138, 148, "Fl_Shared_Image02.bas")
 #~ ' set images to a widget
 
-var i = 0
-for i in 0 .. Fl_Shared_ImageNumImages()-1:
-  Fl_WidgetSetImage Fl_BoxNew( 10+i*138,10,128,128), Fl_Shared_ImageImages[i]
+#~ var i = 0
+#~ for i in 0 .. Fl_Shared_ImageNumImages()-1:
+  #~ Fl_WidgetSetImage Fl_BoxNew( 10+i*138, 10, 128, 128), Fl_Shared_ImageImages()[i]
 
+echo Fl_Shared_ImageNumImages()
+echo Fl_Shared_ImageImages()
 
 Fl_WindowShow win
 Fl_Run()

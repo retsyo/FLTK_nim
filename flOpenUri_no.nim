@@ -1,3 +1,4 @@
+import os
 import fltk_main
 
 #~ ' test of:
@@ -5,6 +6,7 @@ import fltk_main
 
 echo flOpenUri("http://freebasic.net/forum/viewtopic.php?f=14&t=21548")
 echo flOpenUri("mailto://any@maildomain.com")
-echo flOpenUri("file://" & getGUIPath() & "fltk-c.bi")
+echo r"file:\\" & getAppDir() & "\\fltk-c.bi"
+echo flOpenUri(r"file:\\" & getAppDir() & "\\fltk-c.bi")
 echo "press any key ..."
 

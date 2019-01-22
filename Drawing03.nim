@@ -9,6 +9,7 @@ import fltk_main
 
 proc `\` (x: long; y: long): long = long(x.float / y.float)
 
+
 proc DrawMe(win: ptr Fl_Window) =
   var gfxPrimitive{.global.}: long = 0
   # select the window as curent drawing target
@@ -31,24 +32,24 @@ proc DrawMe(win: ptr Fl_Window) =
     i: int
 
   for i in 1 .. 10:
-    DrawSetRGBColor ubyte(rand(255)), ubyte(rand(255)), ubyte(rand(255))
+    DrawSetRGBColor rand(255), rand(255), rand(255)
     case gfxPrimitive:
       of 0 :
-        DrawPoint long(rand(w)), long(rand(h))
+        DrawPoint rand(w), rand(h)
       of 1 :
-        DrawLine  long(rand(w)), long(rand(h)), long(rand(w)), long(rand(h))
+        DrawLine  rand(w), rand(h), rand(w), rand(h)
       of 2 :
-        DrawRect  long(rand(w)), long(rand(h)), long(rand(w)), long(rand(h))
+        DrawRect  rand(w), rand(h), rand(w), rand(h)
       of 3 :
-        r = long(rand(h))\2
-        DrawArc long(rand(w)), long(rand(h)), r, r, 0, 360 # circle
+        r = rand(h)\2
+        DrawArc rand(w), rand(h), r, r, 0, 360 # circle
       of 4 :
-        DrawRectFill long(rand(w)), long(rand(h)), long(rand(w)), long(rand(h))
+        DrawRectFill rand(w), rand(h), rand(w), rand(h)
       of 5 :
         var bt = FL_BOXTYPE(1 + rand(15))
-        DrawBox bt, long(rand(w)), long(rand(h)), long(rand(w)), long(rand(h)), Fl_RGB_Color(ubyte(rand(255)), ubyte(rand(255)), ubyte(rand(255)))
+        DrawBox bt, rand(w), rand(h), rand(w), rand(h), Fl_RGB_Color(rand(255), rand(255), rand(255))
       of 6 :
-        DrawArc long(rand(w)), long(rand(h)), long(rand(w)), long(rand(h)), 0, 360 # oval
+        DrawArc rand(w), rand(h), rand(w), rand(h), 0, 360 # oval
       else:
         discard
 

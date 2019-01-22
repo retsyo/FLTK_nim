@@ -15,7 +15,7 @@ var StyleTable: array[3, Style_Table_Entry] = [
 ]
 
 var win = Fl_WindowNew(320, 240, "Fl_Text_Editor02")
-var edt = Fl_Text_EditorNew(10, 10, Fl_WidgetGetW(win)-20, Fl_WidgetGetH(win)-20)
+var edt = Fl_Text_EditorNew(10, 10, Fl_WidgetGetW(cast[ptr Fl_Widget](win))-20, Fl_WidgetGetH(cast[ptr Fl_Widget](win))-20)
 var buf = Fl_Text_BufferNew()
 var hd  = Fl_Text_BufferNew()
 
@@ -26,6 +26,6 @@ Fl_Text_DisplayHighlightData edt, hd, cast[ptr Style_Table_Entry](addr StyleTabl
 Fl_Text_BufferSetText buf, """print "hello world" ' comment"""
 Fl_Text_BufferSetText hd, "AAAAA BBBBBBBBBBBBB CCCCCCCCC"
 
-Fl_GroupSetResizable win, edt
+Fl_GroupSetResizable win, cast[ptr Fl_Widget](edt)
 Fl_WindowShow win
 Fl_Run()

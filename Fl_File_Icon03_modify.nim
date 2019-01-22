@@ -22,23 +22,23 @@ template DOP_COLOR(col: untyped):untyped=
   #~ HIWORD(col)
   #~ LOWORD(col)
 
-var opcodes = [
-  FL_DOP_COLOR   , DOP_COLOR(FL_RED),
+var opcodes: array[0, short] = [
+  FL_DOP_COLOR   , HIWORD(FL_RED), LOWORD(FL_RED),
   FL_DOP_LINE    ,
-    FL_DOP_VERTEX,    0,    0,
+    FL_DOP_VERTEX,  0,    0,
     FL_DOP_VERTEX, 10000, 10000,
-  FL_DOP_END     ,
-  FL_DOP_COLOR   , DOP_COLOR(FL_GREEN),
+  FL_DOP_END   ,
+  FL_DOP_COLOR   , FL_DATAOPCODE(HIWORD(FL_GREEN)), FL_DATAOPCODE(LOWORD(FL_GREEN)),
   FL_DOP_LINE    ,
     FL_DOP_VERTEX,    0, 10000,
     FL_DOP_VERTEX, 10000,    0,
   FL_DOP_END     ,
-  FL_DOP_COLOR   , DOP_COLOR(FL_BLUE),
+  FL_DOP_COLOR   , FL_DATAOPCODE(HIWORD(FL_BLUE)), FL_DATAOPCODE(LOWORD(FL_BLUE)),
   FL_DOP_LINE    ,
     FL_DOP_VERTEX,    0, 5000,
     FL_DOP_VERTEX, 10000, 5000,
   FL_DOP_END     ,
-  FL_DOP_COLOR   , DOP_COLOR(Fl_DARK_YELLOW),
+  FL_DOP_COLOR   , FL_DATAOPCODE(HIWORD(Fl_DARK_YELLOW)), FL_DATAOPCODE(LOWORD(Fl_DARK_YELLOW)),
   FL_DOP_POLYGON ,
     FL_DOP_VERTEX, 1000, 1000,
     FL_DOP_VERTEX, 1000, 9000,
@@ -52,7 +52,7 @@ var opcodes = [
     FL_DOP_VERTEX, 1500, 8500,
     FL_DOP_VERTEX, 1500, 1500,
   FL_DOP_END
-]
+] #]
 
 proc ButtonCB  (self: ptr Fl_Widget, btn: ptr any) {.cdecl.} =
   flMessageTitle "ButtonCB"

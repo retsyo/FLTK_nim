@@ -17,14 +17,14 @@ proc DrawCB (self: ptr Fl_Double_WindowEx): long{.cdecl.} =
     font: FL_FONT
 
   DrawPushClip(0, 0, w, h)
-  DrawRectFillRGBColor(0, 0, w, h, ubyte(rand(255)), ubyte(rand(255)), ubyte(rand(255)))
+  DrawRectFillRGBColor(0, 0, w, h, rand(255), rand(255), rand(255))
   for font in 0 .. 15:
     size = long(6 + rand(70))
     DrawSetFont(cast[FL_FONT](font), size)
     for i in 0 .. 1:
-      DrawSetRGBColor(ubyte(rand(255)), ubyte(rand(255)), ubyte(rand(255)))
-      x = long(rand(int(w)))
-      y = long(rand(int(h)))
+      DrawSetRGBColor(rand(255), rand(255), rand(255))
+      x = rand(int(w))
+      y = rand(int(h))
       if i == 1 :
         DrawStr("DrawStr()", x, y)
       else:

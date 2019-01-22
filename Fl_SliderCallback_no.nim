@@ -5,8 +5,8 @@ import fltk_main
 #~ ' Fl_ValuatorSetStep
 #~ ' Fl_ValuatorBounds
 
-proc SliderCB(self: ptr FL_WIDGET, sld: ptr FL_WIDGET) {.cdecl.} =
-  echo "SliderCB: " & Fl_ValuatorGetValue(sld)
+proc SliderCB(self: ptr Fl_Widget, sld: ptr Fl_Valuator) {.cdecl.} =
+  echo "SliderCB: " & $Fl_ValuatorGetValue(sld)
 
 
 var win = Fl_WindowNew(150,240)

@@ -25,20 +25,20 @@ var
     box: ptr FL_BOX
 
 # add 4 boxes in first row
-Fl_WidgetSetColor Fl_BoxNew2(BOX_STYLE, bw*0, bh*0, bw*1, bh*1), Fl_RGB_Color(ubyte(rand(255)), ubyte(rand(255)), ubyte(rand(255)))
-Fl_WidgetSetColor Fl_BoxNew2(BOX_STYLE, bw*1, bh*0, bw*1, bh*1), Fl_RGB_Color(ubyte(rand(255)), ubyte(rand(255)), ubyte(rand(255)))
-Fl_WidgetSetColor Fl_BoxNew2(BOX_STYLE, bw*2, bh*0, bw*1, bh*1), Fl_RGB_Color(ubyte(rand(255)), ubyte(rand(255)), ubyte(rand(255)))
-Fl_WidgetSetColor Fl_BoxNew2(BOX_STYLE, bw*3, bh*0, bw*1, bh*1), Fl_RGB_Color(ubyte(rand(255)), ubyte(rand(255)), ubyte(rand(255)))
+Fl_WidgetSetColor Fl_BoxNew2(BOX_STYLE, bw*0, bh*0, bw*1, bh*1), Fl_RGB_Color(rand(255), rand(255), rand(255))
+Fl_WidgetSetColor Fl_BoxNew2(BOX_STYLE, bw*1, bh*0, bw*1, bh*1), Fl_RGB_Color(rand(255), rand(255), rand(255))
+Fl_WidgetSetColor Fl_BoxNew2(BOX_STYLE, bw*2, bh*0, bw*1, bh*1), Fl_RGB_Color(rand(255), rand(255), rand(255))
+Fl_WidgetSetColor Fl_BoxNew2(BOX_STYLE, bw*3, bh*0, bw*1, bh*1), Fl_RGB_Color(rand(255), rand(255), rand(255))
 
 # add 3 boxes in second row
-Fl_WidgetSetColor Fl_BoxNew2(BOX_STYLE, bw*0, bh*1, bw*1, bh*2), Fl_RGB_Color(ubyte(rand(255)), ubyte(rand(255)), ubyte(rand(255)))
+Fl_WidgetSetColor Fl_BoxNew2(BOX_STYLE, bw*0, bh*1, bw*1, bh*2), Fl_RGB_Color(rand(255), rand(255), rand(255))
 box = Fl_BoxNew2(BOX_STYLE, bw*1, bh*1, bw*2, bh*2)
 Fl_WidgetSetColor box, FL_BLACK
-Fl_WidgetSetColor Fl_BoxNew2(BOX_STYLE, bw*3, bh*1, bw*1, bh*2), Fl_RGB_Color(ubyte(rand(255)), ubyte(rand(255)), ubyte(rand(255)))
+Fl_WidgetSetColor Fl_BoxNew2(BOX_STYLE, bw*3, bh*1, bw*1, bh*2), Fl_RGB_Color(rand(255), rand(255), rand(255))
 
 # add 2 boxes in third row
-Fl_WidgetSetColor Fl_BoxNew2(BOX_STYLE, bw*0, bh*3, bw*2, bh*1), Fl_RGB_Color(ubyte(rand(255)), ubyte(rand(255)), ubyte(rand(255)))
-Fl_WidgetSetColor Fl_BoxNew2(BOX_STYLE, bw*2, bh*3, bw*2, bh*1), Fl_RGB_Color(ubyte(rand(255)), ubyte(rand(255)), ubyte(rand(255)))
+Fl_WidgetSetColor Fl_BoxNew2(BOX_STYLE, bw*0, bh*3, bw*2, bh*1), Fl_RGB_Color(rand(255), rand(255), rand(255))
+Fl_WidgetSetColor Fl_BoxNew2(BOX_STYLE, bw*2, bh*3, bw*2, bh*1), Fl_RGB_Color(rand(255), rand(255), rand(255))
 
 Fl_WindowEnd win # close the child list
 

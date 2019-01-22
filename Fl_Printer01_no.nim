@@ -1,3 +1,4 @@
+import lenientops
 import fltk_main
 
 proc `\=` (x: var long; y: long) =
@@ -7,12 +8,12 @@ proc ButtonCB  (wgt: ptr Fl_Widget, pData: ptr Fl_Button ){.cdecl.}=
   var
     w,h,l,t,r,b,pw,ph : long
   var prt = Fl_PrinterNew()
-  if prt > cast[ptr Fl_Printer](0):
+  if not prt.isNil:
     if Fl_PrinterStartJob(prt,1) == 0 :
       if Fl_PrinterStartPage(prt) == 0 :
         Fl_PrinterSetCurrent prt
-        var DPI: single = 72
-        var CM: single  = DPI/2.54
+        var DPI: float = 72
+        var CM: float  = DPI/2.54
         #Fl_PrinterScale prt,1.0/(DPI/72) # 72 dpi per inch
         Fl_PrinterGetPrintableRect prt,w,h
         Fl_PrinterGetMargins prt,l,t,r,b
@@ -30,13 +31,18 @@ proc ButtonCB  (wgt: ptr Fl_Widget, pData: ptr Fl_Button ){.cdecl.}=
         h \= 16
         h *= 16
 
-        DrawRect 0,0,w-1,h-1
-        var x, y: int
-        for x in countUp(0, w-1, CM):
-          DrawLine x,0,x,h-1
+        DrawRect 0, 0, w-1, h-1
+        var
+            x: float = 0
+            y: float = 0
 
-        for y in countUp(0, h-1,CM):
-          DrawLine 0,y,w-1,y
+        while x < w-1:
+          DrawLine x, 0, x, h-1
+          x += CM
+
+        while y < h-1 :
+          DrawLine 0, y, w-1, y
+          y += CM
 
         Fl_PrinterEndPage prt
 

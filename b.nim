@@ -1,6 +1,9 @@
-template Kitten*(name: string) {.dirty.} =
-  var kitty_name = name  # my {.dirty.} exposes this
+type
+  Fl_Widget* {.bycopy.} = ref object of RootObj ## ~ declare operator cast as any ptr
+
+  Fl_WidgetEx* {.bycopy.} = ref object of Fl_Widget
+    dummy*: pointer
 
 
-Kitten("q")
-echo kitty_name
+proc WidgetEx*(this: var Fl_WidgetEx): ptr Fl_WidgetEx =
+    return nil

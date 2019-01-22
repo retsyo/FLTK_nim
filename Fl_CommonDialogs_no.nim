@@ -12,9 +12,9 @@ var
     file: string
     path:string
 
-proc FileOrFolderCB  (path: string){.cdecl.} =
+proc FileOrFolderCB  (path: cstring){.cdecl.} =
   if len(path) != 0 :
-    echo """FileChFileOrFolderCB("""" & path & """")"""
+    echo """FileChFileOrFolderCB("""" & $path & """")"""
 
 
 

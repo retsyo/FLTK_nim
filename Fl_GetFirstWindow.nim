@@ -10,7 +10,7 @@ proc rand(x: int64): long = rand(int(x))
 
 proc CloseCB  (self: ptr FL_WIDGET) {.cdecl.} =
   var  win = Fl_GetFirstWindow()
-  while cast[long](win) > 0 :
+  while not win.isNil :
     Fl_WindowHide win
     win = Fl_GetFirstWindow()
     sleep 500

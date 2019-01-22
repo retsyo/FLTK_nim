@@ -29,8 +29,8 @@ for y in 0 .. 49:
     btn = Fl_ButtonNew(x*50,y*50,45,45)
     Fl_WidgetCopyLabel btn, label
     Fl_WidgetSetColorSel(btn,
-        Fl_RGB_Color(ubyte(rand(255)),ubyte(rand(255)),ubyte(rand(255))),
-        Fl_RGB_Color(ubyte(rand(255)),ubyte(rand(255)),ubyte(rand(255))))
+        Fl_RGB_Color(rand(255),rand(255),rand(255)),
+        Fl_RGB_Color(rand(255),rand(255),rand(255)))
 
 
 Fl_GroupSetResizable win,scr

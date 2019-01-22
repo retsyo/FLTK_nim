@@ -27,18 +27,18 @@ when not defined(fltk_tools_bi):
     else:
         const SEP = '/'
 
-    proc getGUIPath(): string =
+    #~ proc getGUIPath(): cstring =
       #~ dim as zstring ptr cwd = Fl_getcwd(0,2048)
       #~ dim as string path = *cwd : Fl_Free cwd
       #~ if right(path,1)<>SEP then path &=SEP
       #~ return path
 
-        var cwd  = Fl_getcwd(cast[string](0),2048)
-        var path = cwd
-        Fl_Free cwd
-        if path[^1] != SEP:
-            path &= SEP
-        return path
+        #~ var cwd  = Fl_getcwd(cast[string](0),2048)
+        #~ var path = cwd
+        #~ Fl_Free cwd
+        #~ if path[^1] != SEP:
+            #~ path &= SEP
+        #~ return path
 
 
     #~ function getGUIApp as string

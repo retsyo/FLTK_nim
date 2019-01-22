@@ -4,7 +4,7 @@ import fltk_main
 #~ ' Fl_SliderExNew()      http://www.fltk.org/doc-1.3/classFl__Slider.html
 
 proc HandleCB  (self: ptr Fl_Window, event: Fl_Event): long {.cdecl.} =
-    case event:
+    case int(event):
         of FL_EVENT_RELEASE , FL_EVENT_DRAG:
             echo "HandleCB SliderValue = " & Fl_ValuatorGetValue(self)
 

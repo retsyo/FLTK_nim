@@ -2,7 +2,7 @@ import fltk_main
 
 #~ ' test of 8 bit palette drawing
 
-proc DrawCB  (self: ptr any): long {.cdecl.} =
+proc DrawCB  (self: pointer): long {.cdecl.} =
   echo "DrawCB"
   var x, y, z: long
 
@@ -19,7 +19,7 @@ proc DrawCB  (self: ptr any): long {.cdecl.} =
 #~ '
 var win = Fl_WindowExNew(8*80,5*16,"Drawing05.nim")
 #~ var win = Fl_WindowNew(8*80,5*16,"Drawing05.nim")
-#~ Fl_WindowExSetDrawCB win, DrawCB
+Fl_WindowExSetDrawCB win, DrawCB
 #~ Fl_WindowSetDrawCB win, DrawCB
 Fl_WindowShow win
 Fl_Run()

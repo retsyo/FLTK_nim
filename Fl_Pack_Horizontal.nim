@@ -18,16 +18,16 @@ proc CreateMainWindow(): ptr FL_WINDOW {.cdecl.} =
     h = Fl_WidgetGetH(win)
     var packV =  Fl_PackNew(0,0,w,h)
     #~ Fl_WidgetSetType packV,FL_PACK_HORIZONTAL
-    Fl_WidgetSetType packV, ubyte(1)
+    Fl_WidgetSetType packV, 1
     Fl_GroupBegin(packV)
-    w  //= 3
+    w //= 3
     Fl_WidgetSetBox Fl_Round_ClockNew(0,0,w,h),FL_DOWN_BOX
     Fl_WidgetSetBox Fl_Round_ClockNew(0,0,w,h),FL_DOWN_BOX
     Fl_WidgetSetBox Fl_Round_ClockNew(0,0,w,h),FL_DOWN_BOX
     Fl_GroupEnd packV
     Fl_WindowEnd win
     Fl_GroupSetResizable win,win
-    Fl_WindowSizeRange win,Fl_WidgetGetW(win),100
+    Fl_WindowSizeRange win, Fl_WidgetGetW(win), 100
     return win
 
 

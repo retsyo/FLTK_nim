@@ -18,7 +18,7 @@ proc CreateMainWindow(): ptr FL_WINDOW {.cdecl.} =
     h=Fl_WidgetGetH(win)
     var packV =  Fl_PackNew(0,0,w,h)
     #~ Fl_WidgetSetType packV, ubyte(FL_PACK_VERTICAL)
-    Fl_WidgetSetType packV, ubyte(0)
+    Fl_WidgetSetType packV, 0
 
     Fl_GroupBegin(packV)
     h = h / 3

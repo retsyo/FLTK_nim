@@ -13,7 +13,7 @@ var br = Fl_Hold_BrowserNew(10,10,320-20,100-20)
 Fl_Browser_SetHasScrollbar cast[ptr FL_WIDGET](br), FL_SCROLL_VERTICAL_ALWAYS
 
 #~ Fl_WidgetSetType br, ubyte(FL_MULTIBROWSER)
-Fl_WidgetSetType br, ubyte(3)
+Fl_WidgetSetType br, 3
 
 Fl_BrowserAdd br,"item 1"
 Fl_BrowserAdd br,"item 2"

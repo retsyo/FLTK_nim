@@ -11,7 +11,7 @@ proc AddChild  (button: ptr Fl_Button, parent: ptr Fl_Widget) {.cdecl.} =
     #~ ' open the widget list of the parent
     Fl_GroupBegin parent
     #~ ' add a widget to the widget list
-    Fl_WidgetSetCallbackArg Fl_ButtonNew(long(rand(1.0)*(Fl_WidgetGetW(parent)-64)), long(rand(1.0)*(Fl_WidgetGetH(parent)-24)), 64, 24, "add child"), AddChild, parent
+    Fl_WidgetSetCallbackArg Fl_ButtonNew(rand(1.0)*(Fl_WidgetGetW(parent)-64), rand(1.0)*(Fl_WidgetGetH(parent)-24), 64, 24, "add child"), AddChild, parent
     #~ ' close the widget list
     Fl_GroupEnd parent
     #~ ' be sure the new widget are drawn

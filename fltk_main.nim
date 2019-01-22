@@ -46,6 +46,10 @@ when not defined(FLTK_MAIN_BI):
         single* = float32
         double* = float64
 
+    converter toUbyte*(x: int|int16|int32|long|single):ubyte = ubyte(x)
+    converter toLong*(x: int|int16|int32|float):long = long(x)
+
+
     type
         Fl_Window* = ulong
         Fl_WindowEX* = ulong
@@ -1595,6 +1599,9 @@ when not defined(FLTK_MAIN_BI):
     #~ operator Fl_Widget.cast as any ptr
       #~ operator = @this
     #~ end operator
+    #~ type Fl_Widget* = ref object of RootObj
+        #~ dummy: pointer
+
 
 
     #~ #_  FLTK extended widget classes
@@ -1873,7 +1880,7 @@ when not defined(FLTK_MAIN_BI):
         #~ if not defined(`name Ex`{.inject.}):
             #~ type `name Ex*`{.inject.} = ulong
 
-        type `name ExNew*`{.inject.} = proc(x: long, y: long; w: long; h: long, title: string=cast[string](0)): ptr `name Ex`
+        type `name ExNew*`{.inject.} = proc(x: long, y: long; w: long; h: long, title: cstring=nil): ptr `name Ex`
         type `name ExDelete`*{.inject.}  = proc(ex: ptr `name Ex`)
         type `name ExHandleBase*`{.inject.} = proc (ex: ptr `name Ex`, event: FL_EVENT): long
         type `name ExSetDestructorCB*`{.inject.} = proc(ex: ptr `name Ex`,  cb: Fl_DestructorEx)
@@ -1888,13 +1895,13 @@ when not defined(FLTK_MAIN_BI):
     #~ type Fl_Abort_Handler* = proc( fmt:  cstring, ...) {.cdecl.}
 
     ## original: type Fl_Args_Handler     as function (byval argc as long, byval argv as cstring ptr, byref i as long) as long
-    type Fl_Args_Handler* = proc( argc:  long;  argv:  ptr cstring;  i:  long): long {.cdecl.}
+    type Fl_Args_Handler* = proc( argc:  long;  argv:  ptr cstring;  i:  var long): long {.cdecl.}
 
     ## original: type Fl_Atclose_Handler  as sub      (byval win as Fl_Window ptr, byval userdata as any ptr)
-    type Fl_Atclose_Handler* = proc( win:  ptr Fl_Window;  userdata:  ptr any) {.cdecl.}
+    type Fl_Atclose_Handler* = proc( win:  ptr Fl_Window;  userdata:  pointer) {.cdecl.}
 
     ## original: type Fl_Awake_Handler    as sub      (byval userdata as any ptr)
-    type Fl_Awake_Handler* = proc( userdata:  ptr any) {.cdecl.}
+    type Fl_Awake_Handler* = proc( userdata:  pointer) {.cdecl.}
 
     ## original: type Fl_Box_Draw_F       as sub      (byval x as long, byval y as long, byval w as long, byval h as long, byval c as Fl_COLOR)
     type Fl_Box_Draw_F* = proc( x:  long;  y:  long;  w:  long;  h:  long;  c:  Fl_COLOR) {.cdecl.}
@@ -1915,7 +1922,7 @@ when not defined(FLTK_MAIN_BI):
     type Fl_Label_Draw_F* = proc( label:  ptr Fl_Label;  x:  long;  y:  long;  w:  long;  h:  long;  align:  FL_ALIGN) {.cdecl.}
 
     ## original: type Fl_Label_Measure_F  as sub      (byval label as const Fl_Label ptr, byref w as long, byref h as long)
-    type Fl_Label_Measure_F* = proc( label:  ptr Fl_Label;  w:  long;  h:  long) {.cdecl.}
+    type Fl_Label_Measure_F* = proc( label:  ptr Fl_Label;  w:  var long;  h:  var long) {.cdecl.}
 
     ## original: type Fl_Old_Idle_Handler as sub
     type Fl_Old_Idle_Handler* = proc() {.cdecl.}
@@ -1942,16 +1949,16 @@ when not defined(FLTK_MAIN_BI):
     type Fl_ResizeEx* = proc( self:  ptr any;  x:  long;  y:  long;  w:  long;  h:  long): long {.cdecl.}
     #_  callback for the Fl_Overlay_WindowEx, Fl_GL_WindowEx and Fl_GlutWindowEx widget's
     ## original: type Fl_Draw_OverlayEx   as sub      (byval self as any ptr)
-    type Fl_Draw_OverlayEx* = proc( self:  ptr any) {.cdecl.}
+    type Fl_Draw_OverlayEx* = proc( self:  pointer) {.cdecl.}
     #_  callback for the Fl_TableEx Fl_Table_RowEx widget only
     ## original: type Fl_DrawCellEx       as function (byval self as any ptr, byval context as FL_TABLECONTEXT, byval row as long, byval col as long, byval x as long, byval y as long, byval w as long, byval h as long) as long
     type Fl_DrawCellEx* = proc( self:  ptr any;  context:  FL_TABLECONTEXT;  row:  long;  col:  long;  x:  long;  y:  long;  w:  long;  h:  long): long {.cdecl.}
     #_  callback for the Fl_Canvas only
     ## original: type Fl_CanvasDraw       as sub      (byval self as any ptr, byref dtsX as long, byref dstY as long, byref cpyW as long, byref cpyH as long, byref srcX as long, byref srcY as long)
-    type Fl_CanvasDraw* = proc( self:  ptr any;  dtsX:  long;  dstY:  long;  cpyW:  long;  cpyH:  long;  srcX:  long;  srcY:  long) {.cdecl.}
+    type Fl_CanvasDraw* = proc( self:  pointer;  dtsX:  var long;  dstY:  var long;  cpyW:  var long;  cpyH:  var long;  srcX:  var long;  srcY:  var long) {.cdecl.}
     #_  callback's for all FLTK widgets
     ## original: type Fl_Callback         as sub      (byval widget as Fl_Widget ptr, byval pData as any ptr)
-    type Fl_Callback* = proc( widget:  ptr Fl_Widget;  pData:  ptr any) {.cdecl.}
+    type Fl_Callback* = proc( widget:  ptr Fl_Widget;  pData:  pointer) {.cdecl.}
     #~ type Fl_Callback* = ulong
 
     ## original: type Fl_Callback0        as sub      (byval widget as Fl_Widget ptr)
@@ -1965,7 +1972,7 @@ when not defined(FLTK_MAIN_BI):
 
     #_  callback only for the Fl_Help widget
     ## original: type Fl_Help_F           as function (byval widget as Fl_Widget ptr, byval uri as cstring) as cstring
-    type Fl_Help_F* = proc( widget:  ptr Fl_Widget;  uri:  string): string {.cdecl.}
+    type Fl_Help_F* = proc( widget:  ptr Fl_Widget;  uri:  cstring): cstring {.cdecl.}
 
     #_  callback's for Fl_Image classes
     ## original: type Fl_Shared_Handler   as function (byval ImageName as cstring, byval Header as ubyte ptr, byval HeaderLen as long) as Fl_Image ptr
@@ -2013,7 +2020,7 @@ when not defined(FLTK_MAIN_BI):
     #_  ########################################
     #_  Opens the specified Uniform Resource Identifier (URI).
     ## original: declare function flOpenUri         (byval uri as cstring, byval msg as cstring=0, byval msglen as long=0) as long
-    proc flOpenUri* ( uri:  cstring;  msg:  cstring=cast[cstring](0);  msglen:  long=0):  long {.cdecl, importc: "flOpenUri", dynlib: fltk, discardable.}
+    proc flOpenUri* ( uri:  cstring;  msg:  cstring=nil;  msglen:  long=0):  long {.cdecl, importc: "flOpenUri", dynlib: fltk, discardable.}
     #_  Decodes a URL-encoded string.
     ## original: declare sub      flDecodeUri       (byval uri as cstring)
     proc flDecodeUri*( uri:  cstring) {.cdecl, importc: "flDecodeUri", dynlib: fltk, discardable.}
@@ -2045,7 +2052,7 @@ when not defined(FLTK_MAIN_BI):
     proc flFilenameMatch* ( filename:  cstring;  pattern:  cstring):  long {.cdecl, importc: "flFilenameMatch", dynlib: fltk, discardable.}
     #_  Gets the file name from a path.
     ## original: declare function flFilenameName(byval path as cstring) as cstring
-    proc flFilenameName* ( path:  string):  string {.cdecl, importc: "flFilenameName", dynlib: fltk, discardable.}
+    proc flFilenameName* ( path:  cstring):  cstring {.cdecl, importc: "flFilenameName", dynlib: fltk, discardable.}
     #_  Makes a filename relative to the current working directory.
     ## original: declare function flFilenameRelative(byval result as cstring, byval resultlen as long, byval path as cstring) as long
     proc flFilenameRelative* ( result:  cstring;  resultlen:  long;  path:  cstring):  long {.cdecl, importc: "flFilenameRelative", dynlib: fltk, discardable.}
@@ -2177,7 +2184,7 @@ when not defined(FLTK_MAIN_BI):
     proc Fl_stat* ( path:  cstring;  buffer:  ptr any):  long {.cdecl, importc: "Fl_stat", dynlib: fltk, discardable.}
     #_  OD: Portable UTF8 aware getcwd wrapper
     ## original: declare function Fl_getcwd(byval buf as cstring, byval maxlen as long) as cstring
-    proc Fl_getcwd* ( buf:  string;  maxlen:  long):  string {.cdecl, importc: "Fl_getcwd", dynlib: fltk, discardable.}
+    proc Fl_getcwd* ( buf:  cstring;  maxlen:  long):  cstring {.cdecl, importc: "Fl_getcwd", dynlib: fltk, discardable.}
     #_  OD: Portable UTF8 aware fopen wrapper
     ## original: declare function Fl_fopen(byval f as cstring, byval mode as cstring) as FILE ptr
     proc Fl_fopen* ( f:  cstring;  mode:  cstring):  ptr FILE {.cdecl, importc: "Fl_fopen", dynlib: fltk, discardable.}
@@ -2223,7 +2230,7 @@ when not defined(FLTK_MAIN_BI):
     proc Fl_PreferencesNew2* ( path:  cstring;  vendor:  cstring;  application:  cstring):  ptr Fl_Preferences {.cdecl, importc: "Fl_PreferencesNew2", dynlib: fltk, discardable.}
     #_  call the internal destructor and delete the preferences class
     ## original: declare sub      Fl_PreferencesDelete(byref pref as Fl_Preferences ptr)
-    proc Fl_PreferencesDelete*( pref:  ptr Fl_Preferences) {.cdecl, importc: "Fl_PreferencesDelete", dynlib: fltk, discardable.}
+    proc Fl_PreferencesDelete*( pref:  var ptr Fl_Preferences) {.cdecl, importc: "Fl_PreferencesDelete", dynlib: fltk, discardable.}
     #_  Create or access a group of preferences using a name.
     ## original: declare function Fl_PreferencesNewGroup(byval parent as Fl_Preferences ptr, byval groupname as cstring) as Fl_Preferences ptr
     proc Fl_PreferencesNewGroup* ( parent:  ptr Fl_Preferences;  groupname:  cstring):  ptr Fl_Preferences {.cdecl, importc: "Fl_PreferencesNewGroup", dynlib: fltk, discardable.}
@@ -2257,17 +2264,17 @@ when not defined(FLTK_MAIN_BI):
     proc Fl_PreferencesSetData* ( pref:  ptr Fl_Preferences;  entry:  cstring;  value:  ptr int;  size:  long):  long {.cdecl, importc: "Fl_PreferencesSetData", dynlib: fltk, discardable.}
     #_  read values from group:key returns 0 if the default value was used
     ## original: declare function Fl_PreferencesGetInt    (byval pref as Fl_Preferences ptr, byval entry as cstring, byref value as long       , byval defaultValue as long) as long
-    proc Fl_PreferencesGetInt* ( pref:  ptr Fl_Preferences;  entry:  cstring;  value:  long;  defaultValue:  long):  long {.cdecl, importc: "Fl_PreferencesGetInt", dynlib: fltk, discardable.}
+    proc Fl_PreferencesGetInt* ( pref:  ptr Fl_Preferences;  entry:  cstring;  value:  var long;  defaultValue:  long):  long {.cdecl, importc: "Fl_PreferencesGetInt", dynlib: fltk, discardable.}
     ## original: declare function Fl_PreferencesGetFloat  (byval pref as Fl_Preferences ptr, byval entry as cstring, byref value as single     , byval defaultValue as single) as long
-    proc Fl_PreferencesGetFloat* ( pref:  ptr Fl_Preferences;  entry:  cstring;  value:  single;  defaultValue:  single):  long {.cdecl, importc: "Fl_PreferencesGetFloat", dynlib: fltk, discardable.}
+    proc Fl_PreferencesGetFloat* ( pref:  ptr Fl_Preferences;  entry:  cstring;  value:  var single;  defaultValue:  single):  long {.cdecl, importc: "Fl_PreferencesGetFloat", dynlib: fltk, discardable.}
     ## original: declare function Fl_PreferencesGetDouble (byval pref as Fl_Preferences ptr, byval entry as cstring, byref value as double     , byval defaultValue as double) as long
-    proc Fl_PreferencesGetDouble* ( pref:  ptr Fl_Preferences;  entry:  cstring;  value:  double;  defaultValue:  double):  long {.cdecl, importc: "Fl_PreferencesGetDouble", dynlib: fltk, discardable.}
+    proc Fl_PreferencesGetDouble* ( pref:  ptr Fl_Preferences;  entry:  cstring;  value:  var double;  defaultValue:  double):  long {.cdecl, importc: "Fl_PreferencesGetDouble", dynlib: fltk, discardable.}
     ## original: declare function Fl_PreferencesGetString (byval pref as Fl_Preferences ptr, byval entry as cstring, byref value as cstring, byval defaultValue as cstring) as long
-    proc Fl_PreferencesGetString* ( pref:  ptr Fl_Preferences;  entry:  cstring;  value:  cstring;  defaultValue:  cstring):  long {.cdecl, importc: "Fl_PreferencesGetString", dynlib: fltk, discardable.}
+    proc Fl_PreferencesGetString* ( pref:  ptr Fl_Preferences;  entry:  cstring;  value:  var cstring;  defaultValue:  cstring):  long {.cdecl, importc: "Fl_PreferencesGetString", dynlib: fltk, discardable.}
     ## original: declare function Fl_PreferencesGetString2(byval pref as Fl_Preferences ptr, byval entry as cstring, byval value as cstring, byval defaultValue as cstring, byval maxSize as long) as long
     proc Fl_PreferencesGetString2* ( pref:  ptr Fl_Preferences;  entry:  cstring;  value:  cstring;  defaultValue:  cstring;  maxSize:  long):  long {.cdecl, importc: "Fl_PreferencesGetString2", dynlib: fltk, discardable.}
     ## original: declare function Fl_PreferencesGetData   (byval pref as Fl_Preferences ptr, byval entry as cstring, byref value as any ptr    , byval defaultValue as const any ptr    , byval defaultSize as long) as long
-    proc Fl_PreferencesGetData* ( pref:  ptr Fl_Preferences;  entry:  cstring;  value:  ptr any;  defaultValue:  ptr any;  defaultSize:  long):  long {.cdecl, importc: "Fl_PreferencesGetData", dynlib: fltk, discardable.}
+    proc Fl_PreferencesGetData* ( pref:  ptr Fl_Preferences;  entry:  cstring;  value:  var pointer;  defaultValue:  pointer;  defaultSize:  long):  long {.cdecl, importc: "Fl_PreferencesGetData", dynlib: fltk, discardable.}
     ## original: declare function Fl_PreferencesGetData2  (byval pref as Fl_Preferences ptr, byval entry as cstring, byval value as any ptr    , byval defaultValue as const any ptr    , byval defaultSize as long, byval maxSize as long) as long
     proc Fl_PreferencesGetData2* ( pref:  ptr Fl_Preferences;  entry:  cstring;  value:  ptr any;  defaultValue:  ptr any;  defaultSize:  long;  maxSize:  long):  long {.cdecl, importc: "Fl_PreferencesGetData2", dynlib: fltk, discardable.}
 
@@ -2321,16 +2328,16 @@ when not defined(FLTK_MAIN_BI):
     proc flAlert*( msg:  cstring) {.cdecl, importc: "flAlert", dynlib: fltk, discardable.}
 
     ## original: declare function flChoice(byval msg as cstring, byval btn1 as cstring, byval btn2 as cstring=0, byval btn3 as cstring=0) as long
-    proc flChoice* ( msg:  cstring;  btn1:  cstring;  btn2:  cstring=cast[cstring](0);  btn3:  cstring=cast[cstring](0)):  long {.cdecl, importc: "flChoice", dynlib: fltk, discardable.}
+    proc flChoice* ( msg:  cstring;  btn1:  cstring;  btn2:  cstring=nil;  btn3:  cstring=nil):  long {.cdecl, importc: "flChoice", dynlib: fltk, discardable.}
 
     ## original: declare sub      flBeep(byval t as FL_BEEP=FL_BEEP_DEFAULT)
     proc flBeep*( t:  FL_BEEP=FL_BEEP_DEFAULT) {.cdecl, importc: "flBeep", dynlib: fltk, discardable.}
 
     ## original: declare function flColorChooser(byval name_ as cstring, byref r as ubyte, byref g as ubyte, byref b as ubyte, byval cmode as FL_ColorChooserModes) as long
-    proc flColorChooser* ( name_TT:  cstring;  r:  ubyte;  g:  ubyte;  b:  ubyte;  cmode:  FL_ColorChooserModes):  long {.cdecl, importc: "flColorChooser", dynlib: fltk, discardable.}
+    proc flColorChooser* ( name_TT:  cstring;  r:  var ubyte;  g:  var ubyte;  b:  var ubyte;  cmode:  FL_ColorChooserModes):  long {.cdecl, importc: "flColorChooser", dynlib: fltk, discardable.}
 
     ## original: declare function flColorChooser2(byval name_ as cstring, byref r as double, byref g as double, byref b as double, byval cmode as FL_ColorChooserModes) as long
-    proc flColorChooser2* ( name_TT:  cstring;  r:  double;  g:  double;  b:  double;  cmode:  FL_ColorChooserModes):  long {.cdecl, importc: "flColorChooser2", dynlib: fltk, discardable.}
+    proc flColorChooser2* ( name_TT:  cstring;  r:  var double;  g:  var double;  b:  var double;  cmode:  FL_ColorChooserModes):  long {.cdecl, importc: "flColorChooser2", dynlib: fltk, discardable.}
 
     ## original: declare function flDirChooser(byval message as cstring, byval filename as cstring, byval relative_ as long) as cstring
     proc flDirChooser* ( message:  cstring;  filename:  cstring;  relative_TT:  long):  cstring {.cdecl, importc: "flDirChooser", dynlib: fltk, discardable.}
@@ -2375,13 +2382,13 @@ when not defined(FLTK_MAIN_BI):
     ## original: declare function Fl_File_ChooserNew(byval pathname as cstring, byval pattern as cstring, byval typ as FL_FILECHOOSER_TYPE, byval title as cstring) as Fl_File_Chooser ptr
     proc Fl_File_ChooserNew* ( pathname:  cstring;  pattern:  cstring;  typ:  FL_FILECHOOSER_TYPE;  title:  cstring):  ptr Fl_File_Chooser {.cdecl, importc: "Fl_File_ChooserNew", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_File_ChooserDelete(byref fc as Fl_File_Chooser ptr)
-    proc Fl_File_ChooserDelete*( fc:  ptr Fl_File_Chooser) {.cdecl, importc: "Fl_File_ChooserDelete", dynlib: fltk, discardable.}
+    proc Fl_File_ChooserDelete*( fc:  var ptr Fl_File_Chooser) {.cdecl, importc: "Fl_File_ChooserDelete", dynlib: fltk, discardable.}
 
     ## original: declare function Fl_File_ChooserAddExtra(byval fc as Fl_File_Chooser ptr, byval widget as Fl_Widget ptr) as Fl_Widget ptr
     proc Fl_File_ChooserAddExtra* ( fc:  ptr Fl_File_Chooser;  widget:  ptr Fl_Widget):  ptr Fl_Widget {.cdecl, importc: "Fl_File_ChooserAddExtra", dynlib: fltk, discardable.}
 
     ## original: declare sub      Fl_File_ChooserCallback(byval fc as Fl_File_Chooser ptr, byval cb as Fl_File_Chose_CB, byval pdata as any ptr=0)
-    proc Fl_File_ChooserCallback*( fc:  ptr Fl_File_Chooser;  cb:  Fl_File_Chose_CB;  pdata:  pointer=cast[pointer](0)) {.cdecl, importc: "Fl_File_ChooserCallback", dynlib: fltk, discardable.}
+    proc Fl_File_ChooserCallback*( fc:  ptr Fl_File_Chooser;  cb:  Fl_File_Chose_CB;  pdata:  pointer=nil) {.cdecl, importc: "Fl_File_ChooserCallback", dynlib: fltk, discardable.}
 
     ## original: declare function Fl_File_ChooserCount(byval fc as Fl_File_Chooser ptr) as long
     proc Fl_File_ChooserCount* ( fc:  ptr Fl_File_Chooser):  long {.cdecl, importc: "Fl_File_ChooserCount", dynlib: fltk, discardable.}
@@ -2489,7 +2496,7 @@ when not defined(FLTK_MAIN_BI):
     ## original: declare function Fl_Native_File_ChooserNew(byval typ as FL_NFC_TYPE=NFC_BROWSE_FILE) as Fl_Native_File_Chooser ptr
     proc Fl_Native_File_ChooserNew* ( typ:  FL_NFC_TYPE=NFC_BROWSE_FILE):  ptr Fl_Native_File_Chooser {.cdecl, importc: "Fl_Native_File_ChooserNew", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_Native_File_ChooserDelete(byref nfc as Fl_Native_File_Chooser ptr)
-    proc Fl_Native_File_ChooserDelete*( nfc:  ptr Fl_Native_File_Chooser) {.cdecl, importc: "Fl_Native_File_ChooserDelete", dynlib: fltk, discardable.}
+    proc Fl_Native_File_ChooserDelete*( nfc:  var ptr Fl_Native_File_Chooser) {.cdecl, importc: "Fl_Native_File_ChooserDelete", dynlib: fltk, discardable.}
 
     ## original: declare function Fl_Native_File_ChooserCount(byval nfc as Fl_Native_File_Chooser ptr) as long
     proc Fl_Native_File_ChooserCount* ( nfc:  ptr Fl_Native_File_Chooser):  long {.cdecl, importc: "Fl_Native_File_ChooserCount", dynlib: fltk, discardable.}
@@ -2497,21 +2504,21 @@ when not defined(FLTK_MAIN_BI):
     ## original: declare sub      Fl_Native_File_ChooserSetDirectory(byval nfc as Fl_Native_File_Chooser ptr, byval d as cstring)
     proc Fl_Native_File_ChooserSetDirectory*( nfc:  ptr Fl_Native_File_Chooser;  d:  cstring) {.cdecl, importc: "Fl_Native_File_ChooserSetDirectory", dynlib: fltk, discardable.}
     ## original: declare function Fl_Native_File_ChooserGetDirectory(byval nfc as Fl_Native_File_Chooser ptr) as cstring
-    proc Fl_Native_File_ChooserGetDirectory* ( nfc:  ptr Fl_Native_File_Chooser):  string {.cdecl, importc: "Fl_Native_File_ChooserGetDirectory", dynlib: fltk, discardable.}
+    proc Fl_Native_File_ChooserGetDirectory* ( nfc:  ptr Fl_Native_File_Chooser):  cstring {.cdecl, importc: "Fl_Native_File_ChooserGetDirectory", dynlib: fltk, discardable.}
 
     ## original: declare function Fl_Native_File_ChooserErrorMsg(byval nfc as Fl_Native_File_Chooser ptr) as cstring
-    proc Fl_Native_File_ChooserErrorMsg* ( nfc:  ptr Fl_Native_File_Chooser):  string {.cdecl, importc: "Fl_Native_File_ChooserErrorMsg", dynlib: fltk, discardable.}
+    proc Fl_Native_File_ChooserErrorMsg* ( nfc:  ptr Fl_Native_File_Chooser):  cstring {.cdecl, importc: "Fl_Native_File_ChooserErrorMsg", dynlib: fltk, discardable.}
 
     ## original: declare sub      Fl_Native_File_ChooserSetFilter(byval nfc as Fl_Native_File_Chooser ptr, byval f as cstring)
-    proc Fl_Native_File_ChooserSetFilter*( nfc:  ptr Fl_Native_File_Chooser;  f:  string) {.cdecl, importc: "Fl_Native_File_ChooserSetFilter", dynlib: fltk, discardable.}
+    proc Fl_Native_File_ChooserSetFilter*( nfc:  ptr Fl_Native_File_Chooser;  f:  cstring) {.cdecl, importc: "Fl_Native_File_ChooserSetFilter", dynlib: fltk, discardable.}
     ## original: declare function Fl_Native_File_ChooserGetFilter(byval nfc as Fl_Native_File_Chooser ptr) as cstring
-    proc Fl_Native_File_ChooserGetFilter* ( nfc:  ptr Fl_Native_File_Chooser):  string {.cdecl, importc: "Fl_Native_File_ChooserGetFilter", dynlib: fltk, discardable.}
+    proc Fl_Native_File_ChooserGetFilter* ( nfc:  ptr Fl_Native_File_Chooser):  cstring {.cdecl, importc: "Fl_Native_File_ChooserGetFilter", dynlib: fltk, discardable.}
 
     ## original: declare function Fl_Native_File_ChooserFilename(byval nfc as Fl_Native_File_Chooser ptr) as cstring
     proc Fl_Native_File_ChooserFilename* ( nfc:  ptr Fl_Native_File_Chooser):  cstring {.cdecl, importc: "Fl_Native_File_ChooserFilename", dynlib: fltk, discardable.}
 
     ## original: declare function Fl_Native_File_ChooserGetFilename(byval nfc as Fl_Native_File_Chooser ptr, byval fileIndex as long) as cstring
-    proc Fl_Native_File_ChooserGetFilename* ( nfc:  ptr Fl_Native_File_Chooser;  fileIndex:  long):  string {.cdecl, importc: "Fl_Native_File_ChooserGetFilename", dynlib: fltk, discardable.}
+    proc Fl_Native_File_ChooserGetFilename* ( nfc:  ptr Fl_Native_File_Chooser;  fileIndex:  long):  cstring {.cdecl, importc: "Fl_Native_File_ChooserGetFilename", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_Native_File_ChooserSetFilterValue(byval nfc as Fl_Native_File_Chooser ptr, byval value as long)
     proc Fl_Native_File_ChooserSetFilterValue*( nfc:  ptr Fl_Native_File_Chooser;  value:  long) {.cdecl, importc: "Fl_Native_File_ChooserSetFilterValue", dynlib: fltk, discardable.}
 
@@ -2524,17 +2531,17 @@ when not defined(FLTK_MAIN_BI):
     proc Fl_Native_File_ChooserGetOptions* ( nfc:  ptr Fl_Native_File_Chooser):  FL_NFC_OPTION {.cdecl, importc: "Fl_Native_File_ChooserGetOptions", dynlib: fltk, discardable.}
 
     ## original: declare sub      Fl_Native_File_ChooserSetPresetFile(byval nfc as Fl_Native_File_Chooser ptr, byval file as cstring)
-    proc Fl_Native_File_ChooserSetPresetFile*( nfc:  ptr Fl_Native_File_Chooser;  file:  string) {.cdecl, importc: "Fl_Native_File_ChooserSetPresetFile", dynlib: fltk, discardable.}
+    proc Fl_Native_File_ChooserSetPresetFile*( nfc:  ptr Fl_Native_File_Chooser;  file:  cstring) {.cdecl, importc: "Fl_Native_File_ChooserSetPresetFile", dynlib: fltk, discardable.}
     ## original: declare function Fl_Native_File_ChooserGetPresetFile(byval nfc as Fl_Native_File_Chooser ptr) as cstring
-    proc Fl_Native_File_ChooserGetPresetFile* ( nfc:  ptr Fl_Native_File_Chooser):  string {.cdecl, importc: "Fl_Native_File_ChooserGetPresetFile", dynlib: fltk, discardable.}
+    proc Fl_Native_File_ChooserGetPresetFile* ( nfc:  ptr Fl_Native_File_Chooser):  cstring {.cdecl, importc: "Fl_Native_File_ChooserGetPresetFile", dynlib: fltk, discardable.}
 
     ## original: declare function Fl_Native_File_ChooserShow(byval nfc as Fl_Native_File_Chooser ptr) as long
     proc Fl_Native_File_ChooserShow* ( nfc:  ptr Fl_Native_File_Chooser):  long {.cdecl, importc: "Fl_Native_File_ChooserShow", dynlib: fltk, discardable.}
 
     ## original: declare sub      Fl_Native_File_ChooserSetTitle(byval nfc as Fl_Native_File_Chooser ptr, byval title as cstring)
-    proc Fl_Native_File_ChooserSetTitle*( nfc:  ptr Fl_Native_File_Chooser;  title:  string) {.cdecl, importc: "Fl_Native_File_ChooserSetTitle", dynlib: fltk, discardable.}
+    proc Fl_Native_File_ChooserSetTitle*( nfc:  ptr Fl_Native_File_Chooser;  title:  cstring) {.cdecl, importc: "Fl_Native_File_ChooserSetTitle", dynlib: fltk, discardable.}
     ## original: declare function Fl_Native_File_ChooserGetTitle(byval nfc as Fl_Native_File_Chooser ptr) as cstring
-    proc Fl_Native_File_ChooserGetTitle* ( nfc:  ptr Fl_Native_File_Chooser):  string {.cdecl, importc: "Fl_Native_File_ChooserGetTitle", dynlib: fltk, discardable.}
+    proc Fl_Native_File_ChooserGetTitle* ( nfc:  ptr Fl_Native_File_Chooser):  cstring {.cdecl, importc: "Fl_Native_File_ChooserGetTitle", dynlib: fltk, discardable.}
 
     ## original: declare sub      Fl_Native_File_ChooserSetType(byval nfc as Fl_Native_File_Chooser ptr, byval typ as FL_NFC_TYPE)
     proc Fl_Native_File_ChooserSetType*( nfc:  ptr Fl_Native_File_Chooser;  typ:  FL_NFC_TYPE) {.cdecl, importc: "Fl_Native_File_ChooserSetType", dynlib: fltk, discardable.}
@@ -2575,14 +2582,14 @@ when not defined(FLTK_MAIN_BI):
     #_  Intersects the rectangle with the current clip region ?
     #_  and returns the bounding box of the result.
     ## original: declare function DrawClipBox(byval   x as long, byval   y as long, byval   w as long, byval   h as long, byref bbx as long, byref bby as long, byref bbw as long, byref bbh as long) as long
-    proc DrawClipBox* (   x:  long;    y:  long;    w:  long;    h:  long;  bbx:  long;  bby:  long;  bbw:  long;  bbh:  long):  long {.cdecl, importc: "DrawClipBox", dynlib: fltk, discardable.}
+    proc DrawClipBox* (   x:  long;    y:  long;    w:  long;    h:  long;  bbx:  var long;  bby:  var long;  bbw:  var long;  bbh:  var long):  long {.cdecl, importc: "DrawClipBox", dynlib: fltk, discardable.}
 
     #_  dashes: A pointer to an array of dash lengths, measured in pixels.
     #_  The first location is how long to draw a solid portion, the next is how long to draw the gap, then the solid, etc.
     #_  It is terminated with a zero-length entry. A NULL pointer or a zero-length array results in a solid line.
     #_  !!! Odd array sizes are not supported and result in undefined behavior. !!!
     ## original: declare sub      DrawSetLineStyle(byval style as Fl_LINE_STYLE, byval w as long=0, byval dashes as cstring=0)
-    proc DrawSetLineStyle*( style:  Fl_LINE_STYLE;  w:  long=0;  dashes:  cstring=cast[cstring](0)) {.cdecl, importc: "DrawSetLineStyle", dynlib: fltk, discardable.}
+    proc DrawSetLineStyle*( style:  Fl_LINE_STYLE;  w:  long=0;  dashes:  cstring=nil) {.cdecl, importc: "DrawSetLineStyle", dynlib: fltk, discardable.}
 
     #_  ########################
     #_  # fast integer drawing #
@@ -2784,7 +2791,7 @@ when not defined(FLTK_MAIN_BI):
     proc DrawGetFontDescent* ():  long {.cdecl, importc: "DrawGetFontDescent", dynlib: fltk, discardable.}
 
     ## original: declare function DrawGetStrWidth(byval txt as cstring) as long
-    proc DrawGetStrWidth* ( txt:  string):  long {.cdecl, importc: "DrawGetStrWidth", dynlib: fltk, discardable.}
+    proc DrawGetStrWidth* ( txt:  cstring):  long {.cdecl, importc: "DrawGetStrWidth", dynlib: fltk, discardable.}
 
     ## original: declare function DrawGetStrWidth2(byval txt as cstring, byval nChars as long) as long
     proc DrawGetStrWidth2* ( txt:  cstring;  nChars:  long):  long {.cdecl, importc: "DrawGetStrWidth2", dynlib: fltk, discardable.}
@@ -2793,13 +2800,13 @@ when not defined(FLTK_MAIN_BI):
     proc DrawGetCharWidth* ( char:  ulong):  long {.cdecl, importc: "DrawGetCharWidth", dynlib: fltk, discardable.}
 
     ## original: declare sub      DrawStrExtents (byval txt as cstring, byref dx as long, byref dy as long, byref w as long, byref h as long)
-    proc DrawStrExtents*( txt:  cstring;  dx:  long;  dy:  long;  w:  long;  h:  long) {.cdecl, importc: "DrawStrExtents", dynlib: fltk, discardable.}
+    proc DrawStrExtents*( txt:  cstring;  dx:  var long;  dy:  var long;  w:  var long;  h:  var long) {.cdecl, importc: "DrawStrExtents", dynlib: fltk, discardable.}
 
     ## original: declare sub      DrawStrExtents2(byval txt as cstring, byval nChars as long, byref dx as long, byref dy as long, byref w as long, byref h as long)
-    proc DrawStrExtents2*( txt:  cstring;  nChars:  long;  dx:  long;  dy:  long;  w:  long;  h:  long) {.cdecl, importc: "DrawStrExtents2", dynlib: fltk, discardable.}
+    proc DrawStrExtents2*( txt:  cstring;  nChars:  long;  dx:  var long;  dy:  var long;  w:  var long;  h:  var long) {.cdecl, importc: "DrawStrExtents2", dynlib: fltk, discardable.}
 
     ## original: declare sub      DrawStrMeasure (byval txt as cstring, byref x as long, byref y as long, byval draw_symbols as long = 1)
-    proc DrawStrMeasure*( txt:  cstring;  x:  long;  y:  long;  draw_symbols:  long) {.cdecl, importc: "DrawStrMeasure", dynlib: fltk, discardable.}
+    proc DrawStrMeasure*( txt:  cstring;  x:  var long;  y:  var long;  draw_symbols:  long) {.cdecl, importc: "DrawStrMeasure", dynlib: fltk, discardable.}
 
     ## original: declare sub      DrawStr        (byval txt as cstring, byval x as long, byval y as long)
     proc DrawStr*( txt:  cstring;  x:  long;  y:  long) {.cdecl, importc: "DrawStr", dynlib: fltk, discardable.}
@@ -2861,13 +2868,13 @@ when not defined(FLTK_MAIN_BI):
     proc DrawPixmap2* ( cdata:  ptr cstring;  x:  long;  y:  long;  c:  Fl_COLOR=FL_GRAY):  long {.cdecl, importc: "DrawPixmap2", dynlib: fltk, discardable.}
     #_  Get the dimensions of a pixmap.
     ## original: declare function DrawMeasurePixmap(byval pdata as cstring const ptr, byref w as long, byref h as long) as long
-    proc DrawMeasurePixmap* ( pdata:  cstring;  w:  long;  h:  long):  long {.cdecl, importc: "DrawMeasurePixmap", dynlib: fltk, discardable.}
+    proc DrawMeasurePixmap* ( pdata:  cstring;  w:  var long;  h:  var long):  long {.cdecl, importc: "DrawMeasurePixmap", dynlib: fltk, discardable.}
 
     ## original: declare function DrawMeasureConstPixmap alias "DrawMeasurePixmap2" (byval cdata as cstring const ptr, byref w as long, byref h as long) as long
-    proc DrawMeasureConstPixmap* (cdata: ptr cstring; w: long; h: long): long  {.cdecl, importc: "DrawMeasureConstPixmap", dynlib: fltk, discardable.}
+    proc DrawMeasureConstPixmap* (cdata: ptr cstring; w: var long; h: var long): long  {.cdecl, importc: "DrawMeasureConstPixmap", dynlib: fltk, discardable.}
 
     ## original: declare function DrawMeasurePixmap2(byval cdata as cstring const ptr, byref w as long, byref h as long) as long
-    proc DrawMeasurePixmap2* ( cdata:  ptr cstring;  w:  long;  h:  long):  long {.cdecl, importc: "DrawMeasurePixmap2", dynlib: fltk, discardable.}
+    proc DrawMeasurePixmap2* ( cdata:  ptr cstring;  w:  var long;  h:  var long):  long {.cdecl, importc: "DrawMeasurePixmap2", dynlib: fltk, discardable.}
 
 
     #_  I don't know why but it's defined in "Fl_Draw.H"
@@ -2919,10 +2926,10 @@ when not defined(FLTK_MAIN_BI):
     #_  public members:
     #_  Creates a new Fl_File_Icon with the specified information.
     ## original: declare function Fl_File_IconNew       (byval FilenamePattern as cstring=@"", byval FileType as FL_FILEICON_TYPE=FL_FILEICON_ANY, byval nDataValue as long=0, byval pDataValue as short ptr=0) as Fl_File_Icon ptr
-    proc Fl_File_IconNew* ( FilenamePattern:  cstring="";  FileType:  T_FL_FILEICON_TYPE=FL_FILEICON_ANY;  nDataValue:  long=0;  pDataValue:  ptr short=cast[ptr short](0)):  ptr Fl_File_Icon {.cdecl, importc: "Fl_File_IconNew", dynlib: fltk, discardable.}
+    proc Fl_File_IconNew* ( FilenamePattern:  cstring="";  FileType:  T_FL_FILEICON_TYPE=FL_FILEICON_ANY;  nDataValue:  long=0;  pDataValue:  ptr short=nil):  ptr Fl_File_Icon {.cdecl, importc: "Fl_File_IconNew", dynlib: fltk, discardable.}
     #_  The destructor destroys the icon and frees all memory that has been allocated for it.
     ## original: declare sub      Fl_File_IconDelete    (byref fi as Fl_File_Icon ptr)
-    proc Fl_File_IconDelete*( fi:  ptr Fl_File_Icon) {.cdecl, importc: "Fl_File_IconDelete", dynlib: fltk, discardable.}
+    proc Fl_File_IconDelete*( fi:  var ptr Fl_File_Icon) {.cdecl, importc: "Fl_File_IconDelete", dynlib: fltk, discardable.}
     #_  Adds a keyword value to the icon array, returning a pointer to it.
     ## original: declare function Fl_File_IconAdd       (byval fi as Fl_File_Icon ptr, byval DataValue as short) as short ptr
     proc Fl_File_IconAdd* ( fi:  ptr Fl_File_Icon;  DataValue:  short):  ptr short {.cdecl, importc: "Fl_File_IconAdd", dynlib: fltk, discardable.}
@@ -2979,7 +2986,7 @@ when not defined(FLTK_MAIN_BI):
     ## original: declare function Fl_ImageNew(byval w as long, byval h as long, byval d as long) as Fl_Image ptr
     proc Fl_ImageNew* ( w:  long;  h:  long;  d:  long):  ptr Fl_Image {.cdecl, importc: "Fl_ImageNew", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_ImageDelete(byref img as Fl_Image ptr)
-    proc Fl_ImageDelete*( img:  ptr Fl_Image) {.cdecl, importc: "Fl_ImageDelete", dynlib: fltk, discardable.}
+    proc Fl_ImageDelete*( img:  var ptr Fl_Image) {.cdecl, importc: "Fl_ImageDelete", dynlib: fltk, discardable.}
 
     ## original: declare sub      Fl_ImageUncache(byval img as Fl_Image ptr)
     proc Fl_ImageUncache*( img:  ptr Fl_Image) {.cdecl, importc: "Fl_ImageUncache", dynlib: fltk, discardable.}
@@ -3104,7 +3111,7 @@ when not defined(FLTK_MAIN_BI):
     ## original: declare function Fl_Tiled_ImageNew(byval img as Fl_Image ptr, byval w as long=0, byval h as long=0) as Fl_Tiled_Image ptr
     proc Fl_Tiled_ImageNew* ( img:  ptr Fl_Image;  w:  long=0;  h:  long=0):  ptr Fl_Tiled_Image {.cdecl, importc: "Fl_Tiled_ImageNew", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_Tiled_ImageDelete(byref timg as Fl_Tiled_Image ptr)
-    proc Fl_Tiled_ImageDelete*( timg:  ptr Fl_Tiled_Image) {.cdecl, importc: "Fl_Tiled_ImageDelete", dynlib: fltk, discardable.}
+    proc Fl_Tiled_ImageDelete*( timg:  var ptr Fl_Tiled_Image) {.cdecl, importc: "Fl_Tiled_ImageDelete", dynlib: fltk, discardable.}
 
     ## original: declare sub      Fl_Tiled_ImageColorAverage(byval timg as Fl_Tiled_Image ptr, byval c as Fl_COLOR, byval i as single)
     proc Fl_Tiled_ImageColorAverage*( timg:  ptr Fl_Tiled_Image;  c:  Fl_COLOR;  i:  single) {.cdecl, importc: "Fl_Tiled_ImageColorAverage", dynlib: fltk, discardable.}
@@ -3133,7 +3140,7 @@ when not defined(FLTK_MAIN_BI):
     ## original: declare function Fl_BitmapNew(byval bits as const ubyte ptr const ptr, byval w as long, byval h as long) as Fl_Bitmap ptr
     proc Fl_BitmapNew* ( bits:  ptr ptr ubyte;  w:  long;  h:  long):  ptr Fl_Bitmap {.cdecl, importc: "Fl_BitmapNew", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_BitmapDelete(byref bm as Fl_Bitmap ptr)
-    proc Fl_BitmapDelete*( bm:  ptr Fl_Bitmap) {.cdecl, importc: "Fl_BitmapDelete", dynlib: fltk, discardable.}
+    proc Fl_BitmapDelete*( bm:  var ptr Fl_Bitmap) {.cdecl, importc: "Fl_BitmapDelete", dynlib: fltk, discardable.}
 
     ## original: declare function Fl_BitmapCopy (byval bm as Fl_Bitmap ptr) as Fl_Image ptr
     proc Fl_BitmapCopy* ( bm:  ptr Fl_Bitmap):  ptr Fl_Image {.cdecl, importc: "Fl_BitmapCopy", dynlib: fltk, discardable.}
@@ -3162,7 +3169,7 @@ when not defined(FLTK_MAIN_BI):
     ## original: declare function Fl_XBM_ImageNew(byval filename as cstring) as Fl_Bitmap ptr
     proc Fl_XBM_ImageNew* ( filename:  cstring):  ptr Fl_Bitmap {.cdecl, importc: "Fl_XBM_ImageNew", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_XBM_ImageDelete(byref xbm as Fl_Bitmap ptr)
-    proc Fl_XBM_ImageDelete*( xbm:  ptr Fl_Bitmap) {.cdecl, importc: "Fl_XBM_ImageDelete", dynlib: fltk, discardable.}
+    proc Fl_XBM_ImageDelete*( xbm:  var ptr Fl_Bitmap) {.cdecl, importc: "Fl_XBM_ImageDelete", dynlib: fltk, discardable.}
 
     #_ ####################################
     #_ # class Fl_Pixmap extends Fl_Image #  8 bit per pixel
@@ -3170,7 +3177,7 @@ when not defined(FLTK_MAIN_BI):
     ## original: declare function Fl_PixmapNew(byval xpm_data as cstring const ptr) as Fl_Pixmap ptr
     proc Fl_PixmapNew* ( xpm_data:  cstring):  ptr Fl_Pixmap {.cdecl, importc: "Fl_PixmapNew", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_PixmapDelete(byref xbm as Fl_Pixmap ptr)
-    proc Fl_PixmapDelete*( xbm:  ptr Fl_Pixmap) {.cdecl, importc: "Fl_PixmapDelete", dynlib: fltk, discardable.}
+    proc Fl_PixmapDelete*( xbm:  var ptr Fl_Pixmap) {.cdecl, importc: "Fl_PixmapDelete", dynlib: fltk, discardable.}
 
     ## original: declare sub      Fl_PixmapColorAverage(byval pm as Fl_Pixmap ptr, byval c as Fl_COLOR, byval i as single)
     proc Fl_PixmapColorAverage*( pm:  ptr Fl_Pixmap;  c:  Fl_COLOR;  i:  single) {.cdecl, importc: "Fl_PixmapColorAverage", dynlib: fltk, discardable.}
@@ -3205,7 +3212,7 @@ when not defined(FLTK_MAIN_BI):
     ## original: declare function Fl_GIF_ImageNew(byval filename as cstring) as Fl_GIF_Image ptr
     proc Fl_GIF_ImageNew* ( filename:  cstring):  ptr Fl_GIF_Image {.cdecl, importc: "Fl_GIF_ImageNew", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_GIF_ImageDelete(byref gif as Fl_GIF_Image ptr)
-    proc Fl_GIF_ImageDelete*( gif:  ptr Fl_GIF_Image) {.cdecl, importc: "Fl_GIF_ImageDelete", dynlib: fltk, discardable.}
+    proc Fl_GIF_ImageDelete*( gif:  var ptr Fl_GIF_Image) {.cdecl, importc: "Fl_GIF_ImageDelete", dynlib: fltk, discardable.}
 
     #_ ########################################
     #_ # class Fl_XPM_Image extends Fl_Pixmap # 8 bit per pixel
@@ -3213,7 +3220,7 @@ when not defined(FLTK_MAIN_BI):
     ## original: declare function Fl_XPM_ImageNew(byval filename as cstring) as Fl_XPM_Image ptr
     proc Fl_XPM_ImageNew* ( filename:  cstring):  ptr Fl_XPM_Image {.cdecl, importc: "Fl_XPM_ImageNew", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_XPM_ImageDelete(byref xpm as Fl_XPM_Image ptr)
-    proc Fl_XPM_ImageDelete*( xpm:  ptr Fl_XPM_Image) {.cdecl, importc: "Fl_XPM_ImageDelete", dynlib: fltk, discardable.}
+    proc Fl_XPM_ImageDelete*( xpm:  var ptr Fl_XPM_Image) {.cdecl, importc: "Fl_XPM_ImageDelete", dynlib: fltk, discardable.}
 
     #_ #######################################
     #_ # class Fl_RGB_Image extends Fl_Image # truecolor 16,24,32 bit per pixel
@@ -3221,7 +3228,7 @@ when not defined(FLTK_MAIN_BI):
     ## original: declare function Fl_RGB_ImageNew(byval bits as const any ptr, byval w as long, byval h as long, byval BytesPerPixel as long=3, byval pitch as long=0) as Fl_RGB_Image ptr
     proc Fl_RGB_ImageNew* ( bits:  ptr any;  w:  long;  h:  long;  BytesPerPixel:  long=3;  pitch:  long=0):  ptr Fl_RGB_Image {.cdecl, importc: "Fl_RGB_ImageNew", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_RGB_ImageDelete(byref rgbimg as Fl_RGB_Image ptr)
-    proc Fl_RGB_ImageDelete*( rgbimg:  ptr Fl_RGB_Image) {.cdecl, importc: "Fl_RGB_ImageDelete", dynlib: fltk, discardable.}
+    proc Fl_RGB_ImageDelete*( rgbimg:  var ptr Fl_RGB_Image) {.cdecl, importc: "Fl_RGB_ImageDelete", dynlib: fltk, discardable.}
 
     ## original: declare sub      Fl_RGB_ImageUncache(byval rgbimg as Fl_RGB_Image ptr)
     proc Fl_RGB_ImageUncache*( rgbimg:  ptr Fl_RGB_Image) {.cdecl, importc: "Fl_RGB_ImageUncache", dynlib: fltk, discardable.}
@@ -3256,7 +3263,7 @@ when not defined(FLTK_MAIN_BI):
     ## original: declare function Fl_BMP_ImageNew (byval filename as cstring) as FL_BMP_Image ptr
     proc Fl_BMP_ImageNew* ( filename:  cstring):  ptr FL_BMP_Image {.cdecl, importc: "Fl_BMP_ImageNew", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_BMP_ImageDelete(byref bmp as Fl_BMP_Image ptr)
-    proc Fl_BMP_ImageDelete*( bmp:  ptr Fl_BMP_Image) {.cdecl, importc: "Fl_BMP_ImageDelete", dynlib: fltk, discardable.}
+    proc Fl_BMP_ImageDelete*( bmp:  var ptr Fl_BMP_Image) {.cdecl, importc: "Fl_BMP_ImageDelete", dynlib: fltk, discardable.}
 
     #_ ###########################################
     #_ # class Fl_PNG_Image extends Fl_RGB_Image #  truecolor
@@ -3264,18 +3271,18 @@ when not defined(FLTK_MAIN_BI):
     ## original: declare function Fl_PNG_ImageNew (byval filename as cstring) as FL_PNG_Image ptr
     proc Fl_PNG_ImageNew* ( filename:  cstring):  ptr FL_PNG_Image {.cdecl, importc: "Fl_PNG_ImageNew", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_PNG_ImageDelete(byref png as Fl_PNG_Image ptr)
-    proc Fl_PNG_ImageDelete*( png:  ptr Fl_PNG_Image) {.cdecl, importc: "Fl_PNG_ImageDelete", dynlib: fltk, discardable.}
+    proc Fl_PNG_ImageDelete*( png:  var ptr Fl_PNG_Image) {.cdecl, importc: "Fl_PNG_ImageDelete", dynlib: fltk, discardable.}
     #_  load from memory If a name is given, the image is added to the list of shared images (see: Fl_Shared_Image) and will be available by that name.
     ## original: declare function Fl_PNG_ImageMem(byval e_name as cstring=0, byval buffer as const any ptr, byval datasize as long) as FL_PNG_Image ptr
-    proc Fl_PNG_ImageMem* ( e_name:  cstring=cast[cstring](0);  buffer:  ptr any;  datasize:  long):  ptr FL_PNG_Image {.cdecl, importc: "Fl_PNG_ImageMem", dynlib: fltk, discardable.}
+    proc Fl_PNG_ImageMem* ( e_name:  cstring=nil;  buffer:  ptr any;  datasize:  long):  ptr FL_PNG_Image {.cdecl, importc: "Fl_PNG_ImageMem", dynlib: fltk, discardable.}
 
     #_ ############################################
     #_ # class Fl_JPEG_Image extends Fl_RGB_Image #  truecolor
     #_ ############################################
     ## original: declare function Fl_JPEG_ImageNew(byval filename as cstring) as FL_JPEG_Image ptr
-    proc Fl_JPEG_ImageNew* ( filename:  string):  ptr FL_JPEG_Image {.cdecl, importc: "Fl_JPEG_ImageNew", dynlib: fltk, discardable.}
+    proc Fl_JPEG_ImageNew* ( filename:  cstring):  ptr FL_JPEG_Image {.cdecl, importc: "Fl_JPEG_ImageNew", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_JPEG_ImageDelete(byref jpg as Fl_JPEG_Image ptr)
-    #~ proc Fl_JPEG_ImageDelete*( jpg:  var ptr Fl_JPEG_Image) {.cdecl, importc: "Fl_JPEG_ImageDelete", dynlib: fltk, discardable.}
+    proc Fl_JPEG_ImageDelete*( jpg:  var ptr Fl_JPEG_Image) {.cdecl, importc: "Fl_JPEG_ImageDelete", dynlib: fltk, discardable.}
 
     let
         Fl_JPG_ImageNew* = Fl_JPEG_ImageNew
@@ -3284,7 +3291,7 @@ when not defined(FLTK_MAIN_BI):
     #_  load from memory
     #_  If a name is given, the image is added to the list of shared images (see: Fl_Shared_Image) and will be available by that name.
     ## original: declare function Fl_JPEG_ImageMem(byval a_name as cstring=0, byval buffer as const any ptr) as FL_JPEG_Image ptr
-    proc Fl_JPEG_ImageMem* ( a_name:  cstring=cast[cstring](0);  buffer: ptr any):  ptr FL_JPEG_Image {.cdecl, importc: "Fl_JPEG_ImageMem", dynlib: fltk, discardable.}
+    proc Fl_JPEG_ImageMem* ( a_name:  cstring=nil;  buffer: ptr any):  ptr FL_JPEG_Image {.cdecl, importc: "Fl_JPEG_ImageMem", dynlib: fltk, discardable.}
     #define Fl_JPG_ImageMem Fl_JPEG_ImageMem
 
     #_ ###########################################
@@ -3293,7 +3300,7 @@ when not defined(FLTK_MAIN_BI):
     ## original: declare function Fl_PNM_ImageNew (byval filename as cstring) as FL_PNM_Image ptr
     proc Fl_PNM_ImageNew* ( filename:  cstring):  ptr FL_PNM_Image {.cdecl, importc: "Fl_PNM_ImageNew", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_PNM_ImageDelete(byref pnm as Fl_PNM_Image ptr)
-    proc Fl_PNM_ImageDelete*( pnm:  ptr Fl_PNM_Image) {.cdecl, importc: "Fl_PNM_ImageDelete", dynlib: fltk, discardable.}
+    proc Fl_PNM_ImageDelete*( pnm:  var ptr Fl_PNM_Image) {.cdecl, importc: "Fl_PNM_ImageDelete", dynlib: fltk, discardable.}
 
     #_  ###########################
     #_  # static class Fl_Tooltip #
@@ -3368,7 +3375,7 @@ when not defined(FLTK_MAIN_BI):
     #_ # static class Fl #
     #_ ###################
     ## original: declare sub      Fl_Free(byref By_FLTK_Allocated_Pointer as any ptr)
-    proc Fl_Free*( By_FLTK_Allocated_Pointer:  string) {.cdecl, importc: "Fl_Free", dynlib: fltk, discardable.}
+    proc Fl_Free*( By_FLTK_Allocated_Pointer:  var pointer) {.cdecl, importc: "Fl_Free", dynlib: fltk, discardable.}
 
     #ifdef __FB_WIN32__
     ## original: declare function Fl_Find(byval xid as any ptr) as Fl_Window ptr
@@ -3391,26 +3398,26 @@ when not defined(FLTK_MAIN_BI):
     #_  Sends a message pointer to the main thread, causing any pending Fl_Wait() call to terminate
     #_  so that the main thread can retrieve the message and any pending redraws can be processed.
     ## original: declare sub      Fl_Awake(byval message as any ptr = 0)
-    proc Fl_Awake*( message:  ptr any) {.cdecl, importc: "Fl_Awake", dynlib: fltk, discardable.}
+    proc Fl_Awake*( message:  pointer=nil) {.cdecl, importc: "Fl_Awake", dynlib: fltk, discardable.}
 
     ## original: declare function Fl_Awake2(byval h as Fl_Awake_Handler, byval message as any ptr = 0) as long
-    proc Fl_Awake2* ( h:  Fl_Awake_Handler;  message:  ptr any):  long {.cdecl, importc: "Fl_Awake2", dynlib: fltk, discardable.}
+    proc Fl_Awake2* ( h:  Fl_Awake_Handler;  message:  pointer=nil):  long {.cdecl, importc: "Fl_Awake2", dynlib: fltk, discardable.}
     #_  Gets the last stored awake handler for use in Fl_Awake().
     ## original: declare function Fl_GetAwakeHandler_(byref h as Fl_Awake_Handler, byref pArg as any ptr) as long
-    proc Fl_GetAwakeHandler* ( h:  Fl_Awake_Handler;  pArg:  ptr any):  long {.cdecl, importc: "Fl_GetAwakeHandler_", dynlib: fltk, discardable.}
+    proc Fl_GetAwakeHandler* ( h:  var Fl_Awake_Handler;  pArg:  ptr any):  long {.cdecl, importc: "Fl_GetAwakeHandler_", dynlib: fltk, discardable.}
     #_  FLTK will call this callback just before it flushes the display and waits for events.
     ## original: declare sub      Fl_AddCheck(byval h as Fl_Timeout_Handler, byval pArg as any ptr = 0)
-    proc Fl_AddCheck*( h:  Fl_Timeout_Handler;  pArg:  ptr any) {.cdecl, importc: "Fl_AddCheck", dynlib: fltk, discardable.}
+    proc Fl_AddCheck*( h:  Fl_Timeout_Handler;  pArg:  pointer=nil) {.cdecl, importc: "Fl_AddCheck", dynlib: fltk, discardable.}
     #_  Removes a check callback.
     ## original: declare sub      Fl_RemoveCheck(byval h as Fl_Timeout_Handler, byval pdata as any ptr=0)
-    proc Fl_RemoveCheck*( h:  Fl_Timeout_Handler;  pdata:  ptr any) {.cdecl, importc: "Fl_RemoveCheck", dynlib: fltk, discardable.}
+    proc Fl_RemoveCheck*( h:  Fl_Timeout_Handler;  pdata:  pointer=nil) {.cdecl, importc: "Fl_RemoveCheck", dynlib: fltk, discardable.}
 
     ## original: declare function Fl_HasCheck(byval h as Fl_Timeout_Handler, byval pArg as any ptr = 0) as long
-    proc Fl_HasCheck* ( h:  Fl_Timeout_Handler;  pArg:  ptr any):  long {.cdecl, importc: "Fl_HasCheck", dynlib: fltk, discardable.}
+    proc Fl_HasCheck* ( h:  Fl_Timeout_Handler;  pArg:  pointer=nil):  long {.cdecl, importc: "Fl_HasCheck", dynlib: fltk, discardable.}
     #_  FLTK will call the registered callback whenever there is a change to the selection buffer or the clipboard.
     #_  The source argument indicates which of the two has changed. Only changes by other applications are reported.
     ## original: declare sub      Fl_AddClipboardNotify(byval h as Fl_Clipboard_Notify_Handler, byval pArg as any ptr=0)
-    proc Fl_AddClipboardNotify*( h:  Fl_Clipboard_Notify_Handler;  pArg:  ptr any) {.cdecl, importc: "Fl_AddClipboardNotify", dynlib: fltk, discardable.}
+    proc Fl_AddClipboardNotify*( h:  Fl_Clipboard_Notify_Handler;  pArg:  pointer=nil) {.cdecl, importc: "Fl_AddClipboardNotify", dynlib: fltk, discardable.}
 
     ## original: declare sub      Fl_RemoveClipboardNotify(byval h as Fl_Clipboard_Notify_Handler)
     proc Fl_RemoveClipboardNotify*( h:  Fl_Clipboard_Notify_Handler) {.cdecl, importc: "Fl_RemoveClipboardNotify", dynlib: fltk, discardable.}
@@ -3422,10 +3429,10 @@ when not defined(FLTK_MAIN_BI):
     #_  Under UNIX any file descriptor can be monitored (files, devices, pipes, sockets, etc.).
     #_  Due to limitations in Microsoft Windows, WIN32 applications can only monitor sockets.
     ## original: declare sub      Fl_Add_fd(byval fd as long, byval cb as Fl_FD_Handler, byval pArg as any ptr=0)
-    proc Fl_Add_fd*( fd:  long;  cb:  Fl_FD_Handler;  pArg:  ptr any) {.cdecl, importc: "Fl_Add_fd", dynlib: fltk, discardable.}
+    proc Fl_Add_fd*( fd:  long;  cb:  Fl_FD_Handler;  pArg:  pointer=nil) {.cdecl, importc: "Fl_Add_fd", dynlib: fltk, discardable.}
 
     ## original: declare sub      Fl_Add_fd2(byval fd as long, byval when as FD_WHEN, byval cb as Fl_FD_Handler, byval pArg as any ptr=0)
-    proc Fl_Add_fd2*( fd:  long;  when_TT:  FD_WHEN;  cb:  Fl_FD_Handler;  pArg:  ptr any) {.cdecl, importc: "Fl_Add_fd2", dynlib: fltk, discardable.}
+    proc Fl_Add_fd2*( fd:  long;  when_TT:  FD_WHEN;  cb:  Fl_FD_Handler;  pArg:  pointer=nil) {.cdecl, importc: "Fl_Add_fd2", dynlib: fltk, discardable.}
     #_  Removes a file descriptor handler. see Fl_Add_fd()
     ## original: declare sub      Fl_RemoveFD(byval fd as long)
     proc Fl_RemoveFD*( fd:  long) {.cdecl, importc: "Fl_RemoveFD", dynlib: fltk, discardable.}
@@ -3441,28 +3448,28 @@ when not defined(FLTK_MAIN_BI):
     #_  Adds a callback function that is called every time by Fl_Wait() and also makes it act as though the timeout is zero
     #_  (this makes Fl_Wait() return immediately, so if it's in a loop it's called repeatedly, and thus the idle fucntion is called repeatedly).
     ## original: declare sub      Fl_AddIdle(byval h as Fl_Idle_Handler, byval pArg as any ptr = 0)
-    proc Fl_AddIdle*( h:  Fl_Idle_Handler;  pArg:  ptr any) {.cdecl, importc: "Fl_AddIdle", dynlib: fltk, discardable.}
+    proc Fl_AddIdle*( h:  Fl_Idle_Handler;  pArg:  pointer=nil) {.cdecl, importc: "Fl_AddIdle", dynlib: fltk, discardable.}
 
     ## original: declare function Fl_HasIdle(byval h as Fl_Idle_Handler, byval pArg as any ptr = 0) as long
-    proc Fl_HasIdle* ( h:  Fl_Idle_Handler;  pArg:  ptr any):  long {.cdecl, importc: "Fl_HasIdle", dynlib: fltk, discardable.}
+    proc Fl_HasIdle* ( h:  Fl_Idle_Handler;  pArg:  pointer=nil):  long {.cdecl, importc: "Fl_HasIdle", dynlib: fltk, discardable.}
 
     ## original: declare sub      Fl_RemoveIdle(byval h as Fl_Idle_Handler, byval pArg as any ptr = 0)
-    proc Fl_RemoveIdle*( h:  Fl_Idle_Handler;  pArg:  ptr any) {.cdecl, importc: "Fl_RemoveIdle", dynlib: fltk, discardable.}
+    proc Fl_RemoveIdle*( h:  Fl_Idle_Handler;  pArg:  pointer=nil) {.cdecl, importc: "Fl_RemoveIdle", dynlib: fltk, discardable.}
     #_  will be removed use Fl_AddIdle() instead
     ## original: declare sub      Fl_SetIdle(byval h as Fl_Old_Idle_Handler)
     proc Fl_SetIdle*( h:  Fl_Old_Idle_Handler) {.cdecl, importc: "Fl_SetIdle", dynlib: fltk, discardable.}
     #_  Adds a one-shot timeout callback.
     ## original: declare sub      Fl_AddTimeout   (byval t as double, byval h as Fl_Timeout_Handler, byval pArg as any ptr = 0)
-    proc Fl_AddTimeout*( t:  double;  h:  Fl_Timeout_Handler;  pArg:  ptr any) {.cdecl, importc: "Fl_AddTimeout", dynlib: fltk, discardable.}
+    proc Fl_AddTimeout*( t:  double;  h:  Fl_Timeout_Handler;  pArg:  pointer=nil) {.cdecl, importc: "Fl_AddTimeout", dynlib: fltk, discardable.}
 
     ## original: declare function Fl_HasTimeout   (byval h as Fl_Timeout_Handler, byval pArg as any ptr = 0) as long
-    proc Fl_HasTimeout* ( h:  Fl_Timeout_Handler;  pArg:  ptr any):  long {.cdecl, importc: "Fl_HasTimeout", dynlib: fltk, discardable.}
+    proc Fl_HasTimeout* ( h:  Fl_Timeout_Handler;  pArg:  pointer=nil):  long {.cdecl, importc: "Fl_HasTimeout", dynlib: fltk, discardable.}
 
     ## original: declare sub      Fl_RepeatTimeout(byval t as double, byval h as Fl_Timeout_Handler, byval pArg as any ptr = 0)
-    proc Fl_RepeatTimeout*( t:  double;  h:  Fl_Timeout_Handler;  pArg:  ptr any) {.cdecl, importc: "Fl_RepeatTimeout", dynlib: fltk, discardable.}
+    proc Fl_RepeatTimeout*( t:  double;  h:  Fl_Timeout_Handler;  pArg:  pointer=nil) {.cdecl, importc: "Fl_RepeatTimeout", dynlib: fltk, discardable.}
 
     ## original: declare sub      Fl_RemoveTimeout(byval h as Fl_Timeout_Handler, byval pArg as any ptr = 0)
-    proc Fl_RemoveTimeout*( h:  Fl_Timeout_Handler;  pArg:  ptr any) {.cdecl, importc: "Fl_RemoveTimeout", dynlib: fltk, discardable.}
+    proc Fl_RemoveTimeout*( h:  Fl_Timeout_Handler;  pArg:  pointer=nil) {.cdecl, importc: "Fl_RemoveTimeout", dynlib: fltk, discardable.}
     #_  For back compatibility, sets the void Fl_Fatal handler callback.
     ## original: declare sub      Fl_SetAbort(byval h as Fl_Abort_Handler)
     #~ proc Fl_SetAbort*( h:  Fl_Abort_Handler) {.cdecl, importc: "Fl_SetAbort", dynlib: fltk, discardable.}
@@ -3529,7 +3536,7 @@ when not defined(FLTK_MAIN_BI):
 
     #_  Returns the RGB values for the given FLTK color.
     ## original: declare sub      Fl_GetColor(byval i as Fl_COLOR, byref r as ubyte, byref g as ubyte, byref b as ubyte)
-    proc Fl_GetColor*( i:  Fl_COLOR;  r:  ubyte;  g:  ubyte;  b:  ubyte) {.cdecl, importc: "Fl_GetColor", dynlib: fltk, discardable.}
+    proc Fl_GetColor*( i:  Fl_COLOR;  r:  var ubyte;  g:  var ubyte;  b:  var ubyte) {.cdecl, importc: "Fl_GetColor", dynlib: fltk, discardable.}
 
     ## original: declare function Fl_GetColor2(byval i as Fl_COLOR) as ulong
     proc Fl_GetColor2* ( i:  Fl_COLOR):  ulong {.cdecl, importc: "Fl_GetColor2", dynlib: fltk, discardable.}
@@ -3599,13 +3606,13 @@ when not defined(FLTK_MAIN_BI):
     #_  ##########
     #_  Adds a widget pointer to the widget watch list.
     ## original: declare sub      Fl_WatchWidgetPointer(byref widget as Fl_Widget ptr)
-    proc Fl_WatchWidgetPointer*( widget:  ptr Fl_Widget) {.cdecl, importc: "Fl_WatchWidgetPointer", dynlib: fltk, discardable.}
+    proc Fl_WatchWidgetPointer*( widget:  var ptr Fl_Widget) {.cdecl, importc: "Fl_WatchWidgetPointer", dynlib: fltk, discardable.}
     #_  Clears a widget pointer in the watch list.(Internal use only !)
     ## original: declare sub      Fl_ClearWidgetPointer(byval wgt as const Fl_Widget ptr)
     proc Fl_ClearWidgetPointer*( wgt:  ptr Fl_Widget) {.cdecl, importc: "Fl_ClearWidgetPointer", dynlib: fltk, discardable.}
     #_  Releases a widget pointer from the watch list.
     ## original: declare sub      Fl_ReleaseWidgetPointer(byref widget as Fl_Widget ptr)
-    proc Fl_ReleaseWidgetPointer*( widget:  ptr Fl_Widget) {.cdecl, importc: "Fl_ReleaseWidgetPointer", dynlib: fltk, discardable.}
+    proc Fl_ReleaseWidgetPointer*( widget:  var ptr Fl_Widget) {.cdecl, importc: "Fl_ReleaseWidgetPointer", dynlib: fltk, discardable.}
     #_  Schedules a widget for deletion at the next call to the event loop.
     #_  Use this method to delete a widget inside a callback function.
     ## original: declare sub      Fl_DeleteWidget(byval wgt as Fl_Widget ptr)
@@ -3836,7 +3843,7 @@ when not defined(FLTK_MAIN_BI):
     proc Fl_GetKey* ( key:  long):  long {.cdecl, importc: "Fl_GetKey", dynlib: fltk, discardable.}
     #_  Return where the mouse is on the screen by doing a round-trip query to the server.
     ## original: declare sub      Fl_GetMouse(byref x as long, byref y as long)
-    proc Fl_GetMouse*( x:  long;  y:  long) {.cdecl, importc: "Fl_GetMouse", dynlib: fltk, discardable.}
+    proc Fl_GetMouse*( x:  var long;  y:  var long) {.cdecl, importc: "Fl_GetMouse", dynlib: fltk, discardable.}
 
     #_  ########
     #_  # font #
@@ -3849,10 +3856,10 @@ when not defined(FLTK_MAIN_BI):
     #_  To locate a "family" of fonts, search forward and back for a set with non-zero attributes,
     #_  these faces along with the face with a zero attribute before them constitute a family.
     ## original: declare function Fl_GetFontName(byval f as FL_FONT, byval attributes as long ptr=0) as cstring
-    proc Fl_GetFontName* ( f:  FL_FONT;  attributes:  ptr long):  string {.cdecl, importc: "Fl_GetFontName", dynlib: fltk, discardable.}
+    proc Fl_GetFontName* ( f:  FL_FONT;  attributes:  ptr long):  cstring {.cdecl, importc: "Fl_GetFontName", dynlib: fltk, discardable.}
     #_  Return an array of sizes in size.  A zero in the first location of the array indicates a scalable font, where any size works.
     ## original: declare function Fl_GetFontSizes alias "Fl_GeFontSizes"(byval f as FL_FONT, byref size as long ptr) as long
-    proc Fl_GetFontSizes* ( f: FL_FONT, size: ptr long): long  {.cdecl, importc: "Fl_GetFontSizes", dynlib: fltk, discardable.}
+    proc Fl_GetFontSizes* ( f: FL_FONT, size: var ptr long): long  {.cdecl, importc: "Fl_GetFontSizes", dynlib: fltk, discardable.}
 
     #_  The string pointer is simply stored, the string is not copied, so the string must be in static memory.
     ## original: declare sub      Fl_SetFont(byval f as FL_FONT, byval n as cstring)
@@ -3862,7 +3869,7 @@ when not defined(FLTK_MAIN_BI):
     proc Fl_SetFont2*( f:  FL_FONT;  n:  FL_FONT) {.cdecl, importc: "Fl_SetFont2", dynlib: fltk, discardable.}
     #_  FLTK will open the display, and add every fonts on the server to the face table.
     ## original: declare function Fl_SetFonts(byval n as cstring=0) as FL_FONT
-    proc Fl_SetFonts* ( n:  cstring=cast[cstring](0)):  FL_FONT {.cdecl, importc: "Fl_SetFonts", dynlib: fltk, discardable.}
+    proc Fl_SetFonts* ( n:  cstring=nil):  FL_FONT {.cdecl, importc: "Fl_SetFonts", dynlib: fltk, discardable.}
 
     #_  #################
     #_  # look and feel #
@@ -3926,7 +3933,7 @@ when not defined(FLTK_MAIN_BI):
     proc Fl_Visual* ( v:  long):  long {.cdecl, importc: "Fl_Visual", dynlib: fltk, discardable.}
     #_  Any text editing widget should call this for each FL_KEYBOARD event.
     ## original: declare function Fl_Compose(byref del as long) as long
-    proc Fl_Compose* ( del:  long):  long {.cdecl, importc: "Fl_Compose", dynlib: fltk, discardable.}
+    proc Fl_Compose* ( del:  var long):  long {.cdecl, importc: "Fl_Compose", dynlib: fltk, discardable.}
     #_  If the user moves the cursor, be sure to call Fl_ComposeReset.
     ## original: declare sub      Fl_ComposeReset
     proc Fl_ComposeReset*() {.cdecl, importc: "Fl_ComposeReset", dynlib: fltk, discardable.}
@@ -4127,7 +4134,7 @@ when not defined(FLTK_MAIN_BI):
     proc Fl_WidgetDoCallback*( wgt:  ptr Fl_Widget) {.cdecl, importc: "Fl_WidgetDoCallback", dynlib: fltk, discardable.}
 
     ## original: declare sub      Fl_WidgetDoCallback2(byval wgt as Fl_Widget ptr, byval other as Fl_Widget ptr, byval pArg as any ptr=0)
-    proc Fl_WidgetDoCallback2*( wgt:  ptr Fl_Widget;  other:  ptr Fl_Widget;  pArg:  ptr any) {.cdecl, importc: "Fl_WidgetDoCallback2", dynlib: fltk, discardable.}
+    proc Fl_WidgetDoCallback2*( wgt:  ptr Fl_Widget;  other:  ptr Fl_Widget;  pArg:  pointer=nil) {.cdecl, importc: "Fl_WidgetDoCallback2", dynlib: fltk, discardable.}
 
     ## original: declare sub      Fl_WidgetDoCallback3(byval wgt as Fl_Widget ptr, byval other as Fl_Widget ptr, byval lArg as long)
     proc Fl_WidgetDoCallback3*( wgt:  ptr Fl_Widget;  other:  ptr Fl_Widget;  lArg:  long) {.cdecl, importc: "Fl_WidgetDoCallback3", dynlib: fltk, discardable.}
@@ -4196,7 +4203,7 @@ when not defined(FLTK_MAIN_BI):
     proc Fl_WidgetSetLabelType*( wgt:  ptr Fl_Widget;  lt:  FL_LABEL_TYPE) {.cdecl, importc: "Fl_WidgetSetLabelType", dynlib: fltk, discardable.}
     #_  Returns w,h accordingly with the label size.
     ## original: declare sub      Fl_WidgetMeasureLabel(byval wgt as Fl_Widget ptr, byref w as long, byref h as long)
-    proc Fl_WidgetMeasureLabel*( wgt:  ptr Fl_Widget;  w:  long;  h:  long) {.cdecl, importc: "Fl_WidgetMeasureLabel", dynlib: fltk, discardable.}
+    proc Fl_WidgetMeasureLabel*( wgt:  ptr Fl_Widget;  w:  var long;  h:  var long) {.cdecl, importc: "Fl_WidgetMeasureLabel", dynlib: fltk, discardable.}
     #_  Returns a pointer to the parent widget.
     ## original: declare function Fl_WidgetGetParent(byval wgt as Fl_Widget ptr) as Fl_Group ptr
     proc Fl_WidgetGetParent* ( wgt:  ptr Fl_Widget):  ptr Fl_Group {.cdecl, importc: "Fl_WidgetGetParent", dynlib: fltk, discardable.}
@@ -4246,9 +4253,9 @@ when not defined(FLTK_MAIN_BI):
     proc Fl_WidgetSetType*( wgt:  ptr Fl_Widget;  t:  ubyte) {.cdecl, importc: "Fl_WidgetSetType", dynlib: fltk, discardable.}
     #_  Gets/Sets the user data for this widget.
     ## original: declare function Fl_WidgetGetUserData(byval wgt as Fl_Widget ptr) as any ptr
-    proc Fl_WidgetGetUserData* ( wgt:  ptr Fl_Widget):  ptr int {.cdecl, importc: "Fl_WidgetGetUserData", dynlib: fltk, discardable.}
+    proc Fl_WidgetGetUserData* ( wgt:  ptr Fl_Widget):  pointer {.cdecl, importc: "Fl_WidgetGetUserData", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_WidgetSetUserData(byval wgt as Fl_Widget ptr, byval v as any ptr)
-    proc Fl_WidgetSetUserData*( wgt:  ptr Fl_Widget;  v:  ptr any) {.cdecl, importc: "Fl_WidgetSetUserData", dynlib: fltk, discardable.}
+    proc Fl_WidgetSetUserData*( wgt:  ptr Fl_Widget;  v:  pointer) {.cdecl, importc: "Fl_WidgetSetUserData", dynlib: fltk, discardable.}
     #_  Returns whether a widget is visible.
     ## original: declare function Fl_WidgetVisible(byval wgt as Fl_Widget ptr) as long
     proc Fl_WidgetVisible* ( wgt:  ptr Fl_Widget):  long {.cdecl, importc: "Fl_WidgetVisible", dynlib: fltk, discardable.}
@@ -4275,7 +4282,7 @@ when not defined(FLTK_MAIN_BI):
     proc Fl_WidgetTopWindow* ( wgt:  ptr Fl_Widget):  ptr Fl_Window {.cdecl, importc: "Fl_WidgetTopWindow", dynlib: fltk, discardable.}
 
     ## original: declare function Fl_WidgetTopWindowOffset(byval wgt as Fl_Widget ptr, byref xoff as long, byref yoff as long) as Fl_Window ptr
-    proc Fl_WidgetTopWindowOffset* ( wgt:  ptr Fl_Widget;  xoff:  long;  yoff:  long):  ptr Fl_Window {.cdecl, importc: "Fl_WidgetTopWindowOffset", dynlib: fltk, discardable.}
+    proc Fl_WidgetTopWindowOffset* ( wgt:  ptr Fl_Widget;  xoff:  var long;  yoff:  var long):  ptr Fl_Window {.cdecl, importc: "Fl_WidgetTopWindowOffset", dynlib: fltk, discardable.}
 
     ## original: declare function Fl_WidgetGetX(byval wgt as Fl_Widget ptr) as long
     proc Fl_WidgetGetX* ( wgt:  ptr Fl_Widget):  long {.cdecl, importc: "Fl_WidgetGetX", dynlib: fltk, discardable.}
@@ -4301,7 +4308,7 @@ when not defined(FLTK_MAIN_BI):
     ## original: declare function Fl_Widget_TrackerNew(byval wgt as Fl_Widget ptr) as Fl_Widget_Tracker ptr
     proc Fl_Widget_TrackerNew* ( wgt:  ptr Fl_Widget):  ptr Fl_Widget_Tracker {.cdecl, importc: "Fl_Widget_TrackerNew", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_Widget_TrackerDelete (byref wt as Fl_Widget_Tracker ptr)
-    proc Fl_Widget_TrackerDelete*( wt:  ptr Fl_Widget_Tracker) {.cdecl, importc: "Fl_Widget_TrackerDelete", dynlib: fltk, discardable.}
+    proc Fl_Widget_TrackerDelete*( wt:  var ptr Fl_Widget_Tracker) {.cdecl, importc: "Fl_Widget_TrackerDelete", dynlib: fltk, discardable.}
 
     ## original: declare function Fl_Widget_TrackerDeleted(byval wt as Fl_Widget_Tracker ptr) as long
     proc Fl_Widget_TrackerDeleted* ( wt:  ptr Fl_Widget_Tracker):  long {.cdecl, importc: "Fl_Widget_TrackerDeleted", dynlib: fltk, discardable.}
@@ -4316,9 +4323,9 @@ when not defined(FLTK_MAIN_BI):
     #_ # class Fl_WidgetEx extends Fl_Widget #
     #_ #######################################
     ## original: declare function Fl_WidgetExNew(byval x as long, byval y as long, byval w as long, byval h as long, byval title as cstring=0) as Fl_WidgetEx ptr
-    proc Fl_WidgetExNew* ( x:  long;  y:  long;  w:  long;  h:  long;  title:  cstring=cast[cstring](0)):  ptr Fl_WidgetEx {.cdecl, importc: "Fl_WidgetExNew", dynlib: fltk, discardable.}
+    proc Fl_WidgetExNew* ( x:  long;  y:  long;  w:  long;  h:  long;  title:  cstring=nil):  ptr Fl_WidgetEx {.cdecl, importc: "Fl_WidgetExNew", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_WidgetExDelete         (byref ex as Fl_WidgetEx ptr)
-    proc Fl_WidgetExDelete*( ex:  ptr Fl_WidgetEx) {.cdecl, importc: "Fl_WidgetExDelete", dynlib: fltk, discardable.}
+    proc Fl_WidgetExDelete*( ex:  var ptr Fl_WidgetEx) {.cdecl, importc: "Fl_WidgetExDelete", dynlib: fltk, discardable.}
     ## original: declare function Fl_WidgetExHandleBase     (byval ex as Fl_WidgetEx ptr, byval event as FL_EVENT) as long
     proc Fl_WidgetExHandleBase* ( ex:  ptr Fl_WidgetEx;  event:  FL_EVENT):  long {.cdecl, importc: "Fl_WidgetExHandleBase", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_WidgetExSetDestructorCB(byval ex as Fl_WidgetEx ptr, byval cb as Fl_DestructorEx)
@@ -4338,12 +4345,12 @@ when not defined(FLTK_MAIN_BI):
     proc BoxType* ( nType:  long):  FL_BOXTYPE {.cdecl, importc: "BoxType", dynlib: fltk, discardable.}
     DeclareEx(Fl_Box)
     ## original: declare function Fl_BoxNew (byval x as long, byval y as long, byval w as long, byval h as long, byval label as cstring=0) as Fl_Box ptr
-    proc Fl_BoxNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=cast[cstring](0)):  ptr Fl_Box {.cdecl, importc: "Fl_BoxNew", dynlib: fltk, discardable.}
+    proc Fl_BoxNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=nil):  ptr Fl_Box {.cdecl, importc: "Fl_BoxNew", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_BoxDelete(byref box as Fl_Box ptr)
-    proc Fl_BoxDelete*( box:  ptr Fl_Box) {.cdecl, importc: "Fl_BoxDelete", dynlib: fltk, discardable.}
+    proc Fl_BoxDelete*( box:  var ptr Fl_Box) {.cdecl, importc: "Fl_BoxDelete", dynlib: fltk, discardable.}
 
     ## original: declare function Fl_BoxNew2(byval bt as FL_BOXTYPE, byval x as long, byval y as long, byval w as long, byval h as long, byval label as cstring=0) as Fl_Box ptr
-    proc Fl_BoxNew2* ( bt:  FL_BOXTYPE;  x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=cast[cstring](0)):  ptr Fl_Box {.cdecl, importc: "Fl_BoxNew2", dynlib: fltk, discardable.}
+    proc Fl_BoxNew2* ( bt:  FL_BOXTYPE;  x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=nil):  ptr Fl_Box {.cdecl, importc: "Fl_BoxNew2", dynlib: fltk, discardable.}
 
     ## original: declare function Fl_BoxHandle(byval box as Fl_Box ptr, byval e as FL_EVENT) as long
     proc Fl_BoxHandle* ( box:  ptr Fl_Box;  e:  FL_EVENT):  long {.cdecl, importc: "Fl_BoxHandle", dynlib: fltk, discardable.}
@@ -4352,9 +4359,9 @@ when not defined(FLTK_MAIN_BI):
     #_ # class Fl_Canvas extends Fl_Box #
     #_ ##################################
     ## original: declare function Fl_CanvasNew(byval x as long, byval y as long, byval w as long, byval h as long, byval title as cstring=0) as Fl_Canvas ptr
-    proc Fl_CanvasNew* ( x:  long;  y:  long;  w:  long;  h:  long;  title:  cstring=cast[cstring](0)):  ptr Fl_Canvas {.cdecl, importc: "Fl_CanvasNew", dynlib: fltk, discardable.}
+    proc Fl_CanvasNew* ( x:  long;  y:  long;  w:  long;  h:  long;  title:  cstring=nil):  ptr Fl_Canvas {.cdecl, importc: "Fl_CanvasNew", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_CanvasDelete         (byref can as Fl_Canvas ptr)
-    proc Fl_CanvasDelete*( can:  ptr Fl_Canvas) {.cdecl, importc: "Fl_CanvasDelete", dynlib: fltk, discardable.}
+    proc Fl_CanvasDelete*( can:  var ptr Fl_Canvas) {.cdecl, importc: "Fl_CanvasDelete", dynlib: fltk, discardable.}
 
     ## original: declare function Fl_CanvasHandleBase     (byval can as Fl_Canvas ptr, byval event as FL_EVENT) as long
     proc Fl_CanvasHandleBase* ( can:  ptr Fl_Canvas;  event:  FL_EVENT):  long {.cdecl, importc: "Fl_CanvasHandleBase", dynlib: fltk, discardable.}
@@ -4376,9 +4383,9 @@ when not defined(FLTK_MAIN_BI):
     #_ #####################################
     DeclareEx(Fl_Button)
     ## original: declare function Fl_ButtonNew(byval x as long, byval y as long, byval w as long, byval h as long, byval label as cstring=0) as Fl_Button ptr
-    proc Fl_ButtonNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=cast[cstring](0)):  ptr Fl_Button {.cdecl, importc: "Fl_ButtonNew", dynlib: fltk, discardable.}
+    proc Fl_ButtonNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=nil):  ptr Fl_Button {.cdecl, importc: "Fl_ButtonNew", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_ButtonDelete(byref btn as Fl_Button ptr)
-    proc Fl_ButtonDelete*( btn:  ptr Fl_Button) {.cdecl, importc: "Fl_ButtonDelete", dynlib: fltk, discardable.}
+    proc Fl_ButtonDelete*( btn:  var ptr Fl_Button) {.cdecl, importc: "Fl_ButtonDelete", dynlib: fltk, discardable.}
 
     ## original: declare function Fl_ButtonClear(byval btn as Fl_Button ptr) as long
     proc Fl_ButtonClear* ( btn:  ptr Fl_Button):  long {.cdecl, importc: "Fl_ButtonClear", dynlib: fltk, discardable.}
@@ -4417,19 +4424,19 @@ when not defined(FLTK_MAIN_BI):
     #_ ###########################################
     DeclareEx(Fl_Radio_Button)
     ## original: declare function Fl_Radio_ButtonNew(byval x as long, byval y as long, byval w as long, byval h as long, byval label as cstring=0) as Fl_Radio_Button ptr
-    proc Fl_Radio_ButtonNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=cast[cstring](0)):  ptr Fl_Radio_Button {.cdecl, importc: "Fl_Radio_ButtonNew", dynlib: fltk, discardable.}
+    proc Fl_Radio_ButtonNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=nil):  ptr Fl_Radio_Button {.cdecl, importc: "Fl_Radio_ButtonNew", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_Radio_ButtonDelete(byref btn as Fl_Radio_Button ptr)
-    proc Fl_Radio_ButtonDelete*( btn:  ptr Fl_Radio_Button) {.cdecl, importc: "Fl_Radio_ButtonDelete", dynlib: fltk, discardable.}
+    proc Fl_Radio_ButtonDelete*( btn:  var ptr Fl_Radio_Button) {.cdecl, importc: "Fl_Radio_ButtonDelete", dynlib: fltk, discardable.}
 
     #_ ############################################
     #_ # class Fl_Repeat_Button extends Fl_Button #
     #_ ############################################
     DeclareEx(Fl_Repeat_Button)
     ## original: declare function Fl_Repeat_ButtonNew(byval x as long, byval y as long, byval w as long, byval h as long, byval label as cstring=0) as Fl_Repeat_Button ptr
-    proc Fl_Repeat_ButtonNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=cast[cstring](0)):  ptr Fl_Repeat_Button {.cdecl, importc: "Fl_Repeat_ButtonNew", dynlib: fltk, discardable.}
+    proc Fl_Repeat_ButtonNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=nil):  ptr Fl_Repeat_Button {.cdecl, importc: "Fl_Repeat_ButtonNew", dynlib: fltk, discardable.}
 
     ## original: declare sub      Fl_Repeat_ButtonDelete(byref btn as Fl_Repeat_Button ptr)
-    proc Fl_Repeat_ButtonDelete*( btn:  ptr Fl_Repeat_Button) {.cdecl, importc: "Fl_Repeat_ButtonDelete", dynlib: fltk, discardable.}
+    proc Fl_Repeat_ButtonDelete*( btn:  var ptr Fl_Repeat_Button) {.cdecl, importc: "Fl_Repeat_ButtonDelete", dynlib: fltk, discardable.}
 
     ## original: declare function Fl_Repeat_ButtonHandle(byval btn as Fl_Repeat_Button ptr, byval ev as FL_EVENT) as long
     proc Fl_Repeat_ButtonHandle* ( btn:  ptr Fl_Repeat_Button;  ev:  FL_EVENT):  long {.cdecl, importc: "Fl_Repeat_ButtonHandle", dynlib: fltk, discardable.}
@@ -4442,9 +4449,9 @@ when not defined(FLTK_MAIN_BI):
     #_ ############################################
     DeclareEx(Fl_Return_Button)
     ## original: declare function Fl_Return_ButtonNew(byval x as long, byval y as long, byval w as long, byval h as long, byval label as cstring=0) as Fl_Return_Button ptr
-    proc Fl_Return_ButtonNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=cast[cstring](0)):  ptr Fl_Return_Button {.cdecl, importc: "Fl_Return_ButtonNew", dynlib: fltk, discardable.}
+    proc Fl_Return_ButtonNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=nil):  ptr Fl_Return_Button {.cdecl, importc: "Fl_Return_ButtonNew", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_Return_ButtonDelete(byref btn as Fl_Return_Button ptr)
-    proc Fl_Return_ButtonDelete*( btn:  ptr Fl_Return_Button) {.cdecl, importc: "Fl_Return_ButtonDelete", dynlib: fltk, discardable.}
+    proc Fl_Return_ButtonDelete*( btn:  var ptr Fl_Return_Button) {.cdecl, importc: "Fl_Return_ButtonDelete", dynlib: fltk, discardable.}
     ## original: declare function Fl_Return_ButtonHandle(byval btn as Fl_Return_Button ptr, byval ev as FL_EVENT) as long
     proc Fl_Return_ButtonHandle* ( btn:  ptr Fl_Return_Button;  ev:  FL_EVENT):  long {.cdecl, importc: "Fl_Return_ButtonHandle", dynlib: fltk, discardable.}
 
@@ -4453,18 +4460,18 @@ when not defined(FLTK_MAIN_BI):
     #_ ############################################
     DeclareEx(Fl_Toggle_Button)
     ## original: declare function Fl_Toggle_ButtonNew(byval x as long, byval y as long, byval w as long, byval h as long, byval label as cstring=0) as Fl_Toggle_Button  ptr
-    proc Fl_Toggle_ButtonNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=cast[cstring](0)):   ptr Fl_Toggle_Button {.cdecl, importc: "Fl_Toggle_ButtonNew", dynlib: fltk, discardable.}
+    proc Fl_Toggle_ButtonNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=nil):   ptr Fl_Toggle_Button {.cdecl, importc: "Fl_Toggle_ButtonNew", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_Toggle_ButtonDelete(byref btn as Fl_Toggle_Button ptr)
-    proc Fl_Toggle_ButtonDelete*( btn:  ptr Fl_Toggle_Button) {.cdecl, importc: "Fl_Toggle_ButtonDelete", dynlib: fltk, discardable.}
+    proc Fl_Toggle_ButtonDelete*( btn:  var ptr Fl_Toggle_Button) {.cdecl, importc: "Fl_Toggle_ButtonDelete", dynlib: fltk, discardable.}
 
     #_ ###########################################
     #_ # class Fl_Light_Button extends Fl_Button #
     #_ ###########################################
     DeclareEx(Fl_Light_Button)
     ## original: declare function Fl_Light_ButtonNew(byval x as long, byval y as long, byval w as long, byval h as long, byval label as cstring=0) as Fl_Light_Button  ptr
-    proc Fl_Light_ButtonNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=cast[cstring](0)):   ptr Fl_Light_Button {.cdecl, importc: "Fl_Light_ButtonNew", dynlib: fltk, discardable.}
+    proc Fl_Light_ButtonNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=nil):   ptr Fl_Light_Button {.cdecl, importc: "Fl_Light_ButtonNew", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_Light_ButtonDelete(byref btn as Fl_Light_Button ptr)
-    proc Fl_Light_ButtonDelete*( btn:  ptr Fl_Light_Button) {.cdecl, importc: "Fl_Light_ButtonDelete", dynlib: fltk, discardable.}
+    proc Fl_Light_ButtonDelete*( btn:  var ptr Fl_Light_Button) {.cdecl, importc: "Fl_Light_ButtonDelete", dynlib: fltk, discardable.}
 
     ## original: declare function Fl_Light_ButtonHandle(byval btn as Fl_Light_Button ptr, byval ev as FL_EVENT) as long
     proc Fl_Light_ButtonHandle* ( btn:  ptr Fl_Light_Button;  ev:  FL_EVENT):  long {.cdecl, importc: "Fl_Light_ButtonHandle", dynlib: fltk, discardable.}
@@ -4474,36 +4481,36 @@ when not defined(FLTK_MAIN_BI):
     #_ #################################################
     DeclareEx(Fl_Check_Button)
     ## original: declare function Fl_Check_ButtonNew(byval x as long, byval y as long, byval w as long, byval h as long, byval label as cstring=0) as Fl_Check_Button ptr
-    proc Fl_Check_ButtonNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=cast[cstring](0)):  ptr Fl_Check_Button {.cdecl, importc: "Fl_Check_ButtonNew", dynlib: fltk, discardable.}
+    proc Fl_Check_ButtonNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=nil):  ptr Fl_Check_Button {.cdecl, importc: "Fl_Check_ButtonNew", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_Check_ButtonDelete(byref btn as Fl_Check_Button ptr)
-    proc Fl_Check_ButtonDelete*( btn:  ptr Fl_Check_Button) {.cdecl, importc: "Fl_Check_ButtonDelete", dynlib: fltk, discardable.}
+    proc Fl_Check_ButtonDelete*( btn:  var ptr Fl_Check_Button) {.cdecl, importc: "Fl_Check_ButtonDelete", dynlib: fltk, discardable.}
 
     #_ #######################################################
     #_ # class Fl_Radio_Light_Button extends Fl_Light_Button #
     #_ #######################################################
     DeclareEx(Fl_Radio_Light_Button)
     ## original: declare function Fl_Radio_Light_ButtonNew(byval x as long, byval y as long, byval w as long, byval h as long, byval label as cstring=0) as Fl_Radio_Light_Button ptr
-    proc Fl_Radio_Light_ButtonNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=cast[cstring](0)):  ptr Fl_Radio_Light_Button {.cdecl, importc: "Fl_Radio_Light_ButtonNew", dynlib: fltk, discardable.}
+    proc Fl_Radio_Light_ButtonNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=nil):  ptr Fl_Radio_Light_Button {.cdecl, importc: "Fl_Radio_Light_ButtonNew", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_Radio_Light_ButtonDelete(byref btn as Fl_Radio_Light_Button ptr)
-    proc Fl_Radio_Light_ButtonDelete*( btn:  ptr Fl_Radio_Light_Button) {.cdecl, importc: "Fl_Radio_Light_ButtonDelete", dynlib: fltk, discardable.}
+    proc Fl_Radio_Light_ButtonDelete*( btn:  var ptr Fl_Radio_Light_Button) {.cdecl, importc: "Fl_Radio_Light_ButtonDelete", dynlib: fltk, discardable.}
 
     #_ #################################################
     #_ # class Fl_Round_Button extends Fl_Light_Button #
     #_ #################################################
     DeclareEx(Fl_Round_Button)
     ## original: declare function Fl_Round_ButtonNew(byval x as long, byval y as long, byval w as long, byval h as long, byval label as cstring=0) as Fl_Round_Button ptr
-    proc Fl_Round_ButtonNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=cast[cstring](0)):  ptr Fl_Round_Button {.cdecl, importc: "Fl_Round_ButtonNew", dynlib: fltk, discardable.}
+    proc Fl_Round_ButtonNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=nil):  ptr Fl_Round_Button {.cdecl, importc: "Fl_Round_ButtonNew", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_Round_ButtonDelete(byref btn as Fl_Round_Button ptr)
-    proc Fl_Round_ButtonDelete*( btn:  ptr Fl_Round_Button) {.cdecl, importc: "Fl_Round_ButtonDelete", dynlib: fltk, discardable.}
+    proc Fl_Round_ButtonDelete*( btn:  var ptr Fl_Round_Button) {.cdecl, importc: "Fl_Round_ButtonDelete", dynlib: fltk, discardable.}
 
     #_ #######################################################
     #_ # class Fl_Radio_Round_Button extends Fl_Round_Button #
     #_ #######################################################
     DeclareEx(Fl_Radio_Round_Button)
     ## original: declare function Fl_Radio_Round_ButtonNew(byval x as long, byval y as long, byval w as long, byval h as long, byval label as cstring=0) as Fl_Radio_Round_Button ptr
-    proc Fl_Radio_Round_ButtonNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=cast[cstring](0)):  ptr Fl_Radio_Round_Button {.cdecl, importc: "Fl_Radio_Round_ButtonNew", dynlib: fltk, discardable.}
+    proc Fl_Radio_Round_ButtonNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=nil):  ptr Fl_Radio_Round_Button {.cdecl, importc: "Fl_Radio_Round_ButtonNew", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_Radio_Round_ButtonDelete(byref btn as Fl_Radio_Round_Button ptr)
-    proc Fl_Radio_Round_ButtonDelete*( btn:  ptr Fl_Radio_Round_Button) {.cdecl, importc: "Fl_Radio_Round_ButtonDelete", dynlib: fltk, discardable.}
+    proc Fl_Radio_Round_ButtonDelete*( btn:  var ptr Fl_Radio_Round_Button) {.cdecl, importc: "Fl_Radio_Round_ButtonDelete", dynlib: fltk, discardable.}
     #endif #_  NO_BUTTON
 
     #ifndef NO_CHART
@@ -4512,12 +4519,12 @@ when not defined(FLTK_MAIN_BI):
     #_ ####################################
     DeclareEx(Fl_Chart)
     ## original: declare function Fl_ChartNew(byval x as long, byval y as long, byval w as long, byval h as long, byval label as cstring=0) as Fl_Chart ptr
-    proc Fl_ChartNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=cast[cstring](0)):  ptr Fl_Chart {.cdecl, importc: "Fl_ChartNew", dynlib: fltk, discardable.}
+    proc Fl_ChartNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=nil):  ptr Fl_Chart {.cdecl, importc: "Fl_ChartNew", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_ChartDelete(byref ch as Fl_Chart ptr)
-    proc Fl_ChartDelete*( ch:  ptr Fl_Chart) {.cdecl, importc: "Fl_ChartDelete", dynlib: fltk, discardable.}
+    proc Fl_ChartDelete*( ch:  var ptr Fl_Chart) {.cdecl, importc: "Fl_ChartDelete", dynlib: fltk, discardable.}
 
     ## original: declare sub      Fl_ChartAdd(byval ch as Fl_Chart ptr, byval v as double, byval label as cstring=0, byval c as Fl_COLOR=0)
-    proc Fl_ChartAdd*( ch:  ptr Fl_Chart;  v:  double;  label:  cstring=cast[cstring](0);  c:  Fl_COLOR=0) {.cdecl, importc: "Fl_ChartAdd", dynlib: fltk, discardable.}
+    proc Fl_ChartAdd*( ch:  ptr Fl_Chart;  v:  double;  label:  cstring=nil;  c:  Fl_COLOR=0) {.cdecl, importc: "Fl_ChartAdd", dynlib: fltk, discardable.}
 
     ## original: declare sub      Fl_ChartSetAutoSize(byval ch as Fl_Chart ptr, byval n as long)
     proc Fl_ChartSetAutoSize*( ch:  ptr Fl_Chart;  n:  long) {.cdecl, importc: "Fl_ChartSetAutoSize", dynlib: fltk, discardable.}
@@ -4527,13 +4534,13 @@ when not defined(FLTK_MAIN_BI):
     ## original: declare sub      Fl_ChartSetBounds(byval ch as Fl_Chart ptr, byval a as double, byval b as double)
     proc Fl_ChartSetBounds*( ch:  ptr Fl_Chart;  a:  double;  b:  double) {.cdecl, importc: "Fl_ChartSetBounds", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_ChartGetBounds(byval ch as Fl_Chart ptr, byref a as double, byref b as double)
-    proc Fl_ChartGetBounds*( ch:  ptr Fl_Chart;  a:  double;  b:  double) {.cdecl, importc: "Fl_ChartGetBounds", dynlib: fltk, discardable.}
+    proc Fl_ChartGetBounds*( ch:  ptr Fl_Chart;  a:  var double;  b:  var double) {.cdecl, importc: "Fl_ChartGetBounds", dynlib: fltk, discardable.}
 
     ## original: declare sub      Fl_ChartClear(byval ch as Fl_Chart ptr)
     proc Fl_ChartClear*( ch:  ptr Fl_Chart) {.cdecl, importc: "Fl_ChartClear", dynlib: fltk, discardable.}
 
     ## original: declare sub      Fl_ChartInsert(byval ch as Fl_Chart ptr, byval ind as long, byval v as double, byval label as cstring=0, byval c as Fl_COLOR=0)
-    proc Fl_ChartInsert*( ch:  ptr Fl_Chart;  ind:  long;  v:  double;  label:  cstring=cast[cstring](0);  c:  Fl_COLOR=0) {.cdecl, importc: "Fl_ChartInsert", dynlib: fltk, discardable.}
+    proc Fl_ChartInsert*( ch:  ptr Fl_Chart;  ind:  long;  v:  double;  label:  cstring=nil;  c:  Fl_COLOR=0) {.cdecl, importc: "Fl_ChartInsert", dynlib: fltk, discardable.}
 
     ## original: declare sub      Fl_ChartSetMaxSize(byval ch as Fl_Chart ptr, byval m as long)
     proc Fl_ChartSetMaxSize*( ch:  ptr Fl_Chart;  m:  long) {.cdecl, importc: "Fl_ChartSetMaxSize", dynlib: fltk, discardable.}
@@ -4541,7 +4548,7 @@ when not defined(FLTK_MAIN_BI):
     proc Fl_ChartGetMaxSize* ( ch:  ptr Fl_Chart):  long {.cdecl, importc: "Fl_ChartGetMaxSize", dynlib: fltk, discardable.}
 
     ## original: declare sub      Fl_ChartReplace(byval ch as Fl_Chart ptr, byval ind as long, byval v as double, byval vlabel as cstring=0, byval c as Fl_COLOR=0)
-    proc Fl_ChartReplace*( ch:  ptr Fl_Chart;  ind:  long;  v:  double;  vlabel:  cstring=cast[cstring](0);  c:  Fl_COLOR=0) {.cdecl, importc: "Fl_ChartReplace", dynlib: fltk, discardable.}
+    proc Fl_ChartReplace*( ch:  ptr Fl_Chart;  ind:  long;  v:  double;  vlabel:  cstring=nil;  c:  Fl_COLOR=0) {.cdecl, importc: "Fl_ChartReplace", dynlib: fltk, discardable.}
 
     ## original: declare sub      Fl_ChartSetSize(byval ch as Fl_Chart ptr, byval w as long, byval h as long)
     proc Fl_ChartSetSize*( ch:  ptr Fl_Chart;  w:  long;  h:  long) {.cdecl, importc: "Fl_ChartSetSize", dynlib: fltk, discardable.}
@@ -4568,9 +4575,9 @@ when not defined(FLTK_MAIN_BI):
     #_ ###########################################
     DeclareEx(Fl_Clock_Output)
     ## original: declare function Fl_Clock_OutputNew(byval x as long, byval y as long, byval w as long, byval h as long, byval label as cstring=0) as Fl_Clock_Output ptr
-    proc Fl_Clock_OutputNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=cast[cstring](0)):  ptr Fl_Clock_Output {.cdecl, importc: "Fl_Clock_OutputNew", dynlib: fltk, discardable.}
+    proc Fl_Clock_OutputNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=nil):  ptr Fl_Clock_Output {.cdecl, importc: "Fl_Clock_OutputNew", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_Clock_OutputDelete  (byref co as Fl_Clock_Output ptr)
-    proc Fl_Clock_OutputDelete*( co:  ptr Fl_Clock_Output) {.cdecl, importc: "Fl_Clock_OutputDelete", dynlib: fltk, discardable.}
+    proc Fl_Clock_OutputDelete*( co:  var ptr Fl_Clock_Output) {.cdecl, importc: "Fl_Clock_OutputDelete", dynlib: fltk, discardable.}
 
     ## original: declare function Fl_Clock_OutputHour    (byval co as Fl_Clock_Output ptr) as long
     proc Fl_Clock_OutputHour* ( co:  ptr Fl_Clock_Output):  long {.cdecl, importc: "Fl_Clock_OutputHour", dynlib: fltk, discardable.}
@@ -4594,20 +4601,20 @@ when not defined(FLTK_MAIN_BI):
     #_ ##########################################
     DeclareEx(Fl_Clock)
     ## original: declare function Fl_ClockNew(byval x as long, byval y as long, byval w as long, byval h as long, byval label as cstring=0) as Fl_Clock ptr
-    proc Fl_ClockNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=cast[cstring](0)):  ptr Fl_Clock {.cdecl, importc: "Fl_ClockNew", dynlib: fltk, discardable.}
+    proc Fl_ClockNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=nil):  ptr Fl_Clock {.cdecl, importc: "Fl_ClockNew", dynlib: fltk, discardable.}
     ## original: declare function Fl_ClockNew2(byval boxtype as ubyte, byval x as long, byval y as long, byval w as long, byval h as long, byval label as cstring=0) as Fl_Clock ptr
-    proc Fl_ClockNew2* ( boxtype:  ubyte;  x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=cast[cstring](0)):  ptr Fl_Clock {.cdecl, importc: "Fl_ClockNew2", dynlib: fltk, discardable.}
+    proc Fl_ClockNew2* ( boxtype:  ubyte;  x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=nil):  ptr Fl_Clock {.cdecl, importc: "Fl_ClockNew2", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_ClockDelete(byref c as Fl_Clock ptr)
-    proc Fl_ClockDelete*( c:  ptr Fl_Clock) {.cdecl, importc: "Fl_ClockDelete", dynlib: fltk, discardable.}
+    proc Fl_ClockDelete*( c:  var ptr Fl_Clock) {.cdecl, importc: "Fl_ClockDelete", dynlib: fltk, discardable.}
 
     #_ #########################################
     #_ # class Fl_Round_Clock extends Fl_Clock #
     #_ #########################################
     DeclareEx(Fl_Round_Clock)
     ## original: declare function Fl_Round_ClockNew(byval x as long, byval y as long, byval w as long, byval h as long, byval label as cstring=0) as Fl_Round_Clock ptr
-    proc Fl_Round_ClockNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=cast[cstring](0)):  ptr Fl_Round_Clock {.cdecl, importc: "Fl_Round_ClockNew", dynlib: fltk, discardable.}
+    proc Fl_Round_ClockNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=nil):  ptr Fl_Round_Clock {.cdecl, importc: "Fl_Round_ClockNew", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_Round_ClockDelete(byref c as Fl_Round_Clock ptr)
-    proc Fl_Round_ClockDelete*( c:  ptr Fl_Round_Clock) {.cdecl, importc: "Fl_Round_ClockDelete", dynlib: fltk, discardable.}
+    proc Fl_Round_ClockDelete*( c:  var ptr Fl_Round_Clock) {.cdecl, importc: "Fl_Round_ClockDelete", dynlib: fltk, discardable.}
 
     #_ #####################################
     #_ # class Fl_Input_ extends Fl_Widget #
@@ -4735,9 +4742,9 @@ when not defined(FLTK_MAIN_BI):
     DeclareEx(Fl_Input)
     #_  Creates a new Fl_Input widget using the given position, size, and label string.
     ## original: declare function Fl_InputNew(byval x as long, byval y as long, byval w as long, byval h as long, byval label as cstring=0) as Fl_Input ptr
-    proc Fl_InputNew* ( x:  long|int;  y:  long|int;  w:  long|int;  h:  long|int;  label:  cstring=cast[cstring](0)):  ptr Fl_Input {.cdecl, importc: "Fl_InputNew", dynlib: fltk, discardable.}
+    proc Fl_InputNew* ( x:  long|int;  y:  long|int;  w:  long|int;  h:  long|int;  label:  cstring=nil):  ptr Fl_Input {.cdecl, importc: "Fl_InputNew", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_InputDelete(byref ip as Fl_Input ptr)
-    proc Fl_InputDelete*( ip:  ptr Fl_Input) {.cdecl, importc: "Fl_InputDelete", dynlib: fltk, discardable.}
+    proc Fl_InputDelete*( ip:  var ptr Fl_Input) {.cdecl, importc: "Fl_InputDelete", dynlib: fltk, discardable.}
     #_  Handles the specified event.
     ## original: declare function Fl_InputHandle(byval ip as Fl_Input ptr, byval event as FL_EVENT) as long
     proc Fl_InputHandle* ( ip:  ptr Fl_Input;  event:  FL_EVENT):  long {.cdecl, importc: "Fl_InputHandle", dynlib: fltk, discardable.}
@@ -4747,36 +4754,36 @@ when not defined(FLTK_MAIN_BI):
     #_ #########################################
     DeclareEx(Fl_Float_Input)
     ## original: declare function Fl_Float_InputNew(byval x as long, byval y as long, byval w as long, byval h as long, byval label as cstring=0) as Fl_Float_Input ptr
-    proc Fl_Float_InputNew* ( x:  long|int;  y:  long|int;  w:  long|int;  h:  long|int;  label:  string=cast[string](0)):  ptr Fl_Float_Input {.cdecl, importc: "Fl_Float_InputNew", dynlib: fltk, discardable.}
+    proc Fl_Float_InputNew* ( x:  long|int;  y:  long|int;  w:  long|int;  h:  long|int;  label:  cstring=nil):  ptr Fl_Float_Input {.cdecl, importc: "Fl_Float_InputNew", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_Float_InputDelete(byref fip as Fl_Float_Input ptr)
-    proc Fl_Float_InputDelete*( fip:  ptr Fl_Float_Input) {.cdecl, importc: "Fl_Float_InputDelete", dynlib: fltk, discardable.}
+    proc Fl_Float_InputDelete*( fip:  var ptr Fl_Float_Input) {.cdecl, importc: "Fl_Float_InputDelete", dynlib: fltk, discardable.}
 
     #_ #######################################
     #_ # class Fl_Int_Input extends Fl_Input #
     #_ #######################################
     DeclareEx(Fl_Int_Input)
     ## original: declare function Fl_Int_InputNew(byval x as long, byval y as long, byval w as long, byval h as long, byval label as cstring=0) as Fl_Int_Input ptr
-    proc Fl_Int_InputNew* ( x:  long|int;  y:  long|int;  w:  long|int;  h:  long|int;  label:  string=cast[string](0)):  ptr Fl_Int_Input {.cdecl, importc: "Fl_Int_InputNew", dynlib: fltk, discardable.}
+    proc Fl_Int_InputNew* ( x:  long|int;  y:  long|int;  w:  long|int;  h:  long|int;  label:  cstring=nil):  ptr Fl_Int_Input {.cdecl, importc: "Fl_Int_InputNew", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_Int_InputDelete(byref iip as Fl_Int_Input ptr)
-    proc Fl_Int_InputDelete*( iip:  ptr Fl_Int_Input) {.cdecl, importc: "Fl_Int_InputDelete", dynlib: fltk, discardable.}
+    proc Fl_Int_InputDelete*( iip:  var ptr Fl_Int_Input) {.cdecl, importc: "Fl_Int_InputDelete", dynlib: fltk, discardable.}
 
     #_ #############################################
     #_ # class Fl_Multiline_Input extends Fl_Input #
     #_ #############################################
     DeclareEx(Fl_Multiline_Input)
     ## original: declare function Fl_Multiline_InputNew(byval x as long, byval y as long, byval w as long, byval h as long, byval label as cstring=0) as Fl_Multiline_Input ptr
-    proc Fl_Multiline_InputNew* ( x:  long|int;  y:  long|int;  w:  long|int;  h:  long|int;  label:  string=cast[string](0)):  ptr Fl_Multiline_Input {.cdecl, importc: "Fl_Multiline_InputNew", dynlib: fltk, discardable.}
+    proc Fl_Multiline_InputNew* ( x:  long|int;  y:  long|int;  w:  long|int;  h:  long|int;  label:  cstring=nil):  ptr Fl_Multiline_Input {.cdecl, importc: "Fl_Multiline_InputNew", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_Multiline_InputDelete(byref mip as Fl_Multiline_Input ptr)
-    proc Fl_Multiline_InputDelete*( mip:  ptr Fl_Multiline_Input) {.cdecl, importc: "Fl_Multiline_InputDelete", dynlib: fltk, discardable.}
+    proc Fl_Multiline_InputDelete*( mip:  var ptr Fl_Multiline_Input) {.cdecl, importc: "Fl_Multiline_InputDelete", dynlib: fltk, discardable.}
 
     #_ ##########################################
     #_ # class Fl_Secret_Input extends Fl_Input #
     #_ ##########################################
     DeclareEx(Fl_Secret_Input)
     ## original: declare function Fl_Secret_InputNew(byval x as long, byval y as long, byval w as long, byval h as long, byval label as cstring=0) as Fl_Secret_Input ptr
-    proc Fl_Secret_InputNew* ( x:  long|int;  y:  long|int;  w:  long|int;  h:  long|int;  label:  string=cast[string](0)):  ptr Fl_Secret_Input {.cdecl, importc: "Fl_Secret_InputNew", dynlib: fltk, discardable.}
+    proc Fl_Secret_InputNew* ( x:  long|int;  y:  long|int;  w:  long|int;  h:  long|int;  label:  cstring=nil):  ptr Fl_Secret_Input {.cdecl, importc: "Fl_Secret_InputNew", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_Secret_InputDelete(byref sip as Fl_Secret_Input ptr)
-    proc Fl_Secret_InputDelete*( sip:  ptr Fl_Secret_Input) {.cdecl, importc: "Fl_Secret_InputDelete", dynlib: fltk, discardable.}
+    proc Fl_Secret_InputDelete*( sip:  var ptr Fl_Secret_Input) {.cdecl, importc: "Fl_Secret_InputDelete", dynlib: fltk, discardable.}
 
     ## original: declare function Fl_Secret_InputHandle(byval sip as Fl_Secret_Input ptr, byval event as FL_EVENT) as long
     proc Fl_Secret_InputHandle* ( sip:  ptr Fl_Secret_Input;  event:  FL_EVENT):  long {.cdecl, importc: "Fl_Secret_InputHandle", dynlib: fltk, discardable.}
@@ -4786,17 +4793,17 @@ when not defined(FLTK_MAIN_BI):
     #_ ####################################
     DeclareEx(Fl_Output)
     ## original: declare function Fl_OutputNew(byval x as long, byval y as long, byval w as long, byval h as long, byval label as cstring=0) as Fl_Output ptr
-    proc Fl_OutputNew* ( x:  long|int;  y:  long|int;  w:  long|int;  h:  long|int;  label:  string=cast[string](0)):  ptr Fl_Output {.cdecl, importc: "Fl_OutputNew", dynlib: fltk, discardable.}
+    proc Fl_OutputNew* ( x:  long|int;  y:  long|int;  w:  long|int;  h:  long|int;  label:  cstring=nil):  ptr Fl_Output {.cdecl, importc: "Fl_OutputNew", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_OutputDelete(byref op as Fl_Output ptr)
-    proc Fl_OutputDelete*( op:  ptr Fl_Output) {.cdecl, importc: "Fl_OutputDelete", dynlib: fltk, discardable.}
+    proc Fl_OutputDelete*( op:  var ptr Fl_Output) {.cdecl, importc: "Fl_OutputDelete", dynlib: fltk, discardable.}
     #_ ###############################################
     #_ # class Fl_Multiline_Output extends Fl_Output #
     #_ ###############################################
     DeclareEx(Fl_Multiline_Output)
     ## original: declare function Fl_Multiline_OutputNew(byval x as long, byval y as long, byval w as long, byval h as long, byval label as cstring=0) as Fl_Multiline_Output ptr
-    proc Fl_Multiline_OutputNew* ( x:  long|int;  y:  long|int;  w:  long|int;  h:  long|int;  label:  cstring=cast[cstring](0)):  ptr Fl_Multiline_Output {.cdecl, importc: "Fl_Multiline_OutputNew", dynlib: fltk, discardable.}
+    proc Fl_Multiline_OutputNew* ( x:  long|int;  y:  long|int;  w:  long|int;  h:  long|int;  label:  cstring=nil):  ptr Fl_Multiline_Output {.cdecl, importc: "Fl_Multiline_OutputNew", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_Multiline_OutputDelete(byref op as Fl_Multiline_Output ptr)
-    proc Fl_Multiline_OutputDelete*( op:  ptr Fl_Multiline_Output) {.cdecl, importc: "Fl_Multiline_OutputDelete", dynlib: fltk, discardable.}
+    proc Fl_Multiline_OutputDelete*( op:  var ptr Fl_Multiline_Output) {.cdecl, importc: "Fl_Multiline_OutputDelete", dynlib: fltk, discardable.}
 
     #_ ########################################
     #_ # class Fl_File_Input extends Fl_Input #
@@ -4804,10 +4811,10 @@ when not defined(FLTK_MAIN_BI):
     DeclareEx(Fl_File_Input)
     #_  Creates a new Fl_File_Input widget using the given position, size, and label string.
     ## original: declare function Fl_File_InputNew(byval x as long, byval y as long, byval w as long, byval h as long, byval label as cstring=0) as Fl_File_Input ptr
-    proc Fl_File_InputNew* ( x:  long|int;  y:  long|int;  w:  long|int;  h:  long|int;  label:  string=cast[string](0)):  ptr Fl_File_Input {.cdecl, importc: "Fl_File_InputNew", dynlib: fltk, discardable.}
+    proc Fl_File_InputNew* ( x:  long|int;  y:  long|int;  w:  long|int;  h:  long|int;  label:  cstring=nil):  ptr Fl_File_Input {.cdecl, importc: "Fl_File_InputNew", dynlib: fltk, discardable.}
 
     ## original: declare sub      Fl_File_InputDelete(byref fip as Fl_File_Input ptr)
-    proc Fl_File_InputDelete*( fip:  ptr Fl_File_Input) {.cdecl, importc: "Fl_File_InputDelete", dynlib: fltk, discardable.}
+    proc Fl_File_InputDelete*( fip:  var ptr Fl_File_Input) {.cdecl, importc: "Fl_File_InputDelete", dynlib: fltk, discardable.}
     #_  Handles the specified event.
     ## original: declare function Fl_File_InputHandle(byval fip as Fl_File_Input ptr, byval event as FL_EVENT) as long
     proc Fl_File_InputHandle* ( fip:  ptr Fl_File_Input;  event:  FL_EVENT):  long {.cdecl, importc: "Fl_File_InputHandle", dynlib: fltk, discardable.}
@@ -4848,13 +4855,13 @@ when not defined(FLTK_MAIN_BI):
     proc Fl_Menu_ItemActiveVisible* ( it:  ptr Fl_Menu_Item):  long {.cdecl, importc: "Fl_Menu_ItemActiveVisible", dynlib: fltk, discardable.}
     #_  Adds an item.
     ## original: declare function Fl_Menu_ItemAdd (byval it as Fl_Menu_Item ptr, byval label as cstring, byval shortcut as long=0, byval cb as Fl_Callback=0, byval userdata as any ptr=0, byval flag as FL_MENUITEM_FLAG=0) as long
-    #~ proc Fl_Menu_ItemAdd* ( it:  ptr Fl_Menu_Item;  label:  cstring;  shortcut:  long=0;  cb:  Fl_Callback=0;  userdata:  ptr any;  flag:  FL_MENUITEM_FLAG=0):  long {.cdecl, importc: "Fl_Menu_ItemAdd", dynlib: fltk, discardable.}
+    proc Fl_Menu_ItemAdd* ( it:  ptr Fl_Menu_Item;  label:  cstring;  shortcut:  long=0;  cb:  Fl_Callback=nil;  userdata:  pointer=nil;  flag:  FL_MENUITEM_FLAG=0):  long {.cdecl, importc: "Fl_Menu_ItemAdd", dynlib: fltk, discardable.}
 
     ## original: declare function Fl_Menu_ItemAdd2(byval it as Fl_Menu_Item ptr, byval label as cstring, byval shortcut as cstring, byval cb as Fl_Callback=0, byval userdata as any ptr=0, byval flag as FL_MENUITEM_FLAG=0) as long
-    #~ proc Fl_Menu_ItemAdd2* ( it:  ptr Fl_Menu_Item;  label:  cstring;  shortcut:  cstring;  cb:  Fl_Callback=0;  userdata:  ptr any;  flag:  FL_MENUITEM_FLAG=0):  long {.cdecl, importc: "Fl_Menu_ItemAdd2", dynlib: fltk, discardable.}
+    proc Fl_Menu_ItemAdd2* ( it:  ptr Fl_Menu_Item;  label:  cstring;  shortcut:  cstring;  cb:  Fl_Callback=nil;  userdata:  pointer=nil;  flag:  FL_MENUITEM_FLAG=0):  long {.cdecl, importc: "Fl_Menu_ItemAdd2", dynlib: fltk, discardable.}
     #_  Inserts an item at position index.
     ## original: declare function Fl_Menu_ItemInsert(byval it as Fl_Menu_Item ptr, byval index as long, byval label as cstring, byval shortcut as long, byval cb as Fl_Callback, byval userdata as any ptr=0, byval flag as FL_MENUITEM_FLAG=0) as long
-    proc Fl_Menu_ItemInsert* ( it:  ptr Fl_Menu_Item;  index:  long;  label:  cstring;  shortcut:  long;  cb:  Fl_Callback;  userdata:  ptr any;  flag:  FL_MENUITEM_FLAG=0):  long {.cdecl, importc: "Fl_Menu_ItemInsert", dynlib: fltk, discardable.}
+    proc Fl_Menu_ItemInsert* ( it:  ptr Fl_Menu_Item;  index:  long;  label:  cstring;  shortcut:  long;  cb:  Fl_Callback;  userdata:  pointer=nil;  flag:  FL_MENUITEM_FLAG=0):  long {.cdecl, importc: "Fl_Menu_ItemInsert", dynlib: fltk, discardable.}
     #_  Sets/Gets the user data argument that is sent to the callback function.
     ## original: declare sub      Fl_Menu_ItemSetArgument(byval it as Fl_Menu_Item ptr, byval v as long)
     proc Fl_Menu_ItemSetArgument*( it:  ptr Fl_Menu_Item;  v:  long) {.cdecl, importc: "Fl_Menu_ItemSetArgument", dynlib: fltk, discardable.}
@@ -4896,7 +4903,7 @@ when not defined(FLTK_MAIN_BI):
     proc Fl_Menu_ItemClear*( it:  ptr Fl_Menu_Item) {.cdecl, importc: "Fl_Menu_ItemClear", dynlib: fltk, discardable.}
     #_  Calls the Fl_Menu_Item item's callback, and provides the Fl_Widget argument.
     ## original: declare sub      Fl_Menu_ItemDoCallback                                     (byval it as Fl_Menu_Item ptr, byval wgt as Fl_Widget ptr, byval pData as any ptr=0)
-    proc Fl_Menu_ItemDoCallback*( it:  ptr Fl_Menu_Item;  wgt:  ptr Fl_Widget;  pData:  ptr any) {.cdecl, importc: "Fl_Menu_ItemDoCallback", dynlib: fltk, discardable.}
+    proc Fl_Menu_ItemDoCallback*( it:  ptr Fl_Menu_Item;  wgt:  ptr Fl_Widget;  pData:  pointer=nil) {.cdecl, importc: "Fl_Menu_ItemDoCallback", dynlib: fltk, discardable.}
 
     ## original: declare sub      Fl_Menu_ItemDoCallbackArg  alias "Fl_Menu_ItemDoCallback"  (byval it as Fl_Menu_Item ptr, byval wgt as Fl_Widget ptr, byval pData as any ptr)
     proc Fl_Menu_ItemDoCallbackArg*() {.cdecl, importc: "Fl_Menu_ItemDoCallbackArg", dynlib: fltk, discardable.}
@@ -4967,7 +4974,7 @@ when not defined(FLTK_MAIN_BI):
 
     #_  This method is called by widgets that want to display menus.
     ## original: declare function Fl_Menu_ItemPopup   (byval it as Fl_Menu_Item ptr, byval x as long, byval y as long, byval title as cstring=0, byval picked as Fl_Menu_Item ptr=0, byval m as const Fl_Menu_ ptr=0) as Fl_Menu_Item ptr
-    proc Fl_Menu_ItemPopup* ( it:  ptr Fl_Menu_Item;  x:  long;  y:  long;  title:  cstring=cast[cstring](0);  picked:  ptr Fl_Menu_Item;  m:  ptr FL_Menu_TT):  ptr Fl_Menu_Item {.cdecl, importc: "Fl_Menu_ItemPopup", dynlib: fltk, discardable.}
+    proc Fl_Menu_ItemPopup* ( it:  ptr Fl_Menu_Item;  x:  long;  y:  long;  title:  cstring=nil;  picked:  ptr Fl_Menu_Item;  m:  ptr FL_Menu_TT):  ptr Fl_Menu_Item {.cdecl, importc: "Fl_Menu_ItemPopup", dynlib: fltk, discardable.}
 
     #_  Pulldown() is similar to popup(), but a rectangle is provided to position the menu.
     ## original: declare function Fl_Menu_ItemPulldown(byval it as Fl_Menu_Item ptr, byval x as long, byval y as long, byval w as long, byval h as long, byval picked as Fl_Menu_Item ptr=0, byval m as const Fl_Menu_ ptr=0, byval title as Fl_Menu_Item ptr=0, byval menubar as long=0) as Fl_Menu_Item ptr
@@ -5012,9 +5019,9 @@ when not defined(FLTK_MAIN_BI):
     #_ # class Fl_Menu_ extends Fl_Widget #
     #_ ####################################
     ## original: declare function Fl_Menu_Add (byval m_ as Fl_Menu_ ptr, byval label as cstring, byval shortcut as long=0             , byval cb as Fl_Callback=0, byval userdata as any ptr=0, byval flag as long=0) as long
-    #~ proc Fl_Menu_Add* ( m:  ptr Fl_Menu_TT;  label:  cstring;  shortcut:  long=0;  cb:  ptr Fl_Callback=cast[ptr Fl_Callback](0);  userdata:  pointer=cast[pointer](0);  flag:  long=0):  long {.cdecl, importc: "Fl_Menu_Add", dynlib: fltk, discardable.}
+    proc Fl_Menu_Add* ( m:  ptr Fl_Menu_TT;  label:  cstring;  shortcut:  long=0;  cb:  ptr Fl_Callback=nil;  userdata:  pointer=nil;  flag:  long=0):  long {.cdecl, importc: "Fl_Menu_Add", dynlib: fltk, discardable.}
     ## original: declare function Fl_Menu_Add2(byval m_ as Fl_Menu_ ptr, byval label as cstring, byval shortcut as cstring=0, byval cb as Fl_Callback=0, byval userdata as any ptr=0, byval flag as long=0) as long
-    #~ proc Fl_Menu_Add2* ( m:  ptr Fl_Menu_TT;  label:  cstring;  shortcut:  cstring=cast[cstring](0);  cb:  ptr Fl_Callback=cast[ptr Fl_Callback](0);  userdata:  ptr any;  flag:  long=0):  long {.cdecl, importc: "Fl_Menu_Add2", dynlib: fltk, discardable.}
+    proc Fl_Menu_Add2* ( m:  ptr Fl_Menu_TT;  label:  cstring;  shortcut:  cstring=nil;  cb:  ptr Fl_Callback=nil;  userdata:  pointer=nil;  flag:  long=0):  long {.cdecl, importc: "Fl_Menu_Add2", dynlib: fltk, discardable.}
     ## original: declare function Fl_Menu_Add3(byval m_ as Fl_Menu_ ptr, byval label as cstring) as long
     proc Fl_Menu_Add3* ( m:  ptr Fl_Menu_TT;  label:  cstring):  long {.cdecl, importc: "Fl_Menu_Add3", dynlib: fltk, discardable.}
 
@@ -5025,7 +5032,7 @@ when not defined(FLTK_MAIN_BI):
     proc Fl_Menu_ClearSubmenu* ( m:  ptr Fl_Menu_TT;  index:  long):  long {.cdecl, importc: "Fl_Menu_ClearSubmenu", dynlib: fltk, discardable.}
 
     ## original: declare sub      Fl_Menu_Copy(byval m_ as Fl_Menu_ ptr, byval mi as Fl_Menu_Item ptr, byval userdata as any ptr=0)
-    proc Fl_Menu_Copy*( m:  ptr Fl_Menu_TT;  mi:  ptr Fl_Menu_Item;  userdata:  ptr any) {.cdecl, importc: "Fl_Menu_Copy", dynlib: fltk, discardable.}
+    proc Fl_Menu_Copy*( m:  ptr Fl_Menu_TT;  mi:  ptr Fl_Menu_Item;  userdata:  pointer=nil) {.cdecl, importc: "Fl_Menu_Copy", dynlib: fltk, discardable.}
 
     ## original: declare sub      Fl_Menu_SetDownBox(byval m_ as Fl_Menu_ ptr, byval bt as FL_BOXTYPE)
     proc Fl_Menu_SetDownBox*( m:  ptr Fl_Menu_TT;  bt:  FL_BOXTYPE) {.cdecl, importc: "Fl_Menu_SetDownBox", dynlib: fltk, discardable.}
@@ -5056,13 +5063,13 @@ when not defined(FLTK_MAIN_BI):
     proc Fl_Menu_Global*( m_TT:  ptr Fl_Menu_TT) {.cdecl, importc: "Fl_Menu_Global", dynlib: fltk, discardable.}
 
     ## original: declare function Fl_Menu_Insert (byval m_ as Fl_Menu_ ptr, byval index as long, byval label as cstring, byval shortcut as cstring=0, byval cb as Fl_Callback=0, byval userdata as any ptr=0, byval flag as long=0) as long
-    #~ proc Fl_Menu_Insert* ( m:  ptr Fl_Menu_TT;  index:  long;  label:  cstring;  shortcut:  cstring=cast[cstring](0);  cb:  Fl_Callback=0;  userdata:  ptr any;  flag:  long=0):  long {.cdecl, importc: "Fl_Menu_Insert", dynlib: fltk, discardable.}
+    proc Fl_Menu_Insert* ( m:  ptr Fl_Menu_TT;  index:  long;  label:  cstring;  shortcut:  cstring=nil;  cb:  Fl_Callback=nil;  userdata:  pointer=nil;  flag:  long=0):  long {.cdecl, importc: "Fl_Menu_Insert", dynlib: fltk, discardable.}
 
     ## original: declare function Fl_Menu_Insert2(byval m_ as Fl_Menu_ ptr, byval index as long, byval label as cstring, byval shortcut as long          =0, byval cb as Fl_Callback=0, byval userdata as any ptr=0, byval flag as long=0) as long
     #~ proc Fl_Menu_Insert2* ( m:  ptr Fl_Menu_TT;  index:  long;  label:  cstring;  shortcut:  long;  cb:  Fl_Callback=0;  userdata:  ptr any;  flag:  long=0):  long {.cdecl, importc: "Fl_Menu_Insert2", dynlib: fltk, discardable.}
 
     ## original: declare function Fl_Menu_ItemPathName(byval m_ as Fl_Menu_ ptr, byval name_ as cstring, byval namelen as long, byval item as Fl_Menu_Item ptr=0) as long
-    proc Fl_Menu_ItemPathName* ( m:  ptr Fl_Menu_TT;  name_TT:  cstring;  namelen:  long;  item:  ptr Fl_Menu_Item):  long {.cdecl, importc: "Fl_Menu_ItemPathName", dynlib: fltk, discardable.}
+    proc Fl_Menu_ItemPathName* ( m:  ptr Fl_Menu_TT;  name_TT:  cstring;  namelen:  long;  item:  ptr Fl_Menu_Item=nil):  long {.cdecl, importc: "Fl_Menu_ItemPathName", dynlib: fltk, discardable.}
 
     ## original: declare sub      Fl_Menu_SetMenu(byval m_ as Fl_Menu_ ptr, byval item as Fl_Menu_Item ptr)
     proc Fl_Menu_SetMenu*( m:  ptr Fl_Menu_TT;  item:  ptr Fl_Menu_Item) {.cdecl, importc: "Fl_Menu_SetMenu", dynlib: fltk, discardable.}
@@ -5132,9 +5139,9 @@ when not defined(FLTK_MAIN_BI):
     #_ #########################################
     DeclareEx(Fl_Menu_Button)
     ## original: declare function Fl_Menu_ButtonNew(byval x as long, byval y as long, byval w as long, byval h as long, byval label as cstring=0) as Fl_Menu_Button ptr
-    proc Fl_Menu_ButtonNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=cast[cstring](0)):  ptr Fl_Menu_Button {.cdecl, importc: "Fl_Menu_ButtonNew", dynlib: fltk, discardable.}
+    proc Fl_Menu_ButtonNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=nil):  ptr Fl_Menu_Button {.cdecl, importc: "Fl_Menu_ButtonNew", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_Menu_ButtonDelete(byref mb as Fl_Menu_Button ptr)
-    proc Fl_Menu_ButtonDelete*( mb:  ptr Fl_Menu_Button) {.cdecl, importc: "Fl_Menu_ButtonDelete", dynlib: fltk, discardable.}
+    proc Fl_Menu_ButtonDelete*( mb:  var ptr Fl_Menu_Button) {.cdecl, importc: "Fl_Menu_ButtonDelete", dynlib: fltk, discardable.}
 
     ## original: declare function Fl_Menu_ButtonHandle(byval mb as Fl_Menu_Button ptr, byval event as FL_EVENT) as long
     proc Fl_Menu_ButtonHandle* ( mb:  ptr Fl_Menu_Button;  event:  FL_EVENT):  long {.cdecl, importc: "Fl_Menu_ButtonHandle", dynlib: fltk, discardable.}
@@ -5147,9 +5154,9 @@ when not defined(FLTK_MAIN_BI):
     #_ ######################################
     DeclareEx(Fl_Menu_Bar)
     ## original: declare function Fl_Menu_BarNew(byval x as long, byval y as long, byval w as long, byval h as long, byval label as cstring=0) as Fl_Menu_Bar ptr
-    proc Fl_Menu_BarNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=cast[cstring](0)):  ptr Fl_Menu_Bar {.cdecl, importc: "Fl_Menu_BarNew", dynlib: fltk, discardable.}
+    proc Fl_Menu_BarNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=nil):  ptr Fl_Menu_Bar {.cdecl, importc: "Fl_Menu_BarNew", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_Menu_BarDelete(byref mb as Fl_Menu_Bar ptr)
-    proc Fl_Menu_BarDelete*( mb:  ptr Fl_Menu_Bar) {.cdecl, importc: "Fl_Menu_BarDelete", dynlib: fltk, discardable.}
+    proc Fl_Menu_BarDelete*( mb:  var ptr Fl_Menu_Bar) {.cdecl, importc: "Fl_Menu_BarDelete", dynlib: fltk, discardable.}
 
     ## original: declare function Fl_Menu_BarHandle(byval mb as Fl_Menu_Bar ptr, byval event as FL_EVENT) as long
     proc Fl_Menu_BarHandle* ( mb:  ptr Fl_Menu_Bar;  event:  FL_EVENT):  long {.cdecl, importc: "Fl_Menu_BarHandle", dynlib: fltk, discardable.}
@@ -5160,9 +5167,9 @@ when not defined(FLTK_MAIN_BI):
     DeclareEx(Fl_Choice)
     #_  Create a new Fl_Choice widget using the given position, size and label string.
     ## original: declare function Fl_ChoiceNew(byval x as long, byval y as long, byval w as long, byval h as long, byval label as cstring=0) as Fl_Choice ptr
-    proc Fl_ChoiceNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=cast[cstring](0)):  ptr Fl_Choice {.cdecl, importc: "Fl_ChoiceNew", dynlib: fltk, discardable.}
+    proc Fl_ChoiceNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=nil):  ptr Fl_Choice {.cdecl, importc: "Fl_ChoiceNew", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_ChoiceDelete(byref mb as Fl_Choice ptr)
-    proc Fl_ChoiceDelete*( mb:  ptr Fl_Choice) {.cdecl, importc: "Fl_ChoiceDelete", dynlib: fltk, discardable.}
+    proc Fl_ChoiceDelete*( mb:  var ptr Fl_Choice) {.cdecl, importc: "Fl_ChoiceDelete", dynlib: fltk, discardable.}
     #_  Handles the specified event.
     ## original: declare function Fl_ChoiceHandle(byval c as Fl_Choice ptr, byval event as FL_EVENT) as long
     proc Fl_ChoiceHandle* ( c:  ptr Fl_Choice;  event:  FL_EVENT):  long {.cdecl, importc: "Fl_ChoiceHandle", dynlib: fltk, discardable.}
@@ -5182,9 +5189,9 @@ when not defined(FLTK_MAIN_BI):
     DeclareEx(Fl_Progress)
     #_  The constructor creates the progress bar using the position, size, and label.
     ## original: declare function Fl_ProgressNew(byval x as long, byval y as long, byval w as long, byval h as long, byval label as cstring=0) as Fl_Progress ptr
-    proc Fl_ProgressNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=cast[cstring](0)):  ptr Fl_Progress {.cdecl, importc: "Fl_ProgressNew", dynlib: fltk, discardable.}
+    proc Fl_ProgressNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=nil):  ptr Fl_Progress {.cdecl, importc: "Fl_ProgressNew", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_ProgressDelete(byref prg as Fl_Progress ptr)
-    proc Fl_ProgressDelete*( prg:  ptr Fl_Progress) {.cdecl, importc: "Fl_ProgressDelete", dynlib: fltk, discardable.}
+    proc Fl_ProgressDelete*( prg:  var ptr Fl_Progress) {.cdecl, importc: "Fl_ProgressDelete", dynlib: fltk, discardable.}
     #_  Sets/Gets the minimum value in the progress widget.
     ## original: declare sub      Fl_ProgressSetMinimum(byval prg as Fl_Progress ptr, byval minValue as single)
     proc Fl_ProgressSetMinimum*( prg:  ptr Fl_Progress;  minValue:  single) {.cdecl, importc: "Fl_ProgressSetMinimum", dynlib: fltk, discardable.}
@@ -5252,9 +5259,9 @@ when not defined(FLTK_MAIN_BI):
     #_ #########################################
     DeclareEx(Fl_Adjuster)
     ## original: declare function Fl_AdjusterNew(byval x as long, byval y as long, byval w as long, byval h as long, byval label as cstring=0) as Fl_Adjuster ptr
-    proc Fl_AdjusterNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=cast[cstring](0)):  ptr Fl_Adjuster {.cdecl, importc: "Fl_AdjusterNew", dynlib: fltk, discardable.}
+    proc Fl_AdjusterNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=nil):  ptr Fl_Adjuster {.cdecl, importc: "Fl_AdjusterNew", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_AdjusterDelete(byref adj as Fl_Adjuster ptr)
-    proc Fl_AdjusterDelete*( adj:  ptr Fl_Adjuster) {.cdecl, importc: "Fl_AdjusterDelete", dynlib: fltk, discardable.}
+    proc Fl_AdjusterDelete*( adj:  var ptr Fl_Adjuster) {.cdecl, importc: "Fl_AdjusterDelete", dynlib: fltk, discardable.}
 
     ## original: declare sub      Fl_AdjusterSetSoft(byval adj as Fl_Adjuster ptr, byval s as long)
     proc Fl_AdjusterSetSoft*( adj:  ptr Fl_Adjuster;  s:  long) {.cdecl, importc: "Fl_AdjusterSetSoft", dynlib: fltk, discardable.}
@@ -5266,9 +5273,9 @@ when not defined(FLTK_MAIN_BI):
     #_ ########################################
     DeclareEx(Fl_Counter)
     ## original: declare function Fl_CounterNew(byval x as long, byval y as long, byval w as long, byval h as long, byval label as cstring=0) as Fl_Counter ptr
-    proc Fl_CounterNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=cast[cstring](0)):  ptr Fl_Counter {.cdecl, importc: "Fl_CounterNew", dynlib: fltk, discardable.}
+    proc Fl_CounterNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=nil):  ptr Fl_Counter {.cdecl, importc: "Fl_CounterNew", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_CounterDelete    (byref cnt as Fl_Counter ptr)
-    proc Fl_CounterDelete*( cnt:  ptr Fl_Counter) {.cdecl, importc: "Fl_CounterDelete", dynlib: fltk, discardable.}
+    proc Fl_CounterDelete*( cnt:  var ptr Fl_Counter) {.cdecl, importc: "Fl_CounterDelete", dynlib: fltk, discardable.}
 
     ## original: declare function Fl_CounterHandle    (byval cnt as Fl_Counter ptr, byval event      as FL_EVENT) as long
     proc Fl_CounterHandle* ( cnt:  ptr Fl_Counter;  event:  FL_EVENT):  long {.cdecl, importc: "Fl_CounterHandle", dynlib: fltk, discardable.}
@@ -5287,18 +5294,18 @@ when not defined(FLTK_MAIN_BI):
     #_ ##############################################
     DeclareEx(Fl_Simple_Counter)
     ## original: declare function Fl_Simple_CounterNew(byval x as long, byval y as long, byval w as long, byval h as long, byval label as cstring=0) as Fl_Simple_Counter ptr
-    proc Fl_Simple_CounterNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=cast[cstring](0)):  ptr Fl_Simple_Counter {.cdecl, importc: "Fl_Simple_CounterNew", dynlib: fltk, discardable.}
+    proc Fl_Simple_CounterNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=nil):  ptr Fl_Simple_Counter {.cdecl, importc: "Fl_Simple_CounterNew", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_Simple_CounterDelete(byref cnt as Fl_Simple_Counter ptr)
-    proc Fl_Simple_CounterDelete*( cnt:  ptr Fl_Simple_Counter) {.cdecl, importc: "Fl_Simple_CounterDelete", dynlib: fltk, discardable.}
+    proc Fl_Simple_CounterDelete*( cnt:  var ptr Fl_Simple_Counter) {.cdecl, importc: "Fl_Simple_CounterDelete", dynlib: fltk, discardable.}
 
     #_ #####################################
     #_ # class Fl_Dial extends Fl_Valuator #
     #_ #####################################
     DeclareEx(Fl_Dial)
     ## original: declare function Fl_DialNew(byval x as long, byval y as long, byval w as long, byval h as long, byval label as cstring=0) as Fl_Dial ptr
-    proc Fl_DialNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=cast[cstring](0)):  ptr Fl_Dial {.cdecl, importc: "Fl_DialNew", dynlib: fltk, discardable.}
+    proc Fl_DialNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=nil):  ptr Fl_Dial {.cdecl, importc: "Fl_DialNew", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_DialDelete(byref dial as Fl_Dial ptr)
-    proc Fl_DialDelete*( dial:  ptr Fl_Dial) {.cdecl, importc: "Fl_DialDelete", dynlib: fltk, discardable.}
+    proc Fl_DialDelete*( dial:  var ptr Fl_Dial) {.cdecl, importc: "Fl_DialDelete", dynlib: fltk, discardable.}
 
     ## original: declare function Fl_DialHandle(byval dial as Fl_Dial ptr, byval event as FL_EVENT) as long
     proc Fl_DialHandle* ( dial:  ptr Fl_Dial;  event:  FL_EVENT):  long {.cdecl, importc: "Fl_DialHandle", dynlib: fltk, discardable.}
@@ -5321,38 +5328,38 @@ when not defined(FLTK_MAIN_BI):
     #_ ######################################
     DeclareEx(Fl_Fill_Dial)
     ## original: declare function Fl_Fill_DialNew(byval x as long, byval y as long, byval w as long, byval h as long, byval label as cstring=0) as Fl_Fill_Dial ptr
-    proc Fl_Fill_DialNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=cast[cstring](0)):  ptr Fl_Fill_Dial {.cdecl, importc: "Fl_Fill_DialNew", dynlib: fltk, discardable.}
+    proc Fl_Fill_DialNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=nil):  ptr Fl_Fill_Dial {.cdecl, importc: "Fl_Fill_DialNew", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_Fill_DialDelete(byref dial as Fl_Fill_Dial ptr)
-    proc Fl_Fill_DialDelete*( dial:  ptr Fl_Fill_Dial) {.cdecl, importc: "Fl_Fill_DialDelete", dynlib: fltk, discardable.}
+    proc Fl_Fill_DialDelete*( dial:  var ptr Fl_Fill_Dial) {.cdecl, importc: "Fl_Fill_DialDelete", dynlib: fltk, discardable.}
 
     #_ ######################################
     #_ # class Fl_Line_Dial extends Fl_Dial #
     #_ ######################################
     DeclareEx(Fl_Line_Dial)
     ## original: declare function Fl_Line_DialNew(byval x as long, byval y as long, byval w as long, byval h as long, byval label as cstring=0) as Fl_Line_Dial ptr
-    proc Fl_Line_DialNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=cast[cstring](0)):  ptr Fl_Line_Dial {.cdecl, importc: "Fl_Line_DialNew", dynlib: fltk, discardable.}
+    proc Fl_Line_DialNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=nil):  ptr Fl_Line_Dial {.cdecl, importc: "Fl_Line_DialNew", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_Line_DialDelete(byref dial as Fl_Line_Dial ptr)
-    proc Fl_Line_DialDelete*( dial:  ptr Fl_Line_Dial) {.cdecl, importc: "Fl_Line_DialDelete", dynlib: fltk, discardable.}
+    proc Fl_Line_DialDelete*( dial:  var ptr Fl_Line_Dial) {.cdecl, importc: "Fl_Line_DialDelete", dynlib: fltk, discardable.}
 
     #_ #######################################
     #_ # class Fl_Roller extends Fl_Valuator #
     #_ #######################################
     DeclareEx(Fl_Roller)
     ## original: declare function Fl_RollerNew(byval x as long, byval y as long, byval w as long, byval h as long, byval label as cstring=0) as Fl_Roller ptr
-    proc Fl_RollerNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=cast[cstring](0)):  ptr Fl_Roller {.cdecl, importc: "Fl_RollerNew", dynlib: fltk, discardable.}
+    proc Fl_RollerNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=nil):  ptr Fl_Roller {.cdecl, importc: "Fl_RollerNew", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_RollerDelete(byref rol as Fl_Roller ptr)
-    proc Fl_RollerDelete*( rol:  ptr Fl_Roller) {.cdecl, importc: "Fl_RollerDelete", dynlib: fltk, discardable.}
+    proc Fl_RollerDelete*( rol:  var ptr Fl_Roller) {.cdecl, importc: "Fl_RollerDelete", dynlib: fltk, discardable.}
 
     #_ #######################################
     #_ # class Fl_Slider extends Fl_Valuator #
     #_ #######################################
     DeclareEx(Fl_Slider)
     ## original: declare function Fl_SliderNew(byval x as long, byval y as long, byval w as long, byval h as long, byval label as cstring=0) as Fl_Slider ptr
-    proc Fl_SliderNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=cast[cstring](0)):  ptr Fl_Slider {.cdecl, importc: "Fl_SliderNew", dynlib: fltk, discardable.}
+    proc Fl_SliderNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=nil):  ptr Fl_Slider {.cdecl, importc: "Fl_SliderNew", dynlib: fltk, discardable.}
     ## original: declare function Fl_SliderNew2(byval t as ubyte, byval x as long, byval y as long, byval w as long, byval h as long, byval label as cstring=0) as Fl_Slider ptr
-    proc Fl_SliderNew2* ( t:  ubyte;  x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=cast[cstring](0)):  ptr Fl_Slider {.cdecl, importc: "Fl_SliderNew2", dynlib: fltk, discardable.}
+    proc Fl_SliderNew2* ( t:  ubyte;  x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=nil):  ptr Fl_Slider {.cdecl, importc: "Fl_SliderNew2", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_SliderDelete(byref sl as Fl_Slider ptr)
-    proc Fl_SliderDelete*( sl:  ptr Fl_Slider) {.cdecl, importc: "Fl_SliderDelete", dynlib: fltk, discardable.}
+    proc Fl_SliderDelete*( sl:  var ptr Fl_Slider) {.cdecl, importc: "Fl_SliderDelete", dynlib: fltk, discardable.}
 
     ## original: declare function Fl_SliderHandle(byval sl as Fl_Slider ptr, byval event as FL_EVENT) as long
     proc Fl_SliderHandle* ( sl:  ptr Fl_Slider;  event:  FL_EVENT):  long {.cdecl, importc: "Fl_SliderHandle", dynlib: fltk, discardable.}
@@ -5378,54 +5385,54 @@ when not defined(FLTK_MAIN_BI):
     #_ #########################################
     DeclareEx(Fl_Hor_Slider)
     ## original: declare function Fl_Hor_SliderNew(byval x as long, byval y as long, byval w as long, byval h as long, byval label as cstring=0) as Fl_Hor_Slider ptr
-    proc Fl_Hor_SliderNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=cast[cstring](0)):  ptr Fl_Hor_Slider {.cdecl, importc: "Fl_Hor_SliderNew", dynlib: fltk, discardable.}
+    proc Fl_Hor_SliderNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=nil):  ptr Fl_Hor_Slider {.cdecl, importc: "Fl_Hor_SliderNew", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_Hor_SliderDelete(byref sl as Fl_Hor_Slider ptr)
-    proc Fl_Hor_SliderDelete*( sl:  ptr Fl_Hor_Slider) {.cdecl, importc: "Fl_Hor_SliderDelete", dynlib: fltk, discardable.}
+    proc Fl_Hor_SliderDelete*( sl:  var ptr Fl_Hor_Slider) {.cdecl, importc: "Fl_Hor_SliderDelete", dynlib: fltk, discardable.}
 
     #_ ##########################################
     #_ # class Fl_Fill_Slider extends Fl_Slider #
     #_ ##########################################
     DeclareEx(Fl_Fill_Slider)
     ## original: declare function Fl_Fill_SliderNew(byval x as long, byval y as long, byval w as long, byval h as long, byval label as cstring=0) as Fl_Fill_Slider ptr
-    proc Fl_Fill_SliderNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=cast[cstring](0)):  ptr Fl_Fill_Slider {.cdecl, importc: "Fl_Fill_SliderNew", dynlib: fltk, discardable.}
+    proc Fl_Fill_SliderNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=nil):  ptr Fl_Fill_Slider {.cdecl, importc: "Fl_Fill_SliderNew", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_Fill_SliderDelete(byref sl as Fl_Fill_Slider ptr)
-    proc Fl_Fill_SliderDelete*( sl:  ptr Fl_Fill_Slider) {.cdecl, importc: "Fl_Fill_SliderDelete", dynlib: fltk, discardable.}
+    proc Fl_Fill_SliderDelete*( sl:  var ptr Fl_Fill_Slider) {.cdecl, importc: "Fl_Fill_SliderDelete", dynlib: fltk, discardable.}
 
     #_ ##############################################
     #_ # class Fl_Hor_Fill_Slider extends Fl_Slider #
     #_ ##############################################
     DeclareEx(Fl_Hor_Fill_Slider)
     ## original: declare function Fl_Hor_Fill_SliderNew(byval x as long, byval y as long, byval w as long, byval h as long, byval label as cstring=0) as Fl_Hor_Fill_Slider ptr
-    proc Fl_Hor_Fill_SliderNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=cast[cstring](0)):  ptr Fl_Hor_Fill_Slider {.cdecl, importc: "Fl_Hor_Fill_SliderNew", dynlib: fltk, discardable.}
+    proc Fl_Hor_Fill_SliderNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=nil):  ptr Fl_Hor_Fill_Slider {.cdecl, importc: "Fl_Hor_Fill_SliderNew", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_Hor_Fill_SliderDelete(byref sl as Fl_Hor_Fill_Slider ptr)
-    proc Fl_Hor_Fill_SliderDelete*( sl:  ptr Fl_Hor_Fill_Slider) {.cdecl, importc: "Fl_Hor_Fill_SliderDelete", dynlib: fltk, discardable.}
+    proc Fl_Hor_Fill_SliderDelete*( sl:  var ptr Fl_Hor_Fill_Slider) {.cdecl, importc: "Fl_Hor_Fill_SliderDelete", dynlib: fltk, discardable.}
 
     #_ ##########################################
     #_ # class Fl_Nice_Slider extends Fl_Slider #
     #_ ##########################################
     DeclareEx(Fl_Nice_Slider)
     ## original: declare function Fl_Nice_SliderNew(byval x as long, byval y as long, byval w as long, byval h as long, byval label as cstring=0) as Fl_Nice_Slider ptr
-    proc Fl_Nice_SliderNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=cast[cstring](0)):  ptr Fl_Nice_Slider {.cdecl, importc: "Fl_Nice_SliderNew", dynlib: fltk, discardable.}
+    proc Fl_Nice_SliderNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=nil):  ptr Fl_Nice_Slider {.cdecl, importc: "Fl_Nice_SliderNew", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_Nice_SliderDelete(byref sl as Fl_Nice_Slider ptr)
-    proc Fl_Nice_SliderDelete*( sl:  ptr Fl_Nice_Slider) {.cdecl, importc: "Fl_Nice_SliderDelete", dynlib: fltk, discardable.}
+    proc Fl_Nice_SliderDelete*( sl:  var ptr Fl_Nice_Slider) {.cdecl, importc: "Fl_Nice_SliderDelete", dynlib: fltk, discardable.}
 
     #_ ##############################################
     #_ # class Fl_Hor_Nice_Slider extends Fl_Slider #
     #_ ##############################################
     DeclareEx(Fl_Hor_Nice_Slider)
     ## original: declare function Fl_Hor_Nice_SliderNew(byval x as long, byval y as long, byval w as long, byval h as long, byval label as cstring=0) as Fl_Hor_Nice_Slider ptr
-    proc Fl_Hor_Nice_SliderNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=cast[cstring](0)):  ptr Fl_Hor_Nice_Slider {.cdecl, importc: "Fl_Hor_Nice_SliderNew", dynlib: fltk, discardable.}
+    proc Fl_Hor_Nice_SliderNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=nil):  ptr Fl_Hor_Nice_Slider {.cdecl, importc: "Fl_Hor_Nice_SliderNew", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_Hor_Nice_SliderDelete(byref sl as Fl_Hor_Nice_Slider ptr)
-    proc Fl_Hor_Nice_SliderDelete*( sl:  ptr Fl_Hor_Nice_Slider) {.cdecl, importc: "Fl_Hor_Nice_SliderDelete", dynlib: fltk, discardable.}
+    proc Fl_Hor_Nice_SliderDelete*( sl:  var ptr Fl_Hor_Nice_Slider) {.cdecl, importc: "Fl_Hor_Nice_SliderDelete", dynlib: fltk, discardable.}
 
     #_ ########################################
     #_ # class Fl_Scrollbar extends Fl_Slider #
     #_ ########################################
     DeclareEx(Fl_Scrollbar)
     ## original: declare function Fl_ScrollbarNew(byval x as long, byval y as long, byval w as long, byval h as long, byval label as cstring=0) as Fl_Scrollbar ptr
-    proc Fl_ScrollbarNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=cast[cstring](0)):  ptr Fl_Scrollbar {.cdecl, importc: "Fl_ScrollbarNew", dynlib: fltk, discardable.}
+    proc Fl_ScrollbarNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=nil):  ptr Fl_Scrollbar {.cdecl, importc: "Fl_ScrollbarNew", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_ScrollbarDelete(byref sb as Fl_Scrollbar ptr)
-    proc Fl_ScrollbarDelete*( sb:  ptr Fl_Scrollbar) {.cdecl, importc: "Fl_ScrollbarDelete", dynlib: fltk, discardable.}
+    proc Fl_ScrollbarDelete*( sb:  var ptr Fl_Scrollbar) {.cdecl, importc: "Fl_ScrollbarDelete", dynlib: fltk, discardable.}
 
     ## original: declare function Fl_ScrollbarHandle(byval sb as Fl_Scrollbar ptr, byval event as FL_EVENT) as long
     proc Fl_ScrollbarHandle* ( sb:  ptr Fl_Scrollbar;  event:  FL_EVENT):  long {.cdecl, importc: "Fl_ScrollbarHandle", dynlib: fltk, discardable.}
@@ -5448,9 +5455,9 @@ when not defined(FLTK_MAIN_BI):
     #_ ###########################################
     DeclareEx(Fl_Value_Slider)
     ## original: declare function Fl_Value_SliderNew(byval x as long, byval y as long, byval w as long, byval h as long, byval label as cstring=0) as Fl_Value_Slider ptr
-    proc Fl_Value_SliderNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=cast[cstring](0)):  ptr Fl_Value_Slider {.cdecl, importc: "Fl_Value_SliderNew", dynlib: fltk, discardable.}
+    proc Fl_Value_SliderNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=nil):  ptr Fl_Value_Slider {.cdecl, importc: "Fl_Value_SliderNew", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_Value_SliderDelete(byref sl as Fl_Value_Slider ptr)
-    proc Fl_Value_SliderDelete*( sl:  ptr Fl_Value_Slider) {.cdecl, importc: "Fl_Value_SliderDelete", dynlib: fltk, discardable.}
+    proc Fl_Value_SliderDelete*( sl:  var ptr Fl_Value_Slider) {.cdecl, importc: "Fl_Value_SliderDelete", dynlib: fltk, discardable.}
 
     ## original: declare function Fl_Value_SliderHandle(byval sl as Fl_Value_Slider ptr, byval event as FL_EVENT) as long
     proc Fl_Value_SliderHandle* ( sl:  ptr Fl_Value_Slider;  event:  FL_EVENT):  long {.cdecl, importc: "Fl_Value_SliderHandle", dynlib: fltk, discardable.}
@@ -5475,18 +5482,18 @@ when not defined(FLTK_MAIN_BI):
     #_ #####################################################
     DeclareEx(Fl_Hor_Value_Slider)
     ## original: declare function Fl_Hor_Value_SliderNew(byval x as long, byval y as long, byval w as long, byval h as long, byval label as cstring=0) as Fl_Hor_Value_Slider ptr
-    proc Fl_Hor_Value_SliderNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=cast[cstring](0)):  ptr Fl_Hor_Value_Slider {.cdecl, importc: "Fl_Hor_Value_SliderNew", dynlib: fltk, discardable.}
+    proc Fl_Hor_Value_SliderNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=nil):  ptr Fl_Hor_Value_Slider {.cdecl, importc: "Fl_Hor_Value_SliderNew", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_Hor_Value_SliderDelete(byref sl as Fl_Hor_Value_Slider ptr)
-    proc Fl_Hor_Value_SliderDelete*( sl:  ptr Fl_Hor_Value_Slider) {.cdecl, importc: "Fl_Hor_Value_SliderDelete", dynlib: fltk, discardable.}
+    proc Fl_Hor_Value_SliderDelete*( sl:  var ptr Fl_Hor_Value_Slider) {.cdecl, importc: "Fl_Hor_Value_SliderDelete", dynlib: fltk, discardable.}
 
     #_ ############################################
     #_ # class Fl_Value_Input extends Fl_Valuator #
     #_ ############################################
     DeclareEx(Fl_Value_Input)
     ## original: declare function Fl_Value_InputNew(byval x as long, byval y as long, byval w as long, byval h as long, byval label as cstring=0) as Fl_Value_Input ptr
-    proc Fl_Value_InputNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=cast[cstring](0)):  ptr Fl_Value_Input {.cdecl, importc: "Fl_Value_InputNew", dynlib: fltk, discardable.}
+    proc Fl_Value_InputNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=nil):  ptr Fl_Value_Input {.cdecl, importc: "Fl_Value_InputNew", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_Value_InputDelete(byref vi as Fl_Value_Input ptr)
-    proc Fl_Value_InputDelete*( vi:  ptr Fl_Value_Input) {.cdecl, importc: "Fl_Value_InputDelete", dynlib: fltk, discardable.}
+    proc Fl_Value_InputDelete*( vi:  var ptr Fl_Value_Input) {.cdecl, importc: "Fl_Value_InputDelete", dynlib: fltk, discardable.}
 
     ## original: declare function Fl_Value_InputHandle(byval vi as Fl_Value_Input ptr, byval event as FL_EVENT) as long
     proc Fl_Value_InputHandle* ( vi:  ptr Fl_Value_Input;  event:  FL_EVENT):  long {.cdecl, importc: "Fl_Value_InputHandle", dynlib: fltk, discardable.}
@@ -5529,9 +5536,9 @@ when not defined(FLTK_MAIN_BI):
     #_ #############################################
     DeclareEx(Fl_Value_Output)
     ## original: declare function Fl_Value_OutputNew(byval x as long, byval y as long, byval w as long, byval h as long, byval label as cstring=0) as Fl_Value_Output ptr
-    proc Fl_Value_OutputNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=cast[cstring](0)):  ptr Fl_Value_Output {.cdecl, importc: "Fl_Value_OutputNew", dynlib: fltk, discardable.}
+    proc Fl_Value_OutputNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=nil):  ptr Fl_Value_Output {.cdecl, importc: "Fl_Value_OutputNew", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_Value_OutputDelete(byref vo as Fl_Value_Output ptr)
-    proc Fl_Value_OutputDelete*( vo:  ptr Fl_Value_Output) {.cdecl, importc: "Fl_Value_OutputDelete", dynlib: fltk, discardable.}
+    proc Fl_Value_OutputDelete*( vo:  var ptr Fl_Value_Output) {.cdecl, importc: "Fl_Value_OutputDelete", dynlib: fltk, discardable.}
 
     ## original: declare function Fl_Value_OutputHandle(byval vo as Fl_Value_Output ptr, byval event as FL_EVENT) as long
     proc Fl_Value_OutputHandle* ( vo:  ptr Fl_Value_Output;  event:  FL_EVENT):  long {.cdecl, importc: "Fl_Value_OutputHandle", dynlib: fltk, discardable.}
@@ -5565,9 +5572,9 @@ when not defined(FLTK_MAIN_BI):
     DeclareEx(Fl_Group)
     #_  Creates a new Fl_Group widget using the given position, size, and label string.
     ## original: declare function Fl_GroupNew(byval x as long, byval y as long, byval w as long, byval h as long, byval label as cstring=0) as Fl_Group ptr
-    proc Fl_GroupNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=cast[cstring](0)):  ptr Fl_Group {.cdecl, importc: "Fl_GroupNew", dynlib: fltk, discardable.}
+    proc Fl_GroupNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=nil):  ptr Fl_Group {.cdecl, importc: "Fl_GroupNew", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_GroupDelete(byref grp as Fl_Group ptr)
-    proc Fl_GroupDelete*( grp:  ptr Fl_Group) {.cdecl, importc: "Fl_GroupDelete", dynlib: fltk, discardable.}
+    proc Fl_GroupDelete*( grp:  var ptr Fl_Group) {.cdecl, importc: "Fl_GroupDelete", dynlib: fltk, discardable.}
     #_  Handles the specified event
     ## original: declare function Fl_GroupHandle(byval grp as Fl_Group ptr, byval ev as FL_EVENT) as long
     proc Fl_GroupHandle* ( grp:  ptr Fl_Group;  ev:  FL_EVENT):  long {.cdecl, importc: "Fl_GroupHandle", dynlib: fltk, discardable.}
@@ -5615,9 +5622,9 @@ when not defined(FLTK_MAIN_BI):
     proc Fl_GroupResize*( grp:  ptr Fl_Group;  x:  long;  y:  long;  w:  long;  h:  long) {.cdecl, importc: "Fl_GroupResize", dynlib: fltk, discardable.}
     #_  The widget is removed from its current group (if any) and then inserted into this group.
     ## original: declare sub      Fl_GroupInsert(byval grp as Fl_Group ptr, byref widget as Fl_Widget ptr, byval before as Fl_Widget ptr)
-    proc Fl_GroupInsert*( grp:  ptr Fl_Group;  widget:  ptr Fl_Widget;  before:  ptr Fl_Widget) {.cdecl, importc: "Fl_GroupInsert", dynlib: fltk, discardable.}
+    proc Fl_GroupInsert*( grp:  ptr Fl_Group;  widget:  var ptr Fl_Widget;  before:  ptr Fl_Widget) {.cdecl, importc: "Fl_GroupInsert", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_GroupInsert2(byval grp as Fl_Group ptr, byref widget as Fl_Widget ptr, byval childIndex as long)
-    proc Fl_GroupInsert2*( grp:  ptr Fl_Group;  widget:  ptr Fl_Widget;  childIndex:  long) {.cdecl, importc: "Fl_GroupInsert2", dynlib: fltk, discardable.}
+    proc Fl_GroupInsert2*( grp:  ptr Fl_Group;  widget:  var ptr Fl_Widget;  childIndex:  long) {.cdecl, importc: "Fl_GroupInsert2", dynlib: fltk, discardable.}
     #_  Removes the widget at index from the group but does not delete it.
     ## original: declare sub      Fl_GroupRemove (byval grp as Fl_Group ptr, byval childIndex as long)
     proc Fl_GroupRemove*( grp:  ptr Fl_Group;  childIndex:  long) {.cdecl, importc: "Fl_GroupRemove", dynlib: fltk, discardable.}
@@ -5637,9 +5644,9 @@ when not defined(FLTK_MAIN_BI):
     #_ ##################################
     DeclareEx(Fl_Pack)
     ## original: declare function Fl_PackNew(byval x as long, byval y as long, byval w as long, byval h as long, byval label as cstring=0) as Fl_Pack ptr
-    proc Fl_PackNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=cast[cstring](0)):  ptr Fl_Pack {.cdecl, importc: "Fl_PackNew", dynlib: fltk, discardable.}
+    proc Fl_PackNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=nil):  ptr Fl_Pack {.cdecl, importc: "Fl_PackNew", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_PackDelete(byref pac as Fl_Pack ptr)
-    proc Fl_PackDelete*( pac:  ptr Fl_Pack) {.cdecl, importc: "Fl_PackDelete", dynlib: fltk, discardable.}
+    proc Fl_PackDelete*( pac:  var ptr Fl_Pack) {.cdecl, importc: "Fl_PackDelete", dynlib: fltk, discardable.}
 
     ## original: declare sub      Fl_PackSetSpacing(byval pac as Fl_Pack ptr, byval spacing as long)
     proc Fl_PackSetSpacing*( pac:  ptr Fl_Pack;  spacing:  long) {.cdecl, importc: "Fl_PackSetSpacing", dynlib: fltk, discardable.}
@@ -5653,9 +5660,9 @@ when not defined(FLTK_MAIN_BI):
     #_ # class Fl_Tile extends Fl_Group #
     #_ ##################################
     ## original: declare function Fl_TileNew(byval x as long, byval y as long, byval w as long, byval h as long, byval label as cstring=0) as Fl_Tile ptr
-    proc Fl_TileNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=cast[cstring](0)):  ptr Fl_Tile {.cdecl, importc: "Fl_TileNew", dynlib: fltk, discardable.}
+    proc Fl_TileNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=nil):  ptr Fl_Tile {.cdecl, importc: "Fl_TileNew", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_TileDelete(byref til as Fl_Tile ptr)
-    proc Fl_TileDelete*( til:  ptr Fl_Tile) {.cdecl, importc: "Fl_TileDelete", dynlib: fltk, discardable.}
+    proc Fl_TileDelete*( til:  var ptr Fl_Tile) {.cdecl, importc: "Fl_TileDelete", dynlib: fltk, discardable.}
 
     ## original: declare function Fl_TileHandle(byval til as Fl_Tile ptr, byval event as FL_EVENT) as long
     proc Fl_TileHandle* ( til:  ptr Fl_Tile;  event:  FL_EVENT):  long {.cdecl, importc: "Fl_TileHandle", dynlib: fltk, discardable.}
@@ -5675,9 +5682,9 @@ when not defined(FLTK_MAIN_BI):
     #_ ####################################
     DeclareEx(Fl_Scroll)
     ## original: declare function Fl_ScrollNew(byval x as long, byval y as long, byval w as long, byval h as long, byval label as cstring=0) as Fl_Scroll ptr
-    proc Fl_ScrollNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=cast[cstring](0)):  ptr Fl_Scroll {.cdecl, importc: "Fl_ScrollNew", dynlib: fltk, discardable.}
+    proc Fl_ScrollNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=nil):  ptr Fl_Scroll {.cdecl, importc: "Fl_ScrollNew", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_ScrollDelete(byref sc as Fl_Scroll ptr)
-    proc Fl_ScrollDelete*( sc:  ptr Fl_Scroll) {.cdecl, importc: "Fl_ScrollDelete", dynlib: fltk, discardable.}
+    proc Fl_ScrollDelete*( sc:  var ptr Fl_Scroll) {.cdecl, importc: "Fl_ScrollDelete", dynlib: fltk, discardable.}
 
     ## original: declare function Fl_ScrollHandle(byval sc as Fl_Scroll ptr, byval event as FL_EVENT) as long
     proc Fl_ScrollHandle* ( sc:  ptr Fl_Scroll;  event:  FL_EVENT):  long {.cdecl, importc: "Fl_ScrollHandle", dynlib: fltk, discardable.}
@@ -5788,9 +5795,9 @@ when not defined(FLTK_MAIN_BI):
     #_ ##############################################
     DeclareEx(Fl_Check_Browser)
     ## original: declare function Fl_Check_BrowserNew(byval x as long, byval y as long, byval w as long, byval h as long, byval label as cstring=0) as Fl_Check_Browser ptr
-    proc Fl_Check_BrowserNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=cast[cstring](0)):  ptr Fl_Check_Browser {.cdecl, importc: "Fl_Check_BrowserNew", dynlib: fltk, discardable.}
+    proc Fl_Check_BrowserNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=nil):  ptr Fl_Check_Browser {.cdecl, importc: "Fl_Check_BrowserNew", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_Check_BrowserDelete    (byref cb as Fl_Check_Browser ptr)
-    proc Fl_Check_BrowserDelete*( cb:  ptr Fl_Check_Browser) {.cdecl, importc: "Fl_Check_BrowserDelete", dynlib: fltk, discardable.}
+    proc Fl_Check_BrowserDelete*( cb:  var ptr Fl_Check_Browser) {.cdecl, importc: "Fl_Check_BrowserDelete", dynlib: fltk, discardable.}
 
     ## original: declare function Fl_Check_BrowserAdd       (byval cb as Fl_Check_Browser ptr, byval s as cstring) as long
     proc Fl_Check_BrowserAdd* ( cb:  ptr Fl_Check_Browser;  s:  cstring):  long {.cdecl, importc: "Fl_Check_BrowserAdd", dynlib: fltk, discardable.}
@@ -5824,7 +5831,7 @@ when not defined(FLTK_MAIN_BI):
     proc Fl_Check_BrowserGetChecked* ( cb:  ptr Fl_Check_Browser;  item:  long):  long {.cdecl, importc: "Fl_Check_BrowserGetChecked", dynlib: fltk, discardable.}
 
     ## original: declare function Fl_Check_BrowserText      (byval cb as Fl_Check_Browser ptr, byval item as long) as cstring
-    proc Fl_Check_BrowserText* ( cb:  ptr Fl_Check_Browser;  item:  long):  string {.cdecl, importc: "Fl_Check_BrowserText", dynlib: fltk, discardable.}
+    proc Fl_Check_BrowserText* ( cb:  ptr Fl_Check_Browser;  item:  long):  cstring {.cdecl, importc: "Fl_Check_BrowserText", dynlib: fltk, discardable.}
 
     ## original: declare function Fl_Check_BrowserValue     (byval cb as Fl_Check_Browser ptr) as long
     proc Fl_Check_BrowserValue* ( cb:  ptr Fl_Check_Browser):  long {.cdecl, importc: "Fl_Check_BrowserValue", dynlib: fltk, discardable.}
@@ -5835,9 +5842,9 @@ when not defined(FLTK_MAIN_BI):
     DeclareEx(Fl_Browser)
     #_  The constructor makes an empty browser.
     ## original: declare function Fl_BrowserNew(byval x as long, byval y as long, byval w as long, byval h as long, byval label as cstring=0) as Fl_Browser ptr
-    proc Fl_BrowserNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=cast[cstring](0)):  ptr Fl_Browser {.cdecl, importc: "Fl_BrowserNew", dynlib: fltk, discardable.}
+    proc Fl_BrowserNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=nil):  ptr Fl_Browser {.cdecl, importc: "Fl_BrowserNew", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_BrowserDelete(byref br as Fl_Browser ptr)
-    proc Fl_BrowserDelete*( br:  ptr Fl_Browser) {.cdecl, importc: "Fl_BrowserDelete", dynlib: fltk, discardable.}
+    proc Fl_BrowserDelete*( br:  var ptr Fl_Browser) {.cdecl, importc: "Fl_BrowserDelete", dynlib: fltk, discardable.}
     #_  Shows the entire Fl_Browser widget -- opposite of Fl_BrowserHide().
     ## original: declare sub      Fl_BrowserShow(byval br as Fl_Browser ptr)
     proc Fl_BrowserShow*( br:  ptr Fl_Browser) {.cdecl, importc: "Fl_BrowserShow", dynlib: fltk, discardable.}
@@ -5861,10 +5868,10 @@ when not defined(FLTK_MAIN_BI):
     proc Fl_BrowserLoad* ( br:  ptr Fl_Browser;  filename:  cstring):  long {.cdecl, importc: "Fl_BrowserLoad", dynlib: fltk, discardable.}
     #_  Adds a new line to the end of the browser.
     ## original: declare sub      Fl_BrowserAdd(byval br as Fl_Browser ptr, byval newtext as cstring, byval pData as any ptr=0)
-    proc Fl_BrowserAdd*( br:  ptr Fl_Browser;  newtext:  cstring;  pData:  cstring = cast[cstring](0)) {.cdecl, importc: "Fl_BrowserAdd", dynlib: fltk, discardable.}
+    proc Fl_BrowserAdd*( br:  ptr Fl_Browser;  newtext:  cstring;  pData:  pointer=nil) {.cdecl, importc: "Fl_BrowserAdd", dynlib: fltk, discardable.}
     #_  Insert a new entry whose label is newtext above given line, optional data d.
     ## original: declare sub      Fl_BrowserInsert(byval br as Fl_Browser ptr, byval line_ as long, byval newtext as cstring, byval pDatat as any ptr=0)
-    proc Fl_BrowserInsert*( br:  ptr Fl_Browser;  line_TT:  long;  newtext:  cstring;  pDatat:  ptr int = cast[ptr int](0)) {.cdecl, importc: "Fl_BrowserInsert", dynlib: fltk, discardable.}
+    proc Fl_BrowserInsert*( br:  ptr Fl_Browser;  line_TT:  long;  newtext:  cstring;  pDatat:  pointer=nil) {.cdecl, importc: "Fl_BrowserInsert", dynlib: fltk, discardable.}
     #_  Remove entry for given line number, making the browser one line shorter.
     ## original: declare sub      Fl_BrowserRemove(byval br as Fl_Browser ptr, byval line_ as long)
     proc Fl_BrowserRemove*( br:  ptr Fl_Browser;  line_TT:  long) {.cdecl, importc: "Fl_BrowserRemove", dynlib: fltk, discardable.}
@@ -5967,9 +5974,9 @@ when not defined(FLTK_MAIN_BI):
     #_ ############################################
     DeclareEx(Fl_File_Browser)
     ## original: declare function Fl_File_BrowserNew(byval x as long, byval y as long, byval w as long, byval h as long, byval label as cstring=0) as Fl_File_Browser ptr
-    proc Fl_File_BrowserNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=cast[cstring](0)):  ptr Fl_File_Browser {.cdecl, importc: "Fl_File_BrowserNew", dynlib: fltk, discardable.}
+    proc Fl_File_BrowserNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=nil):  ptr Fl_File_Browser {.cdecl, importc: "Fl_File_BrowserNew", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_File_BrowserDelete(byref f as Fl_File_Browser ptr)
-    proc Fl_File_BrowserDelete*( f:  ptr Fl_File_Browser) {.cdecl, importc: "Fl_File_BrowserDelete", dynlib: fltk, discardable.}
+    proc Fl_File_BrowserDelete*( f:  var ptr Fl_File_Browser) {.cdecl, importc: "Fl_File_BrowserDelete", dynlib: fltk, discardable.}
 
     ## original: declare function Fl_File_BrowserLoad(byval f as Fl_File_Browser ptr, byval directory as cstring) as long
     proc Fl_File_BrowserLoad* ( f:  ptr Fl_File_Browser;  directory:  cstring):  long {.cdecl, importc: "Fl_File_BrowserLoad", dynlib: fltk, discardable.}
@@ -5999,36 +6006,36 @@ when not defined(FLTK_MAIN_BI):
     #_ ############################################
     DeclareEx(Fl_Hold_Browser)
     ## original: declare function Fl_Hold_BrowserNew(byval x as long, byval y as long, byval w as long, byval h as long, byval label as cstring=0) as Fl_Hold_Browser ptr
-    proc Fl_Hold_BrowserNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=cast[cstring](0)):  ptr Fl_Hold_Browser {.cdecl, importc: "Fl_Hold_BrowserNew", dynlib: fltk, discardable.}
+    proc Fl_Hold_BrowserNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=nil):  ptr Fl_Hold_Browser {.cdecl, importc: "Fl_Hold_BrowserNew", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_Hold_BrowserDelete(byref br as Fl_Hold_Browser ptr)
-    proc Fl_Hold_BrowserDelete*( br:  ptr Fl_Hold_Browser) {.cdecl, importc: "Fl_Hold_BrowserDelete", dynlib: fltk, discardable.}
+    proc Fl_Hold_BrowserDelete*( br:  var ptr Fl_Hold_Browser) {.cdecl, importc: "Fl_Hold_BrowserDelete", dynlib: fltk, discardable.}
 
     #_ #############################################
     #_ # class Fl_Multi_Browser extends Fl_Browser #
     #_ #############################################
     DeclareEx(Fl_Multi_Browser)
     ## original: declare function Fl_Multi_BrowserNew(byval x as long, byval y as long, byval w as long, byval h as long, byval label as cstring=0) as Fl_Multi_Browser ptr
-    proc Fl_Multi_BrowserNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=cast[cstring](0)):  ptr Fl_Multi_Browser {.cdecl, importc: "Fl_Multi_BrowserNew", dynlib: fltk, discardable.}
+    proc Fl_Multi_BrowserNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=nil):  ptr Fl_Multi_Browser {.cdecl, importc: "Fl_Multi_BrowserNew", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_Multi_BrowserDelete(byref br as Fl_Multi_Browser ptr)
-    proc Fl_Multi_BrowserDelete*( br:  ptr Fl_Multi_Browser) {.cdecl, importc: "Fl_Multi_BrowserDelete", dynlib: fltk, discardable.}
+    proc Fl_Multi_BrowserDelete*( br:  var ptr Fl_Multi_Browser) {.cdecl, importc: "Fl_Multi_BrowserDelete", dynlib: fltk, discardable.}
 
     #_ ##############################################
     #_ # class Fl_Select_Browser extends Fl_Browser #
     #_ ##############################################
     DeclareEx(Fl_Select_Browser)
     ## original: declare function Fl_Select_BrowserNew(byval x as long, byval y as long, byval w as long, byval h as long, byval label as cstring=0) as Fl_Select_Browser ptr
-    proc Fl_Select_BrowserNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=cast[cstring](0)):  ptr Fl_Select_Browser {.cdecl, importc: "Fl_Select_BrowserNew", dynlib: fltk, discardable.}
+    proc Fl_Select_BrowserNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=nil):  ptr Fl_Select_Browser {.cdecl, importc: "Fl_Select_BrowserNew", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_Select_BrowserDelete(byref br as Fl_Select_Browser ptr)
-    proc Fl_Select_BrowserDelete*( br:  ptr Fl_Select_Browser) {.cdecl, importc: "Fl_Select_BrowserDelete", dynlib: fltk, discardable.}
+    proc Fl_Select_BrowserDelete*( br:  var ptr Fl_Select_Browser) {.cdecl, importc: "Fl_Select_BrowserDelete", dynlib: fltk, discardable.}
 
     #_ ###########################################
     #_ # class Fl_Color_Chooser extends Fl_Group #
     #_ ###########################################
     DeclareEx(Fl_Color_Chooser)
     ## original: declare function Fl_Color_ChooserNew(byval x as long, byval y as long, byval w as long, byval h as long, byval label as cstring=0) as Fl_Color_Chooser ptr
-    proc Fl_Color_ChooserNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=cast[cstring](0)):  ptr Fl_Color_Chooser {.cdecl, importc: "Fl_Color_ChooserNew", dynlib: fltk, discardable.}
+    proc Fl_Color_ChooserNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=nil):  ptr Fl_Color_Chooser {.cdecl, importc: "Fl_Color_ChooserNew", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_Color_ChooserDelete(byref cc as Fl_Color_Chooser ptr)
-    proc Fl_Color_ChooserDelete*( cc:  ptr Fl_Color_Chooser) {.cdecl, importc: "Fl_Color_ChooserDelete", dynlib: fltk, discardable.}
+    proc Fl_Color_ChooserDelete*( cc:  var ptr Fl_Color_Chooser) {.cdecl, importc: "Fl_Color_ChooserDelete", dynlib: fltk, discardable.}
 
     ## original: declare sub      Fl_Color_ChooserSetMode(byval cc as Fl_Color_Chooser ptr, byval newMode as FL_ColorChooserModes)
     proc Fl_Color_ChooserSetMode*( cc:  ptr Fl_Color_Chooser;  newMode:  FL_ColorChooserModes) {.cdecl, importc: "Fl_Color_ChooserSetMode", dynlib: fltk, discardable.}
@@ -6057,17 +6064,17 @@ when not defined(FLTK_MAIN_BI):
     proc Fl_Color_ChooserValue* ( cc:  ptr Fl_Color_Chooser):  double {.cdecl, importc: "Fl_Color_ChooserValue", dynlib: fltk, discardable.}
 
     ## original: declare sub      Fl_Color_ChooserHSV2RGB(byval cc as Fl_Color_Chooser ptr, byval h as double, byval s as double, byval v as double, byref r as double, byref g as double, byref b as double)
-    proc Fl_Color_ChooserHSV2RGB*( cc:  ptr Fl_Color_Chooser;  h:  double;  s:  double;  v:  double;  r:  double;  g:  double;  b:  double) {.cdecl, importc: "Fl_Color_ChooserHSV2RGB", dynlib: fltk, discardable.}
+    proc Fl_Color_ChooserHSV2RGB*( cc:  ptr Fl_Color_Chooser;  h:  double;  s:  double;  v:  double;  r:  var double;  g:  var double;  b:  var double) {.cdecl, importc: "Fl_Color_ChooserHSV2RGB", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_Color_ChooserRGB2HSV(byval cc as Fl_Color_Chooser ptr, byval r as double, byval g as double, byval b as double, byref h as double, byref s as double, byref v as double)
-    proc Fl_Color_ChooserRGB2HSV*( cc:  ptr Fl_Color_Chooser;  r:  double;  g:  double;  b:  double;  h:  double;  s:  double;  v:  double) {.cdecl, importc: "Fl_Color_ChooserRGB2HSV", dynlib: fltk, discardable.}
+    proc Fl_Color_ChooserRGB2HSV*( cc:  ptr Fl_Color_Chooser;  r:  double;  g:  double;  b:  double;  h:  var double;  s:  var double;  v:  var double) {.cdecl, importc: "Fl_Color_ChooserRGB2HSV", dynlib: fltk, discardable.}
 
     #_ #######################################
     #_ # class Fl_Help_View extends Fl_Group #
     #_ #######################################
     ## original: declare function Fl_Help_ViewNew(byval x as long, byval y as long, byval w as long, byval h as long, byval label as cstring=0) as Fl_Help_View ptr
-    proc Fl_Help_ViewNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=cast[cstring](0)):  ptr Fl_Help_View {.cdecl, importc: "Fl_Help_ViewNew", dynlib: fltk, discardable.}
+    proc Fl_Help_ViewNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=nil):  ptr Fl_Help_View {.cdecl, importc: "Fl_Help_ViewNew", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_Help_ViewDelete(byref hv as Fl_Help_View ptr)
-    proc Fl_Help_ViewDelete*( hv:  ptr Fl_Help_View) {.cdecl, importc: "Fl_Help_ViewDelete", dynlib: fltk, discardable.}
+    proc Fl_Help_ViewDelete*( hv:  var ptr Fl_Help_View) {.cdecl, importc: "Fl_Help_ViewDelete", dynlib: fltk, discardable.}
 
     ## original: declare sub      Fl_Help_ViewClearSelection(byval hv as Fl_Help_View ptr)
     proc Fl_Help_ViewClearSelection*( hv:  ptr Fl_Help_View) {.cdecl, importc: "Fl_Help_ViewClearSelection", dynlib: fltk, discardable.}
@@ -6144,9 +6151,9 @@ when not defined(FLTK_MAIN_BI):
     #_ ##########################################
     DeclareEx(Fl_Input_Choice)
     ## original: declare function Fl_Input_ChoiceNew(byval x as long, byval y as long, byval w as long, byval h as long, byval label as cstring=0) as Fl_Input_Choice ptr
-    proc Fl_Input_ChoiceNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=cast[cstring](0)):  ptr Fl_Input_Choice {.cdecl, importc: "Fl_Input_ChoiceNew", dynlib: fltk, discardable.}
+    proc Fl_Input_ChoiceNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=nil):  ptr Fl_Input_Choice {.cdecl, importc: "Fl_Input_ChoiceNew", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_Input_ChoiceDelete(byref ic as Fl_Input_Choice ptr)
-    proc Fl_Input_ChoiceDelete*( ic:  ptr Fl_Input_Choice) {.cdecl, importc: "Fl_Input_ChoiceDelete", dynlib: fltk, discardable.}
+    proc Fl_Input_ChoiceDelete*( ic:  var ptr Fl_Input_Choice) {.cdecl, importc: "Fl_Input_ChoiceDelete", dynlib: fltk, discardable.}
 
     ## original: declare sub      Fl_Input_ChoiceAdd(byval ic as Fl_Input_Choice ptr, byval s as cstring)
     proc Fl_Input_ChoiceAdd*( ic:  ptr Fl_Input_Choice;  s:  cstring) {.cdecl, importc: "Fl_Input_ChoiceAdd", dynlib: fltk, discardable.}
@@ -6209,9 +6216,9 @@ when not defined(FLTK_MAIN_BI):
     #_ # class Fl_Spinner extends Fl_Group #
     #_ #####################################
     ## original: declare function Fl_SpinnerNew(byval x as long, byval y as long, byval w as long, byval h as long, byval label as cstring=0) as Fl_Spinner ptr
-    proc Fl_SpinnerNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=cast[cstring](0)):  ptr Fl_Spinner {.cdecl, importc: "Fl_SpinnerNew", dynlib: fltk, discardable.}
+    proc Fl_SpinnerNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=nil):  ptr Fl_Spinner {.cdecl, importc: "Fl_SpinnerNew", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_SpinnerDelete(byref spi as Fl_Spinner ptr)
-    proc Fl_SpinnerDelete*( spi:  ptr Fl_Spinner) {.cdecl, importc: "Fl_SpinnerDelete", dynlib: fltk, discardable.}
+    proc Fl_SpinnerDelete*( spi:  var ptr Fl_Spinner) {.cdecl, importc: "Fl_SpinnerDelete", dynlib: fltk, discardable.}
 
     ## original: declare sub      Fl_SpinnerSetColor(byval spi as Fl_Spinner ptr, byval c as Fl_COLOR)
     proc Fl_SpinnerSetColor*( spi:  ptr Fl_Spinner;  c:  Fl_COLOR) {.cdecl, importc: "Fl_SpinnerSetColor", dynlib: fltk, discardable.}
@@ -6276,9 +6283,9 @@ when not defined(FLTK_MAIN_BI):
     #_ # class Fl_Table extends Fl_Group #
     #_ ###################################
     ## original: declare function Fl_TableNew(byval x as long, byval y as long, byval w as long, byval h as long, byval label as cstring=0) as Fl_Table ptr
-    proc Fl_TableNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=cast[cstring](0)):  ptr Fl_Table {.cdecl, importc: "Fl_TableNew", dynlib: fltk, discardable.}
+    proc Fl_TableNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=nil):  ptr Fl_Table {.cdecl, importc: "Fl_TableNew", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_TableDelete(byref t as Fl_Table ptr)
-    proc Fl_TableDelete*( t:  ptr Fl_Table) {.cdecl, importc: "Fl_TableDelete", dynlib: fltk, discardable.}
+    proc Fl_TableDelete*( t:  var ptr Fl_Table) {.cdecl, importc: "Fl_TableDelete", dynlib: fltk, discardable.}
     #_  Sets the current group so you can build the widget tree by just constructing the widgets.
     ## original: declare sub      Fl_TableBegin(byval t as Fl_Table ptr)
     proc Fl_TableBegin*( t:  ptr Fl_Table) {.cdecl, importc: "Fl_TableBegin", dynlib: fltk, discardable.}
@@ -6371,7 +6378,7 @@ when not defined(FLTK_MAIN_BI):
     ## original: declare sub      Fl_TableSetSelection(byval t as Fl_Table ptr, byval row_top as long, byval col_left as long, byval row_bot as long, byval col_right as long)
     proc Fl_TableSetSelection*( t:  ptr Fl_Table;  row_top:  long;  col_left:  long;  row_bot:  long;  col_right:  long) {.cdecl, importc: "Fl_TableSetSelection", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_TableGetSelection(byval t as Fl_Table ptr, byref row_top as long, byref col_left as long, byref row_bot as long, byref col_right as long)
-    proc Fl_TableGetSelection*( t:  ptr Fl_Table;  row_top:  long;  col_left:  long;  row_bot:  long;  col_right:  long) {.cdecl, importc: "Fl_TableGetSelection", dynlib: fltk, discardable.}
+    proc Fl_TableGetSelection*( t:  ptr Fl_Table;  row_top:  var long;  col_left:  var long;  row_bot:  var long;  col_right:  var long) {.cdecl, importc: "Fl_TableGetSelection", dynlib: fltk, discardable.}
     #_  Resets the internal array of widget sizes and positions.
     ## original: declare sub      Fl_TableInitSizes(byval t as Fl_Table ptr)
     proc Fl_TableInitSizes*( t:  ptr Fl_Table) {.cdecl, importc: "Fl_TableInitSizes", dynlib: fltk, discardable.}
@@ -6456,7 +6463,7 @@ when not defined(FLTK_MAIN_BI):
     proc Fl_TableGetTopRow* ( t:  ptr Fl_Table):  long {.cdecl, importc: "Fl_TableGetTopRow", dynlib: fltk, discardable.}
     #_  Returns the range of row and column numbers for all visible and partially visible cells in the table.
     ## original: declare sub      Fl_TableVisibleCells(byval t as Fl_Table ptr, byref r1 as long, byref r2 as long, byref c1 as long, byref c2 as long)
-    proc Fl_TableVisibleCells*( t:  ptr Fl_Table;  r1:  long;  r2:  long;  c1:  long;  c2:  long) {.cdecl, importc: "Fl_TableVisibleCells", dynlib: fltk, discardable.}
+    proc Fl_TableVisibleCells*( t:  ptr Fl_Table;  r1:  var long;  r2:  var long;  c1:  var long;  c2:  var long) {.cdecl, importc: "Fl_TableVisibleCells", dynlib: fltk, discardable.}
 
     ## original: declare sub      Fl_TableWhen(byval t as Fl_Table ptr, byval flags as FL_WHEN)
     proc Fl_TableWhen*( t:  ptr Fl_Table;  flags:  FL_WHEN) {.cdecl, importc: "Fl_TableWhen", dynlib: fltk, discardable.}
@@ -6465,11 +6472,11 @@ when not defined(FLTK_MAIN_BI):
     #_ # class Fl_TableEx extends Fl_Table #
     #_ #####################################
     ## original: declare function Fl_TableExNew(byval x as long, byval y as long, byval w as long, byval h as long, byval label as cstring=0) as Fl_TableEx ptr
-    proc Fl_TableExNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=cast[cstring](0)):  ptr Fl_TableEx {.cdecl, importc: "Fl_TableExNew", dynlib: fltk, discardable.}
+    proc Fl_TableExNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=nil):  ptr Fl_TableEx {.cdecl, importc: "Fl_TableExNew", dynlib: fltk, discardable.}
     ## original: declare function Fl_TableExHandleBase   (byval tex as Fl_TableEx ptr, byval event as FL_EVENT) as long
     proc Fl_TableExHandleBase* ( tex:  ptr Fl_TableEx;  event:  FL_EVENT):  long {.cdecl, importc: "Fl_TableExHandleBase", dynlib: fltk, discardable.}
     ## original: declare function Fl_TableExFindCell     (byval tex as Fl_TableEx ptr, byval ctx as FL_TABLECONTEXT, byval r as long, byval c as long, byref x as long, byref y as long, byref w as long, byref h as long) as long
-    proc Fl_TableExFindCell* ( tex:  ptr Fl_TableEx;  ctx:  FL_TABLECONTEXT;  r:  long;  c:  long;  x:  long;  y:  long;  w:  long;  h:  long):  long {.cdecl, importc: "Fl_TableExFindCell", dynlib: fltk, discardable.}
+    proc Fl_TableExFindCell* ( tex:  ptr Fl_TableEx;  ctx:  FL_TABLECONTEXT;  r:  long;  c:  long;  x:  var long;  y:  var long;  w:  var long;  h:  var long):  long {.cdecl, importc: "Fl_TableExFindCell", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_TableExSetDrawCB    (byval tex as Fl_TableEx ptr, byval cb as Fl_DrawEx)
     proc Fl_TableExSetDrawCB*( tex:  ptr Fl_TableEx;  cb:  Fl_DrawEx) {.cdecl, importc: "Fl_TableExSetDrawCB", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_TableExSetDrawCellCB(byval tex as Fl_TableEx ptr, byval cb as Fl_DrawcellEx)
@@ -6483,7 +6490,7 @@ when not defined(FLTK_MAIN_BI):
     #_ # class Fl_Table_Row extends Fl_Table #
     #_ #######################################
     ## original: declare function Fl_Table_RowNew(byval x as long, byval y as long, byval w as long, byval h as long, byval label as cstring=0) as Fl_Table_Row ptr
-    proc Fl_Table_RowNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=cast[cstring](0)):  ptr Fl_Table_Row {.cdecl, importc: "Fl_Table_RowNew", dynlib: fltk, discardable.}
+    proc Fl_Table_RowNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=nil):  ptr Fl_Table_Row {.cdecl, importc: "Fl_Table_RowNew", dynlib: fltk, discardable.}
 
     ## original: declare sub      Fl_Table_RowClear(byval tr as Fl_Table_Row ptr)
     proc Fl_Table_RowClear*( tr:  ptr Fl_Table_Row) {.cdecl, importc: "Fl_Table_RowClear", dynlib: fltk, discardable.}
@@ -6513,11 +6520,11 @@ when not defined(FLTK_MAIN_BI):
     #_ # class Fl_Table_RowEx extends Fl_Table_Row #
     #_ #############################################
     ## original: declare function Fl_Table_RowExNew(byval x as long, byval y as long, byval w as long, byval h as long, byval label as cstring=0) as Fl_Table_RowEx ptr
-    proc Fl_Table_RowExNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=cast[cstring](0)):  ptr Fl_Table_RowEx {.cdecl, importc: "Fl_Table_RowExNew", dynlib: fltk, discardable.}
+    proc Fl_Table_RowExNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=nil):  ptr Fl_Table_RowEx {.cdecl, importc: "Fl_Table_RowExNew", dynlib: fltk, discardable.}
     ## original: declare function Fl_Table_RowExHandleBase   (byval tex as Fl_Table_RowEx ptr, byval event as FL_EVENT) as long
     proc Fl_Table_RowExHandleBase* ( tex:  ptr Fl_Table_RowEx;  event:  FL_EVENT):  long {.cdecl, importc: "Fl_Table_RowExHandleBase", dynlib: fltk, discardable.}
     ## original: declare function Fl_Table_RowExFindCell     (byval tex as Fl_Table_RowEx ptr, byval ctx as FL_TABLECONTEXT, byval r as long, byval c as long, byref x as long, byref y as long, byref w as long, byref h as long) as long
-    proc Fl_Table_RowExFindCell* ( tex:  ptr Fl_Table_RowEx;  ctx:  FL_TABLECONTEXT;  r:  long;  c:  long;  x:  long;  y:  long;  w:  long;  h:  long):  long {.cdecl, importc: "Fl_Table_RowExFindCell", dynlib: fltk, discardable.}
+    proc Fl_Table_RowExFindCell* ( tex:  ptr Fl_Table_RowEx;  ctx:  FL_TABLECONTEXT;  r:  long;  c:  long;  x:  var long;  y:  var long;  w:  var long;  h:  var long):  long {.cdecl, importc: "Fl_Table_RowExFindCell", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_Table_RowExSetDrawCB    (byval tex as Fl_Table_RowEx ptr, byval cb as Fl_DrawEx)
     proc Fl_Table_RowExSetDrawCB*( tex:  ptr Fl_Table_RowEx;  cb:  Fl_DrawEx) {.cdecl, importc: "Fl_Table_RowExSetDrawCB", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_Table_RowExSetDrawCellCB(byval tex as Fl_Table_RowEx ptr, byval cb as Fl_DrawcellEx)
@@ -6533,15 +6540,15 @@ when not defined(FLTK_MAIN_BI):
     DeclareEx(Fl_Tabs)
     #_  Creates a new Fl_Tabs widget using the given position, size, and label string.
     ## original: declare function Fl_TabsNew(byval x as long, byval y as long, byval w as long, byval h as long, byval label as cstring=0) as Fl_Tabs ptr
-    proc Fl_TabsNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=cast[cstring](0)):  ptr Fl_Tabs {.cdecl, importc: "Fl_TabsNew", dynlib: fltk, discardable.}
+    proc Fl_TabsNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=nil):  ptr Fl_Tabs {.cdecl, importc: "Fl_TabsNew", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_TabsdDelete(byref tbs as Fl_Tabs ptr)
-    proc Fl_TabsdDelete*( tbs:  ptr Fl_Tabs) {.cdecl, importc: "Fl_TabsdDelete", dynlib: fltk, discardable.}
+    proc Fl_TabsdDelete*( tbs:  var ptr Fl_Tabs) {.cdecl, importc: "Fl_TabsdDelete", dynlib: fltk, discardable.}
 
     ## original: declare function Fl_TabsHandle(byval tbs as Fl_Tabs ptr, byval event as FL_EVENT) as long
     proc Fl_TabsHandle* ( tbs:  ptr Fl_Tabs;  event:  FL_EVENT):  long {.cdecl, importc: "Fl_TabsHandle", dynlib: fltk, discardable.}
     #_  Returns the position and size available to be used by its children.
     ## original: declare sub      Fl_TabsClientArea(byval tbs as Fl_Tabs ptr, byref rx as long, byref ry as long, byref rw as long, byref rh as long, byval tabh as long=0)
-    proc Fl_TabsClientArea*( tbs:  ptr Fl_Tabs;  rx:  long;  ry:  long;  rw:  long;  rh:  long;  tabh:  long=0) {.cdecl, importc: "Fl_TabsClientArea", dynlib: fltk, discardable.}
+    proc Fl_TabsClientArea*( tbs:  ptr Fl_Tabs;  rx:  var long;  ry:  var long;  rw:  var long;  rh:  var long;  tabh:  long=0) {.cdecl, importc: "Fl_TabsClientArea", dynlib: fltk, discardable.}
     #_  This is called by the tab widget's handle() method to set the tab group widget the user last FL_PUSH'ed on.
     ## original: declare function Fl_TabsSetPush(byval tbs as Fl_Tabs ptr, byval wgt as Fl_Widget ptr) as long
     proc Fl_TabsSetPush* ( tbs:  ptr Fl_Tabs;  wgt:  ptr Fl_Widget):  long {.cdecl, importc: "Fl_TabsSetPush", dynlib: fltk, discardable.}
@@ -6599,7 +6606,7 @@ when not defined(FLTK_MAIN_BI):
     proc Fl_Text_BufferNew* ( requestedSize:  long=0;  preferredGapSize:  long=1024):  ptr Fl_Text_buffer {.cdecl, importc: "Fl_Text_BufferNew", dynlib: fltk, discardable.}
     #_  Frees a text buffer.
     ## original: declare sub      Fl_Text_BufferDelete(byref tb as Fl_Text_Buffer ptr)
-    proc Fl_Text_BufferDelete*( tb:  ptr Fl_Text_Buffer) {.cdecl, importc: "Fl_Text_BufferDelete", dynlib: fltk, discardable.}
+    proc Fl_Text_BufferDelete*( tb:  var ptr Fl_Text_Buffer) {.cdecl, importc: "Fl_Text_BufferDelete", dynlib: fltk, discardable.}
     #_  Adds a callback function that is called whenever the text buffer is modified.
     ## original: declare sub      Fl_Text_BufferAddModifyCallback(byval tb as Fl_Text_Buffer ptr, byval cb as Fl_Text_Modify_Cb, byval cbArg as any ptr)
     proc Fl_Text_BufferAddModifyCallback*( tb:  ptr Fl_Text_Buffer;  cb:  Fl_Text_Modify_Cb;  cbArg:  ptr any) {.cdecl, importc: "Fl_Text_BufferAddModifyCallback", dynlib: fltk, discardable.}
@@ -6788,7 +6795,7 @@ when not defined(FLTK_MAIN_BI):
     proc Fl_Text_BufferGetTabDistance* ( tb:  ptr Fl_Text_Buffer):  long {.cdecl, importc: "Fl_Text_BufferGetTabDistance", dynlib: fltk, discardable.}
     #_  Replaces the entire contents of the text buffer.
     ## original: declare sub      Fl_Text_BufferSetText(byval tb as Fl_Text_Buffer ptr, byval text as cstring=0)
-    proc Fl_Text_BufferSetText*( tb:  ptr Fl_Text_Buffer;  text:  cstring=cast[cstring](0)) {.cdecl, importc: "Fl_Text_BufferSetText", dynlib: fltk, discardable.}
+    proc Fl_Text_BufferSetText*( tb:  ptr Fl_Text_Buffer;  text:  cstring=nil) {.cdecl, importc: "Fl_Text_BufferSetText", dynlib: fltk, discardable.}
     #_  Get a copy of the entire contents of the text buffer.
     ## original: declare function Fl_Text_BufferGetText(byval tb as Fl_Text_Buffer ptr) as cstring
     proc Fl_Text_BufferGetText* ( tb:  ptr Fl_Text_Buffer):  cstring {.cdecl, importc: "Fl_Text_BufferGetText", dynlib: fltk, discardable.}
@@ -6819,9 +6826,9 @@ when not defined(FLTK_MAIN_BI):
     #_ ##########################################
     #~ DeclareEx(Fl_Text_Display)
     ## original: declare function Fl_Text_DisplayNew(byval x as long, byval y as long, byval w as long, byval h as long, byval label as cstring=0) as Fl_Text_Display ptr
-    proc Fl_Text_DisplayNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=cast[cstring](0)):  ptr Fl_Text_Display {.cdecl, importc: "Fl_Text_DisplayNew", dynlib: fltk, discardable.}
+    proc Fl_Text_DisplayNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=nil):  ptr Fl_Text_Display {.cdecl, importc: "Fl_Text_DisplayNew", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_Text_DisplayDelete(byref td as Fl_Text_Display ptr)
-    proc Fl_Text_DisplayDelete*( td:  ptr Fl_Text_Display) {.cdecl, importc: "Fl_Text_DisplayDelete", dynlib: fltk, discardable.}
+    proc Fl_Text_DisplayDelete*( td:  var ptr Fl_Text_Display) {.cdecl, importc: "Fl_Text_DisplayDelete", dynlib: fltk, discardable.}
 
     ## original: declare function Fl_Text_DisplayHandle(byval td as Fl_Text_Display ptr, byval event as FL_EVENT) as long
     proc Fl_Text_DisplayHandle* ( td:  ptr Fl_Text_Display;  event:  FL_EVENT):  long {.cdecl, importc: "Fl_Text_DisplayHandle", dynlib: fltk, discardable.}
@@ -6833,7 +6840,7 @@ when not defined(FLTK_MAIN_BI):
     proc Fl_Text_DisplayGetBuffer* ( td:  ptr Fl_Text_Display):  ptr Fl_Text_Buffer {.cdecl, importc: "Fl_Text_DisplayGetBuffer", dynlib: fltk, discardable.}
     #_  Attach (or remove) highlight information in text display and redisplay.
     ## original: declare sub      Fl_Text_DisplayHighlightData(byval td as Fl_Text_Display ptr, byval pStylebuf as Fl_Text_Buffer ptr, byval pStyles as Style_Table_Entry ptr, byval nStyles as long, byval unfinishedStyle as byte=0, byval cb as Unfinished_Style_Cb=0, byval cbArg as any ptr=0)
-    proc Fl_Text_DisplayHighlightData*( td:  ptr Fl_Text_Display;  pStylebuf:  ptr Fl_Text_Buffer;  pStyles:  ptr Style_Table_Entry;  nStyles:  long;  unfinishedStyle:  byte=0;  cb:  Unfinished_Style_Cb=cast[Unfinished_Style_Cb](0);  cbArg:  ptr int=cast[ptr int](0)) {.cdecl, importc: "Fl_Text_DisplayHighlightData", dynlib: fltk, discardable.}
+    proc Fl_Text_DisplayHighlightData*( td:  ptr Fl_Text_Display;  pStylebuf:  ptr Fl_Text_Buffer;  pStyles:  ptr Style_Table_Entry;  nStyles:  long;  unfinishedStyle:  byte=0;  cb:  Unfinished_Style_Cb=cast[Unfinished_Style_Cb](0);  cbArg:  pointer=nil) {.cdecl, importc: "Fl_Text_DisplayHighlightData", dynlib: fltk, discardable.}
     #_  Count the number of lines between two positions.
     ## original: declare function Fl_Text_DisplayCountLines(byval td as Fl_Text_Display ptr, byval start as long, byval end_ as long, byval start_pos_is_line_start as byte) as long
     proc Fl_Text_DisplayCountLines* ( td:  ptr Fl_Text_Display;  start:  long;  end_TT:  long;  start_pos_is_line_start:  byte):  long {.cdecl, importc: "Fl_Text_DisplayCountLines", dynlib: fltk, discardable.}
@@ -7004,9 +7011,9 @@ when not defined(FLTK_MAIN_BI):
     #_ # class Fl_Text_Editor extends Fl_Text_Display #
     #_ ################################################
     ## original: declare function Fl_Text_EditorNew(byval x as long, byval y as long, byval w as long, byval h as long, byval label as cstring=0) as Fl_Text_Editor ptr
-    proc Fl_Text_EditorNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=cast[cstring](0)):  ptr Fl_Text_Editor {.cdecl, importc: "Fl_Text_EditorNew", dynlib: fltk, discardable.}
+    proc Fl_Text_EditorNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=nil):  ptr Fl_Text_Editor {.cdecl, importc: "Fl_Text_EditorNew", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_Text_EditorDelete(byref te as Fl_Text_Editor ptr)
-    proc Fl_Text_EditorDelete*( te:  ptr Fl_Text_Editor) {.cdecl, importc: "Fl_Text_EditorDelete", dynlib: fltk, discardable.}
+    proc Fl_Text_EditorDelete*( te:  var ptr Fl_Text_Editor) {.cdecl, importc: "Fl_Text_EditorDelete", dynlib: fltk, discardable.}
 
     ## original: declare function Fl_Text_EditorHandle(byval te as Fl_Text_Editor ptr, byval e as FL_EVENT) as long
     proc Fl_Text_EditorHandle* ( te:  ptr Fl_Text_Editor;  e:  FL_EVENT):  long {.cdecl, importc: "Fl_Text_EditorHandle", dynlib: fltk, discardable.}
@@ -7227,7 +7234,7 @@ when not defined(FLTK_MAIN_BI):
     ## original: declare function Fl_Tree_ItemDrawItemContent(byval item as Fl_Tree_Item ptr, byval render as long) as long
     proc Fl_Tree_ItemDrawItemContent* ( item:  ptr Fl_Tree_Item;  render:  long):  long {.cdecl, importc: "Fl_Tree_ItemDrawItemContent", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_Tree_ItemDraw(byval item as Fl_Tree_Item ptr, byval x as long, byref y as long, byval w as long, byval itemfocus as Fl_Tree_Item ptr, byref tree_item_xmax as long, byval lastchild as long=1, byval render as long=1)
-    proc Fl_Tree_ItemDraw*( item:  ptr Fl_Tree_Item;  x:  long;  y:  long;  w:  long;  itemfocus:  ptr Fl_Tree_Item;  tree_item_xmax:  long;  lastchild:  long=1;  render:  long=1) {.cdecl, importc: "Fl_Tree_ItemDraw", dynlib: fltk, discardable.}
+    proc Fl_Tree_ItemDraw*( item:  ptr Fl_Tree_Item;  x:  long;  y:  var long;  w:  long;  itemfocus:  var ptr Fl_Tree_Item;  tree_item_xmax:  long;  lastchild:  long=1;  render:  long=1) {.cdecl, importc: "Fl_Tree_ItemDraw", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_Tree_ItemShowSelf(byval item as Fl_Tree_Item ptr, byval indent as cstring=@"")
     proc Fl_Tree_ItemShowSelf*( item:  ptr Fl_Tree_Item;  indent:  cstring="") {.cdecl, importc: "Fl_Tree_ItemShowSelf", dynlib: fltk, discardable.}
 
@@ -7333,16 +7340,16 @@ when not defined(FLTK_MAIN_BI):
     proc Fl_Tree_ItemFindItem* ( item:  ptr Fl_Tree_Item;  arr:  ptr cstring):  ptr Fl_Tree_Item {.cdecl, importc: "Fl_Tree_ItemFindItem", dynlib: fltk, discardable.}
     #_  Adding items
     ## original: declare function Fl_Tree_ItemAdd(byval item as Fl_Tree_Item ptr, byref prefs as const Fl_Tree_Prefs_, byval arr as cstring ptr) as Fl_Tree_Item ptr
-    proc Fl_Tree_ItemAdd* ( item:  ptr Fl_Tree_Item;  prefs:  Fl_Tree_Prefs_TT;  arr:  ptr cstring):  ptr Fl_Tree_Item {.cdecl, importc: "Fl_Tree_ItemAdd", dynlib: fltk, discardable.}
+    proc Fl_Tree_ItemAdd* ( item:  ptr Fl_Tree_Item;  prefs:  var Fl_Tree_Prefs_TT;  arr:  ptr cstring):  ptr Fl_Tree_Item {.cdecl, importc: "Fl_Tree_ItemAdd", dynlib: fltk, discardable.}
 
     ## original: declare function Fl_Tree_ItemAdd2(byval item as Fl_Tree_Item ptr, byref prefs as const Fl_Tree_Prefs_, byval new_label as cstring) as Fl_Tree_Item ptr
-    proc Fl_Tree_ItemAdd2* ( item:  ptr Fl_Tree_Item;  prefs:  Fl_Tree_Prefs_TT;  new_label:  cstring):  ptr Fl_Tree_Item {.cdecl, importc: "Fl_Tree_ItemAdd2", dynlib: fltk, discardable.}
+    proc Fl_Tree_ItemAdd2* ( item:  ptr Fl_Tree_Item;  prefs:  var Fl_Tree_Prefs_TT;  new_label:  cstring):  ptr Fl_Tree_Item {.cdecl, importc: "Fl_Tree_ItemAdd2", dynlib: fltk, discardable.}
 
     ## original: declare function Fl_Tree_ItemAddItem(byval item as Fl_Tree_Item ptr, byref prefs as const Fl_Tree_Prefs_, byval new_label as cstring, byval newitem as Fl_Tree_Item ptr) as Fl_Tree_Item ptr
-    proc Fl_Tree_ItemAddItem* ( item:  ptr Fl_Tree_Item;  prefs:  Fl_Tree_Prefs_TT;  new_label:  cstring;  newitem:  ptr Fl_Tree_Item):  ptr Fl_Tree_Item {.cdecl, importc: "Fl_Tree_ItemAddItem", dynlib: fltk, discardable.}
+    proc Fl_Tree_ItemAddItem* ( item:  ptr Fl_Tree_Item;  prefs:  var Fl_Tree_Prefs_TT;  new_label:  cstring;  newitem:  ptr Fl_Tree_Item):  ptr Fl_Tree_Item {.cdecl, importc: "Fl_Tree_ItemAddItem", dynlib: fltk, discardable.}
 
     ## original: declare function Fl_Tree_ItemAddItem2(byval item as Fl_Tree_Item ptr, byref prefs as const Fl_Tree_Prefs_, byval arr as cstring ptr, byval newitem as Fl_Tree_Item ptr) as Fl_Tree_Item ptr
-    proc Fl_Tree_ItemAddItem2* ( item:  ptr Fl_Tree_Item;  prefs:  Fl_Tree_Prefs_TT;  arr:  ptr cstring;  newitem:  ptr Fl_Tree_Item):  ptr Fl_Tree_Item {.cdecl, importc: "Fl_Tree_ItemAddItem2", dynlib: fltk, discardable.}
+    proc Fl_Tree_ItemAddItem2* ( item:  ptr Fl_Tree_Item;  prefs:  var Fl_Tree_Prefs_TT;  arr:  ptr cstring;  newitem:  ptr Fl_Tree_Item):  ptr Fl_Tree_Item {.cdecl, importc: "Fl_Tree_ItemAddItem2", dynlib: fltk, discardable.}
 
     ## original: declare function Fl_Tree_ItemReplace(byval item as Fl_Tree_Item ptr, byval newitem as Fl_Tree_Item ptr) as Fl_Tree_Item ptr
     proc Fl_Tree_ItemReplace* ( item:  ptr Fl_Tree_Item;  newitem:  ptr Fl_Tree_Item):  ptr Fl_Tree_Item {.cdecl, importc: "Fl_Tree_ItemReplace", dynlib: fltk, discardable.}
@@ -7351,10 +7358,10 @@ when not defined(FLTK_MAIN_BI):
     proc Fl_Tree_ItemReplaceChild* ( item:  ptr Fl_Tree_Item;  oldtem:  ptr Fl_Tree_Item;  newitem:  ptr Fl_Tree_Item):  ptr Fl_Tree_Item {.cdecl, importc: "Fl_Tree_ItemReplaceChild", dynlib: fltk, discardable.}
 
     ## original: declare function Fl_Tree_ItemInsert(byval item as Fl_Tree_Item ptr, byref prefs as const Fl_Tree_Prefs_, byval new_label as cstring, byval pos as long) as Fl_Tree_Item ptr
-    proc Fl_Tree_ItemInsert* ( item:  ptr Fl_Tree_Item;  prefs:  Fl_Tree_Prefs_TT;  new_label:  cstring;  pos:  long):  ptr Fl_Tree_Item {.cdecl, importc: "Fl_Tree_ItemInsert", dynlib: fltk, discardable.}
+    proc Fl_Tree_ItemInsert* ( item:  ptr Fl_Tree_Item;  prefs:  var Fl_Tree_Prefs_TT;  new_label:  cstring;  pos:  long):  ptr Fl_Tree_Item {.cdecl, importc: "Fl_Tree_ItemInsert", dynlib: fltk, discardable.}
 
     ## original: declare function Fl_Tree_ItemInsertAbove(byval item as Fl_Tree_Item ptr, byref prefs as const Fl_Tree_Prefs_, byval new_label as cstring) as Fl_Tree_Item ptr
-    proc Fl_Tree_ItemInsertAbove* ( item:  ptr Fl_Tree_Item;  prefs:  Fl_Tree_Prefs_TT;  new_label:  cstring):  ptr Fl_Tree_Item {.cdecl, importc: "Fl_Tree_ItemInsertAbove", dynlib: fltk, discardable.}
+    proc Fl_Tree_ItemInsertAbove* ( item:  ptr Fl_Tree_Item;  prefs:  var Fl_Tree_Prefs_TT;  new_label:  cstring):  ptr Fl_Tree_Item {.cdecl, importc: "Fl_Tree_ItemInsertAbove", dynlib: fltk, discardable.}
 
     ## original: declare function Fl_Tree_ItemDeparent(byval item as Fl_Tree_Item ptr, byval index as long) as Fl_Tree_Item ptr
     proc Fl_Tree_ItemDeparent* ( item:  ptr Fl_Tree_Item;  index:  long):  ptr Fl_Tree_Item {.cdecl, importc: "Fl_Tree_ItemDeparent", dynlib: fltk, discardable.}
@@ -7396,10 +7403,10 @@ when not defined(FLTK_MAIN_BI):
     proc Fl_Tree_ItemUpdatePrevNext*( item:  ptr Fl_Tree_Item;  index:  long) {.cdecl, importc: "Fl_Tree_ItemUpdatePrevNext", dynlib: fltk, discardable.}
 
     ## original: declare function Fl_Tree_ItemNextDisplayed(byval item as Fl_Tree_Item ptr, byref prefs as Fl_Tree_Prefs_) as Fl_Tree_Item ptr
-    proc Fl_Tree_ItemNextDisplayed* ( item:  ptr Fl_Tree_Item;  prefs:  Fl_Tree_Prefs_TT):  ptr Fl_Tree_Item {.cdecl, importc: "Fl_Tree_ItemNextDisplayed", dynlib: fltk, discardable.}
+    proc Fl_Tree_ItemNextDisplayed* ( item:  ptr Fl_Tree_Item;  prefs:  var Fl_Tree_Prefs_TT):  ptr Fl_Tree_Item {.cdecl, importc: "Fl_Tree_ItemNextDisplayed", dynlib: fltk, discardable.}
 
     ## original: declare function Fl_Tree_ItemPrevDisplayed(byval item as Fl_Tree_Item ptr, byref prefs as Fl_Tree_Prefs_) as Fl_Tree_Item ptr
-    proc Fl_Tree_ItemPrevDisplayed* ( item:  ptr Fl_Tree_Item;  prefs:  Fl_Tree_Prefs_TT):  ptr Fl_Tree_Item {.cdecl, importc: "Fl_Tree_ItemPrevDisplayed", dynlib: fltk, discardable.}
+    proc Fl_Tree_ItemPrevDisplayed* ( item:  ptr Fl_Tree_Item;  prefs:  var Fl_Tree_Prefs_TT):  ptr Fl_Tree_Item {.cdecl, importc: "Fl_Tree_ItemPrevDisplayed", dynlib: fltk, discardable.}
     #_  Return the parent for this item. Returns NULL if we are the root.
     ## original: declare function Fl_Tree_ItemGetParent(byval item as Fl_Tree_Item ptr) as Fl_Tree_Item ptr
     proc Fl_Tree_ItemGetParent* ( item:  ptr Fl_Tree_Item):  ptr Fl_Tree_Item {.cdecl, importc: "Fl_Tree_ItemGetParent", dynlib: fltk, discardable.}
@@ -7410,7 +7417,7 @@ when not defined(FLTK_MAIN_BI):
     ## original: declare sub      Fl_Tree_ItemSetParent(byval item as Fl_Tree_Item ptr, byval other as Fl_Tree_Item ptr)
     proc Fl_Tree_ItemSetParent*( item:  ptr Fl_Tree_Item;  other:  ptr Fl_Tree_Item) {.cdecl, importc: "Fl_Tree_ItemSetParent", dynlib: fltk, discardable.}
     ## original: declare function Fl_Tree_ItemGetPrefs(byval item as Fl_Tree_Item ptr) byref as const Fl_Tree_Prefs_
-    proc Fl_Tree_ItemGetPrefs* ( item:  ptr Fl_Tree_Item):  Fl_Tree_Prefs_TT {.cdecl, importc: "Fl_Tree_ItemGetPrefs", dynlib: fltk, discardable.}
+    proc Fl_Tree_ItemGetPrefs* ( item:  ptr Fl_Tree_Item):  var Fl_Tree_Prefs_TT {.cdecl, importc: "Fl_Tree_ItemGetPrefs", dynlib: fltk, discardable.}
     #_  Return the tree for this item.
     ## original: declare function Fl_Tree_ItemGetTree(byval item as Fl_Tree_Item ptr) as const Fl_Tree
     proc Fl_Tree_ItemGetTree* ( item:  ptr Fl_Tree_Item):  Fl_Tree {.cdecl, importc: "Fl_Tree_ItemGetTree", dynlib: fltk, discardable.}
@@ -7479,16 +7486,16 @@ when not defined(FLTK_MAIN_BI):
     proc Fl_Tree_ItemGetUserIcon* ( item:  ptr Fl_Tree_Item):  ptr Fl_Image {.cdecl, importc: "Fl_Tree_ItemGetUserIcon", dynlib: fltk, discardable.}
     #_  Events
     ## original: declare function Fl_Tree_ItemFindConstClicked(byval item as Fl_Tree_Item ptr, byref prefs as const Fl_Tree_Prefs_, byval yonly as long=0) as const Fl_Tree_Item ptr
-    proc Fl_Tree_ItemFindConstClicked* ( item:  ptr Fl_Tree_Item;  prefs:  Fl_Tree_Prefs_TT;  yonly:  long=0):  ptr Fl_Tree_Item {.cdecl, importc: "Fl_Tree_ItemFindConstClicked", dynlib: fltk, discardable.}
+    proc Fl_Tree_ItemFindConstClicked* ( item:  ptr Fl_Tree_Item;  prefs:  var Fl_Tree_Prefs_TT;  yonly:  long=0):  ptr Fl_Tree_Item {.cdecl, importc: "Fl_Tree_ItemFindConstClicked", dynlib: fltk, discardable.}
 
     ## original: declare function Fl_Tree_ItemFindClicked(byval item as Fl_Tree_Item ptr, byref prefs as const Fl_Tree_Prefs_, byval yonly as long=0) as Fl_Tree_Item ptr
-    proc Fl_Tree_ItemFindClicked* ( item:  ptr Fl_Tree_Item;  prefs:  Fl_Tree_Prefs_TT;  yonly:  long=0):  ptr Fl_Tree_Item {.cdecl, importc: "Fl_Tree_ItemFindClicked", dynlib: fltk, discardable.}
+    proc Fl_Tree_ItemFindClicked* ( item:  ptr Fl_Tree_Item;  prefs:  var Fl_Tree_Prefs_TT;  yonly:  long=0):  ptr Fl_Tree_Item {.cdecl, importc: "Fl_Tree_ItemFindClicked", dynlib: fltk, discardable.}
 
     ## original: declare function Fl_Tree_ItemEventOnCollapseIcon(byval item as Fl_Tree_Item ptr, byref prefs as const Fl_Tree_Prefs_) as long
-    proc Fl_Tree_ItemEventOnCollapseIcon* ( item:  ptr Fl_Tree_Item;  prefs:  Fl_Tree_Prefs_TT):  long {.cdecl, importc: "Fl_Tree_ItemEventOnCollapseIcon", dynlib: fltk, discardable.}
+    proc Fl_Tree_ItemEventOnCollapseIcon* ( item:  ptr Fl_Tree_Item;  prefs:  var Fl_Tree_Prefs_TT):  long {.cdecl, importc: "Fl_Tree_ItemEventOnCollapseIcon", dynlib: fltk, discardable.}
 
     ## original: declare function Fl_Tree_ItemEventOnLabel(byval item as Fl_Tree_Item ptr, byref prefs as const Fl_Tree_Prefs_) as long
-    proc Fl_Tree_ItemEventOnLabel* ( item:  ptr Fl_Tree_Item;  prefs:  Fl_Tree_Prefs_TT):  long {.cdecl, importc: "Fl_Tree_ItemEventOnLabel", dynlib: fltk, discardable.}
+    proc Fl_Tree_ItemEventOnLabel* ( item:  ptr Fl_Tree_Item;  prefs:  var Fl_Tree_Prefs_TT):  long {.cdecl, importc: "Fl_Tree_ItemEventOnLabel", dynlib: fltk, discardable.}
     #_  Is this item the root of the tree?
     ## original: declare function Fl_Tree_ItemIsRoot(byval item as Fl_Tree_Item ptr) as long
     proc Fl_Tree_ItemIsRoot* ( item:  ptr Fl_Tree_Item):  long {.cdecl, importc: "Fl_Tree_ItemIsRoot", dynlib: fltk, discardable.}
@@ -7503,7 +7510,7 @@ when not defined(FLTK_MAIN_BI):
     proc Fl_Tree_Item_ArrayCopy* ( other:  ptr Fl_Tree_Item_Array):  ptr Fl_Tree_Item_Array {.cdecl, importc: "Fl_Tree_Item_ArrayCopy", dynlib: fltk, discardable.}
 
     ## original: declare sub      Fl_Tree_Item_ArrayDelete(byref tia as Fl_Tree_Item_Array ptr)
-    proc Fl_Tree_Item_ArrayDelete*( tia:  ptr Fl_Tree_Item_Array) {.cdecl, importc: "Fl_Tree_Item_ArrayDelete", dynlib: fltk, discardable.}
+    proc Fl_Tree_Item_ArrayDelete*( tia:  var ptr Fl_Tree_Item_Array) {.cdecl, importc: "Fl_Tree_Item_ArrayDelete", dynlib: fltk, discardable.}
 
     ## original: declare sub      Fl_Tree_Item_ArrayAdd(byval tia as Fl_Tree_Item_Array ptr, byval ti as Fl_Tree_Item ptr)
     proc Fl_Tree_Item_ArrayAdd*( tia:  ptr Fl_Tree_Item_Array;  ti:  ptr Fl_Tree_Item) {.cdecl, importc: "Fl_Tree_Item_ArrayAdd", dynlib: fltk, discardable.}
@@ -7537,9 +7544,9 @@ when not defined(FLTK_MAIN_BI):
     #_ ##################################
     DeclareEx(Fl_Tree)
     ## original: declare function Fl_TreeNew(byval x as long, byval y as long, byval w as long, byval h as long, byval label as cstring=0) as Fl_Tree ptr
-    proc Fl_TreeNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=cast[cstring](0)):  ptr Fl_Tree {.cdecl, importc: "Fl_TreeNew", dynlib: fltk, discardable.}
+    proc Fl_TreeNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=nil):  ptr Fl_Tree {.cdecl, importc: "Fl_TreeNew", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_TreeDelete(byref tr as Fl_Tree ptr)
-    proc Fl_TreeDelete*( tr:  ptr Fl_Tree) {.cdecl, importc: "Fl_TreeDelete", dynlib: fltk, discardable.}
+    proc Fl_TreeDelete*( tr:  var ptr Fl_Tree) {.cdecl, importc: "Fl_TreeDelete", dynlib: fltk, discardable.}
 
     ## original: declare function Fl_TreeHandle(byval tr as Fl_Tree ptr, byval e as FL_EVENT) as long
     proc Fl_TreeHandle* ( tr:  ptr Fl_Tree;  e:  FL_EVENT):  long {.cdecl, importc: "Fl_TreeHandle", dynlib: fltk, discardable.}
@@ -7867,10 +7874,10 @@ when not defined(FLTK_MAIN_BI):
     #_ # class Fl_Wizard extends Fl_Group #
     #_ ####################################
     ## original: declare function Fl_WizardNew     (byval x as long, byval y as long, byval w as long, byval h as long, byval label as cstring=0) as Fl_Wizard ptr
-    proc Fl_WizardNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=cast[cstring](0)):  ptr Fl_Wizard {.cdecl, importc: "Fl_WizardNew", dynlib: fltk, discardable.}
+    proc Fl_WizardNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=nil):  ptr Fl_Wizard {.cdecl, importc: "Fl_WizardNew", dynlib: fltk, discardable.}
 
     ## original: declare sub      Fl_WizardDelete  (byref wi as Fl_Wizard ptr)
-    proc Fl_WizardDelete*( wi:  ptr Fl_Wizard) {.cdecl, importc: "Fl_WizardDelete", dynlib: fltk, discardable.}
+    proc Fl_WizardDelete*( wi:  var ptr Fl_Wizard) {.cdecl, importc: "Fl_WizardDelete", dynlib: fltk, discardable.}
 
     ## original: declare sub      Fl_WizardNext    (byval wi as Fl_Wizard ptr)
     proc Fl_WizardNext*( wi:  ptr Fl_Wizard) {.cdecl, importc: "Fl_WizardNext", dynlib: fltk, discardable.}
@@ -7898,11 +7905,11 @@ when not defined(FLTK_MAIN_BI):
     proc Fl_WindowCurrent* ():  ptr Fl_Window {.cdecl, importc: "Fl_WindowCurrent", dynlib: fltk, discardable.}
 
     ## original: declare function Fl_WindowNew(byval w as long, byval h as long, byval title as cstring=0) as Fl_Window ptr
-    proc Fl_WindowNew* ( w:  long;  h:  long;  title:  cstring=cast[cstring](0)):  ptr Fl_Window {.cdecl, importc: "Fl_WindowNew", dynlib: fltk, discardable.}
+    proc Fl_WindowNew* ( w:  long;  h:  long;  title:  cstring=nil):  ptr Fl_Window {.cdecl, importc: "Fl_WindowNew", dynlib: fltk, discardable.}
     ## original: declare function Fl_WindowNew2(byval x as long, byval y as long, byval w as long, byval h as long, byval title as cstring=0) as Fl_Window ptr
-    proc Fl_WindowNew2* ( x:  long;  y:  long;  w:  long;  h:  long;  title:  cstring=cast[cstring](0)):  ptr Fl_Window {.cdecl, importc: "Fl_WindowNew2", dynlib: fltk, discardable.}
+    proc Fl_WindowNew2* ( x:  long;  y:  long;  w:  long;  h:  long;  title:  cstring=nil):  ptr Fl_Window {.cdecl, importc: "Fl_WindowNew2", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_WindowDelete(byref win as Fl_Window ptr)
-    proc Fl_WindowDelete*( win:  ptr Fl_Window) {.cdecl, importc: "Fl_WindowDelete", dynlib: fltk, discardable.}
+    proc Fl_WindowDelete*( win:  var ptr Fl_Window) {.cdecl, importc: "Fl_WindowDelete", dynlib: fltk, discardable.}
 
     ## original: declare function Fl_WindowHandle(byval win as Fl_Window ptr, byval event as FL_EVENT) as long
     proc Fl_WindowHandle* ( win:  ptr Fl_Window;  event:  FL_EVENT):  long {.cdecl, importc: "Fl_WindowHandle", dynlib: fltk, discardable.}
@@ -8061,11 +8068,11 @@ when not defined(FLTK_MAIN_BI):
     #_ # class Fl_WindowEx extends Fl_Window #
     #_ #######################################
     ## original: declare function Fl_WindowExNew(byval w as long, byval h as long, byval title as cstring=0) as Fl_WindowEx ptr
-    proc Fl_WindowExNew* ( w:  long;  h:  long;  title:  cstring=cast[cstring](0)):  ptr Fl_WindowEx {.cdecl, importc: "Fl_WindowExNew", dynlib: fltk, discardable.}
+    proc Fl_WindowExNew* ( w:  long;  h:  long;  title:  cstring=nil):  ptr Fl_WindowEx {.cdecl, importc: "Fl_WindowExNew", dynlib: fltk, discardable.}
     ## original: declare function Fl_WindowExNew2(byval x as long, byval y as long, byval w as long, byval h as long, byval title as cstring=0) as Fl_WindowEx ptr
-    proc Fl_WindowExNew2* ( x:  long;  y:  long;  w:  long;  h:  long;  title:  cstring=cast[cstring](0)):  ptr Fl_WindowEx {.cdecl, importc: "Fl_WindowExNew2", dynlib: fltk, discardable.}
+    proc Fl_WindowExNew2* ( x:  long;  y:  long;  w:  long;  h:  long;  title:  cstring=nil):  ptr Fl_WindowEx {.cdecl, importc: "Fl_WindowExNew2", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_WindowExDelete         (byref ex as Fl_WindowEx ptr)
-    proc Fl_WindowExDelete*( ex:  ptr Fl_WindowEx) {.cdecl, importc: "Fl_WindowExDelete", dynlib: fltk, discardable.}
+    proc Fl_WindowExDelete*( ex:  var ptr Fl_WindowEx) {.cdecl, importc: "Fl_WindowExDelete", dynlib: fltk, discardable.}
 
     ## original: declare function Fl_WindowExHandleBase     (byval ex as Fl_WindowEx ptr, byval event as FL_EVENT) as long
     proc Fl_WindowExHandleBase* ( ex:  ptr Fl_WindowEx;  event:  FL_EVENT):  long {.cdecl, importc: "Fl_WindowExHandleBase", dynlib: fltk, discardable.}
@@ -8083,11 +8090,11 @@ when not defined(FLTK_MAIN_BI):
     #_ # class Fl_Single_Window extends Fl_Window #
     #_ ############################################
     ## original: declare function Fl_Single_WindowNew     (byval w as long, byval h as long, byval title as cstring=0) as Fl_Single_Window ptr
-    proc Fl_Single_WindowNew* ( w:  long;  h:  long;  title:  cstring=cast[cstring](0)):  ptr Fl_Single_Window {.cdecl, importc: "Fl_Single_WindowNew", dynlib: fltk, discardable.}
+    proc Fl_Single_WindowNew* ( w:  long;  h:  long;  title:  cstring=nil):  ptr Fl_Single_Window {.cdecl, importc: "Fl_Single_WindowNew", dynlib: fltk, discardable.}
     ## original: declare function Fl_Single_WindowNew2    (byval x as long, byval y as long, byval w as long, byval h as long, byval title as cstring=0) as Fl_Single_Window ptr
-    proc Fl_Single_WindowNew2* ( x:  long;  y:  long;  w:  long;  h:  long;  title:  cstring=cast[cstring](0)):  ptr Fl_Single_Window {.cdecl, importc: "Fl_Single_WindowNew2", dynlib: fltk, discardable.}
+    proc Fl_Single_WindowNew2* ( x:  long;  y:  long;  w:  long;  h:  long;  title:  cstring=nil):  ptr Fl_Single_Window {.cdecl, importc: "Fl_Single_WindowNew2", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_Single_WindowDelete  (byref win as Fl_Single_Window ptr)
-    proc Fl_Single_WindowDelete*( win:  ptr Fl_Single_Window) {.cdecl, importc: "Fl_Single_WindowDelete", dynlib: fltk, discardable.}
+    proc Fl_Single_WindowDelete*( win:  var ptr Fl_Single_Window) {.cdecl, importc: "Fl_Single_WindowDelete", dynlib: fltk, discardable.}
 
     ## original: declare sub      Fl_Single_WindowFlush   (byval win as Fl_Single_Window ptr)
     proc Fl_Single_WindowFlush*( win:  ptr Fl_Single_Window) {.cdecl, importc: "Fl_Single_WindowFlush", dynlib: fltk, discardable.}
@@ -8102,11 +8109,11 @@ when not defined(FLTK_MAIN_BI):
     #_ # class Fl_Single_WindowEx extends Fl_Single_Window #
     #_ #####################################################
     ## original: declare function Fl_Single_WindowExNew(byval w as long, byval h as long, byval title as cstring=0) as Fl_Single_WindowEx ptr
-    proc Fl_Single_WindowExNew* ( w:  long;  h:  long;  title:  cstring=cast[cstring](0)):  ptr Fl_Single_WindowEx {.cdecl, importc: "Fl_Single_WindowExNew", dynlib: fltk, discardable.}
+    proc Fl_Single_WindowExNew* ( w:  long;  h:  long;  title:  cstring=nil):  ptr Fl_Single_WindowEx {.cdecl, importc: "Fl_Single_WindowExNew", dynlib: fltk, discardable.}
     ## original: declare function Fl_Single_WindowExNew2(byval x as long, byval y as long, byval w as long, byval h as long, byval title as cstring=0) as Fl_Single_WindowEx ptr
-    proc Fl_Single_WindowExNew2* ( x:  long;  y:  long;  w:  long;  h:  long;  title:  cstring=cast[cstring](0)):  ptr Fl_Single_WindowEx {.cdecl, importc: "Fl_Single_WindowExNew2", dynlib: fltk, discardable.}
+    proc Fl_Single_WindowExNew2* ( x:  long;  y:  long;  w:  long;  h:  long;  title:  cstring=nil):  ptr Fl_Single_WindowEx {.cdecl, importc: "Fl_Single_WindowExNew2", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_Single_WindowExDelete         (byref ex as Fl_Single_WindowEx ptr)
-    proc Fl_Single_WindowExDelete*( ex:  ptr Fl_Single_WindowEx) {.cdecl, importc: "Fl_Single_WindowExDelete", dynlib: fltk, discardable.}
+    proc Fl_Single_WindowExDelete*( ex:  var ptr Fl_Single_WindowEx) {.cdecl, importc: "Fl_Single_WindowExDelete", dynlib: fltk, discardable.}
 
     ## original: declare function Fl_Single_WindowExHandleBase     (byval ex as Fl_Single_WindowEx ptr, byval event as FL_EVENT) as long
     proc Fl_Single_WindowExHandleBase* ( ex:  ptr Fl_Single_WindowEx;  event:  FL_EVENT):  long {.cdecl, importc: "Fl_Single_WindowExHandleBase", dynlib: fltk, discardable.}
@@ -8124,11 +8131,11 @@ when not defined(FLTK_MAIN_BI):
     #_ # class Fl_Menu_Window extends Fl_Single_Window #
     #_ #################################################
     ## original: declare function Fl_Menu_WindowNew         (byval w as long, byval h as long, byval title as cstring=0) as Fl_Menu_Window ptr
-    proc Fl_Menu_WindowNew* ( w:  long;  h:  long;  title:  cstring=cast[cstring](0)):  ptr Fl_Menu_Window {.cdecl, importc: "Fl_Menu_WindowNew", dynlib: fltk, discardable.}
+    proc Fl_Menu_WindowNew* ( w:  long;  h:  long;  title:  cstring=nil):  ptr Fl_Menu_Window {.cdecl, importc: "Fl_Menu_WindowNew", dynlib: fltk, discardable.}
     ## original: declare function Fl_Menu_WindowNew2        (byval x as long, byval y as long, byval w as long, byval h as long, byval title as cstring=0) as Fl_Menu_Window ptr
-    proc Fl_Menu_WindowNew2* ( x:  long;  y:  long;  w:  long;  h:  long;  title:  cstring=cast[cstring](0)):  ptr Fl_Menu_Window {.cdecl, importc: "Fl_Menu_WindowNew2", dynlib: fltk, discardable.}
+    proc Fl_Menu_WindowNew2* ( x:  long;  y:  long;  w:  long;  h:  long;  title:  cstring=nil):  ptr Fl_Menu_Window {.cdecl, importc: "Fl_Menu_WindowNew2", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_Menu_WindowDelete      (byref win as Fl_Menu_Window ptr)
-    proc Fl_Menu_WindowDelete*( win:  ptr Fl_Menu_Window) {.cdecl, importc: "Fl_Menu_WindowDelete", dynlib: fltk, discardable.}
+    proc Fl_Menu_WindowDelete*( win:  var ptr Fl_Menu_Window) {.cdecl, importc: "Fl_Menu_WindowDelete", dynlib: fltk, discardable.}
 
     ## original: declare sub      Fl_Menu_WindowClearOverlay(byval win as Fl_Menu_Window ptr)
     proc Fl_Menu_WindowClearOverlay*( win:  ptr Fl_Menu_Window) {.cdecl, importc: "Fl_Menu_WindowClearOverlay", dynlib: fltk, discardable.}
@@ -8155,11 +8162,11 @@ when not defined(FLTK_MAIN_BI):
     #_ # class Fl_Menu_WindowEx extends Fl_Menu_Window #
     #_ #################################################
     ## original: declare function Fl_Menu_WindowExNew(byval w as long, byval h as long, byval title as cstring=0) as Fl_Menu_WindowEx ptr
-    proc Fl_Menu_WindowExNew* ( w:  long;  h:  long;  title:  cstring=cast[cstring](0)):  ptr Fl_Menu_WindowEx {.cdecl, importc: "Fl_Menu_WindowExNew", dynlib: fltk, discardable.}
+    proc Fl_Menu_WindowExNew* ( w:  long;  h:  long;  title:  cstring=nil):  ptr Fl_Menu_WindowEx {.cdecl, importc: "Fl_Menu_WindowExNew", dynlib: fltk, discardable.}
     ## original: declare function Fl_Menu_WindowExNew2(byval x as long, byval y as long, byval w as long, byval h as long, byval title as cstring=0) as Fl_Menu_WindowEx ptr
-    proc Fl_Menu_WindowExNew2* ( x:  long;  y:  long;  w:  long;  h:  long;  title:  cstring=cast[cstring](0)):  ptr Fl_Menu_WindowEx {.cdecl, importc: "Fl_Menu_WindowExNew2", dynlib: fltk, discardable.}
+    proc Fl_Menu_WindowExNew2* ( x:  long;  y:  long;  w:  long;  h:  long;  title:  cstring=nil):  ptr Fl_Menu_WindowEx {.cdecl, importc: "Fl_Menu_WindowExNew2", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_Menu_WindowExDelete         (byref ex as Fl_Menu_WindowEx ptr)
-    proc Fl_Menu_WindowExDelete*( ex:  ptr Fl_Menu_WindowEx) {.cdecl, importc: "Fl_Menu_WindowExDelete", dynlib: fltk, discardable.}
+    proc Fl_Menu_WindowExDelete*( ex:  var ptr Fl_Menu_WindowEx) {.cdecl, importc: "Fl_Menu_WindowExDelete", dynlib: fltk, discardable.}
 
     ## original: declare function Fl_Menu_WindowExHandleBase     (byval ex as Fl_Menu_WindowEx ptr, byval event as FL_EVENT) as long
     proc Fl_Menu_WindowExHandleBase* ( ex:  ptr Fl_Menu_WindowEx;  event:  FL_EVENT):  long {.cdecl, importc: "Fl_Menu_WindowExHandleBase", dynlib: fltk, discardable.}
@@ -8177,11 +8184,11 @@ when not defined(FLTK_MAIN_BI):
     #_ # class Fl_Double_Window extends Fl_Window #
     #_ ############################################
     ## original: declare function Fl_Double_WindowNew     (byval w as long, byval h as long, byval title as cstring=0) as Fl_Double_Window ptr
-    proc Fl_Double_WindowNew* ( w:  long;  h:  long;  title:  cstring=cast[cstring](0)):  ptr Fl_Double_Window {.cdecl, importc: "Fl_Double_WindowNew", dynlib: fltk, discardable.}
+    proc Fl_Double_WindowNew* ( w:  long;  h:  long;  title:  cstring=nil):  ptr Fl_Double_Window {.cdecl, importc: "Fl_Double_WindowNew", dynlib: fltk, discardable.}
     ## original: declare function Fl_Double_WindowNew2    (byval x as long, byval y as long, byval w as long, byval h as long, byval title as cstring=0) as Fl_Double_Window ptr
-    proc Fl_Double_WindowNew2* ( x:  long;  y:  long;  w:  long;  h:  long;  title:  cstring=cast[cstring](0)):  ptr Fl_Double_Window {.cdecl, importc: "Fl_Double_WindowNew2", dynlib: fltk, discardable.}
+    proc Fl_Double_WindowNew2* ( x:  long;  y:  long;  w:  long;  h:  long;  title:  cstring=nil):  ptr Fl_Double_Window {.cdecl, importc: "Fl_Double_WindowNew2", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_Double_WindowDelete  (byref win as Fl_Double_Window ptr)
-    proc Fl_Double_WindowDelete*( win:  ptr Fl_Double_Window) {.cdecl, importc: "Fl_Double_WindowDelete", dynlib: fltk, discardable.}
+    proc Fl_Double_WindowDelete*( win:  var ptr Fl_Double_Window) {.cdecl, importc: "Fl_Double_WindowDelete", dynlib: fltk, discardable.}
 
     ## original: declare sub      Fl_Double_WindowFlush   (byval win as Fl_Double_Window ptr)
     proc Fl_Double_WindowFlush*( win:  ptr Fl_Double_Window) {.cdecl, importc: "Fl_Double_WindowFlush", dynlib: fltk, discardable.}
@@ -8202,11 +8209,11 @@ when not defined(FLTK_MAIN_BI):
     #_ # class Fl_Double_WindowEx extends Fl_Double_Window #
     #_ #####################################################
     ## original: declare function Fl_Double_WindowExNew(byval w as long, byval h as long, byval title as cstring=0) as Fl_Double_WindowEx ptr
-    proc Fl_Double_WindowExNew* ( w:  long;  h:  long;  title:  cstring=cast[cstring](0)):  ptr Fl_Double_WindowEx {.cdecl, importc: "Fl_Double_WindowExNew", dynlib: fltk, discardable.}
+    proc Fl_Double_WindowExNew* ( w:  long;  h:  long;  title:  cstring=nil):  ptr Fl_Double_WindowEx {.cdecl, importc: "Fl_Double_WindowExNew", dynlib: fltk, discardable.}
     ## original: declare function Fl_Double_WindowExNew2(byval x as long, byval y as long, byval w as long, byval h as long, byval title as cstring=0) as Fl_Double_WindowEx ptr
-    proc Fl_Double_WindowExNew2* ( x:  long;  y:  long;  w:  long;  h:  long;  title:  cstring=cast[cstring](0)):  ptr Fl_Double_WindowEx {.cdecl, importc: "Fl_Double_WindowExNew2", dynlib: fltk, discardable.}
+    proc Fl_Double_WindowExNew2* ( x:  long;  y:  long;  w:  long;  h:  long;  title:  cstring=nil):  ptr Fl_Double_WindowEx {.cdecl, importc: "Fl_Double_WindowExNew2", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_Double_WindowExDelete         (byref ex as Fl_Double_WindowEx ptr)
-    proc Fl_Double_WindowExDelete*( ex:  ptr Fl_Double_WindowEx) {.cdecl, importc: "Fl_Double_WindowExDelete", dynlib: fltk, discardable.}
+    proc Fl_Double_WindowExDelete*( ex:  var ptr Fl_Double_WindowEx) {.cdecl, importc: "Fl_Double_WindowExDelete", dynlib: fltk, discardable.}
 
     ## original: declare function Fl_Double_WindowExHandleBase     (byval ex as Fl_Double_WindowEx ptr, byval event as FL_EVENT) as long
     proc Fl_Double_WindowExHandleBase* ( ex:  ptr Fl_Double_WindowEx;  event:  FL_EVENT):  long {.cdecl, importc: "Fl_Double_WindowExHandleBase", dynlib: fltk, discardable.}
@@ -8248,11 +8255,11 @@ when not defined(FLTK_MAIN_BI):
     #_ # class Fl_Overlay_WindowEx extends Fl_Overlay_Window #
     #_ #######################################################
     ## original: declare function Fl_Overlay_WindowExNew(byval w as long, byval h as long, byval title as cstring=0) as Fl_Overlay_WindowEx ptr
-    proc Fl_Overlay_WindowExNew* ( w:  long;  h:  long;  title:  cstring=cast[cstring](0)):  ptr Fl_Overlay_WindowEx {.cdecl, importc: "Fl_Overlay_WindowExNew", dynlib: fltk, discardable.}
+    proc Fl_Overlay_WindowExNew* ( w:  long;  h:  long;  title:  cstring=nil):  ptr Fl_Overlay_WindowEx {.cdecl, importc: "Fl_Overlay_WindowExNew", dynlib: fltk, discardable.}
     ## original: declare function Fl_Overlay_WindowExNew2(byval x as long, byval y as long, byval w as long, byval h as long, byval title as cstring=0) as Fl_Overlay_WindowEx ptr
-    proc Fl_Overlay_WindowExNew2* ( x:  long;  y:  long;  w:  long;  h:  long;  title:  cstring=cast[cstring](0)):  ptr Fl_Overlay_WindowEx {.cdecl, importc: "Fl_Overlay_WindowExNew2", dynlib: fltk, discardable.}
+    proc Fl_Overlay_WindowExNew2* ( x:  long;  y:  long;  w:  long;  h:  long;  title:  cstring=nil):  ptr Fl_Overlay_WindowEx {.cdecl, importc: "Fl_Overlay_WindowExNew2", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_Overlay_WindowExDelete           (byref win as Fl_Overlay_WindowEx ptr)
-    proc Fl_Overlay_WindowExDelete*( win:  ptr Fl_Overlay_WindowEx) {.cdecl, importc: "Fl_Overlay_WindowExDelete", dynlib: fltk, discardable.}
+    proc Fl_Overlay_WindowExDelete*( win:  var ptr Fl_Overlay_WindowEx) {.cdecl, importc: "Fl_Overlay_WindowExDelete", dynlib: fltk, discardable.}
 
     ## original: declare function Fl_Overlay_WindowExHandleBase       (byval win as Fl_Overlay_WindowEx ptr, byval event as FL_EVENT) as long
     proc Fl_Overlay_WindowExHandleBase* ( win:  ptr Fl_Overlay_WindowEx;  event:  FL_EVENT):  long {.cdecl, importc: "Fl_Overlay_WindowExHandleBase", dynlib: fltk, discardable.}
@@ -8310,7 +8317,7 @@ when not defined(FLTK_MAIN_BI):
     ## original: declare function Fl_Image_SurfaceNew       (byval w as long, byval h as long) as Fl_Image_Surface ptr
     proc Fl_Image_SurfaceNew* ( w:  long;  h:  long):  ptr Fl_Image_Surface {.cdecl, importc: "Fl_Image_SurfaceNew", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_Image_SurfaceDelete    (byref ims as Fl_Image_Surface ptr)
-    proc Fl_Image_SurfaceDelete*( ims:  ptr Fl_Image_Surface) {.cdecl, importc: "Fl_Image_SurfaceDelete", dynlib: fltk, discardable.}
+    proc Fl_Image_SurfaceDelete*( ims:  var ptr Fl_Image_Surface) {.cdecl, importc: "Fl_Image_SurfaceDelete", dynlib: fltk, discardable.}
 
     ## original: declare function Fl_Image_SurfaceClassName (byval ims as Fl_Image_Surface ptr) as cstring
     proc Fl_Image_SurfaceClassName* ( ims:  ptr Fl_Image_Surface):  cstring {.cdecl, importc: "Fl_Image_SurfaceClassName", dynlib: fltk, discardable.}
@@ -8339,7 +8346,7 @@ when not defined(FLTK_MAIN_BI):
     proc Fl_Copy_SurfaceNew* ( w:  long;  h:  long):  ptr Fl_Copy_Surface {.cdecl, importc: "Fl_Copy_SurfaceNew", dynlib: fltk, discardable.}
 
     ## original: declare sub      Fl_Copy_SurfaceDelete    (byref cs as Fl_Copy_Surface ptr)
-    proc Fl_Copy_SurfaceDelete*( cs:  ptr Fl_Copy_Surface) {.cdecl, importc: "Fl_Copy_SurfaceDelete", dynlib: fltk, discardable.}
+    proc Fl_Copy_SurfaceDelete*( cs:  var ptr Fl_Copy_Surface) {.cdecl, importc: "Fl_Copy_SurfaceDelete", dynlib: fltk, discardable.}
 
     ## original: declare function Fl_Copy_SurfaceClassName (byval cs as Fl_Copy_Surface ptr) as cstring
     proc Fl_Copy_SurfaceClassName* ( cs:  ptr Fl_Copy_Surface):  cstring {.cdecl, importc: "Fl_Copy_SurfaceClassName", dynlib: fltk, discardable.}
@@ -8413,7 +8420,7 @@ when not defined(FLTK_MAIN_BI):
     #~ ## original: declare function Fl_PrinterNew as Fl_Printer ptr
     proc Fl_PrinterNew* ():  ptr Fl_Printer {.cdecl, importc: "Fl_PrinterNew", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_PrinterDelete(byref p as Fl_Printer ptr)
-    proc Fl_PrinterDelete*( p:  ptr Fl_Printer) {.cdecl, importc: "Fl_PrinterDelete", dynlib: fltk, discardable.}
+    proc Fl_PrinterDelete*( p:  var ptr Fl_Printer) {.cdecl, importc: "Fl_PrinterDelete", dynlib: fltk, discardable.}
 
     ## original: declare function Fl_PrinterClassName(byval p as Fl_Printer ptr) as cstring
     proc Fl_PrinterClassName* ( p:  ptr Fl_Printer):  cstring {.cdecl, importc: "Fl_PrinterClassName", dynlib: fltk, discardable.}
@@ -8425,7 +8432,7 @@ when not defined(FLTK_MAIN_BI):
     proc Fl_PrinterSetCurrent*( p:  ptr Fl_Printer) {.cdecl, importc: "Fl_PrinterSetCurrent", dynlib: fltk, discardable.}
 
     ## original: declare function Fl_PrinterStartJob(byval p as Fl_Printer ptr, byval pagecount as long=1, byval frompage as long ptr=0, byval topage as long ptr=0) as long
-    proc Fl_PrinterStartJob* ( p:  ptr Fl_Printer;  pagecount:  long=1;  frompage:  ptr long;  topage:  ptr long):  long {.cdecl, importc: "Fl_PrinterStartJob", dynlib: fltk, discardable.}
+    proc Fl_PrinterStartJob* ( p:  ptr Fl_Printer;  pagecount:  long=1;  frompage:  ptr long=nil;  topage:  ptr long=nil):  long {.cdecl, importc: "Fl_PrinterStartJob", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_PrinterEndJob  (byval p as Fl_Printer ptr)
     proc Fl_PrinterEndJob*( p:  ptr Fl_Printer) {.cdecl, importc: "Fl_PrinterEndJob", dynlib: fltk, discardable.}
 
@@ -8435,15 +8442,15 @@ when not defined(FLTK_MAIN_BI):
     proc Fl_PrinterEndPage* ( p:  ptr Fl_Printer):  long {.cdecl, importc: "Fl_PrinterEndPage", dynlib: fltk, discardable.}
 
     ## original: declare sub      Fl_PrinterGetMargins      (byval p as Fl_Printer ptr, byref left as long, byref top as long, byref right as long, byref bottom as long)
-    proc Fl_PrinterGetMargins*( p:  ptr Fl_Printer;  left:  long;  top:  long;  right:  long;  bottom:  long) {.cdecl, importc: "Fl_PrinterGetMargins", dynlib: fltk, discardable.}
+    proc Fl_PrinterGetMargins*( p:  ptr Fl_Printer;  left:  var long;  top:  var long;  right:  var long;  bottom:  var long) {.cdecl, importc: "Fl_PrinterGetMargins", dynlib: fltk, discardable.}
 
     ## original: declare function Fl_PrinterGetPrintableRect(byval p as Fl_Printer ptr, byref w as long, byref h as long) as long
-    proc Fl_PrinterGetPrintableRect* ( p:  ptr Fl_Printer;  w:  long;  h:  long):  long {.cdecl, importc: "Fl_PrinterGetPrintableRect", dynlib: fltk, discardable.}
+    proc Fl_PrinterGetPrintableRect* ( p:  ptr Fl_Printer;  w:  var long;  h:  var long):  long {.cdecl, importc: "Fl_PrinterGetPrintableRect", dynlib: fltk, discardable.}
 
     ## original: declare sub      Fl_PrinterSetOrigin(byval p as Fl_Printer ptr, byval x as long, byval y as long)
     proc Fl_PrinterSetOrigin*( p:  ptr Fl_Printer;  x:  long;  y:  long) {.cdecl, importc: "Fl_PrinterSetOrigin", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_PrinterGetOrigin(byval p as Fl_Printer ptr, byref x as long, byref y as long)
-    proc Fl_PrinterGetOrigin*( p:  ptr Fl_Printer;  x:  long;  y:  long) {.cdecl, importc: "Fl_PrinterGetOrigin", dynlib: fltk, discardable.}
+    proc Fl_PrinterGetOrigin*( p:  ptr Fl_Printer;  x:  var long;  y:  var long) {.cdecl, importc: "Fl_PrinterGetOrigin", dynlib: fltk, discardable.}
 
     ## original: declare sub      Fl_PrinterPrintWidget(byval p as Fl_Printer ptr, byval wgt as Fl_Widget ptr, byval xOffset as long=0, byval yOffset as long=0)
     proc Fl_PrinterPrintWidget*( p:  ptr Fl_Printer;  wgt:  ptr Fl_Widget;  xOffset:  long=0;  yOffset:  long=0) {.cdecl, importc: "Fl_PrinterPrintWidget", dynlib: fltk, discardable.}

@@ -9,25 +9,25 @@ import fltk_main
 #~ ' Pop up the question dialog several times and make sure it doesn't crash.
 #~ ' Also we test to see if the window exit callback works.
 
-proc update_input_text(wgt: ptr Fl_Widget, pInput: string) {.cdecl.} =
+proc update_input_text(wgt: ptr Fl_Widget, pInput: cstring) {.cdecl.} =
   if (pInput.len > 0) :
     Fl_WidgetCopyLabel wgt,pInput
     Fl_WidgetRedraw wgt
 
 
-proc RenameMeCB (self: ptr Fl_Widget, pUserdata: ptr any) {.cdecl.} =
+proc RenameMeCB (self: ptr Fl_Widget, pUserdata: pointer=nil) {.cdecl.} =
   flMessageTitle("RenameMeCB")
   var pInput = flInput("Input:", Fl_WidgetGetLabel(self))
   update_input_text(self, pInput)
 
 
-proc RenameMePasswordCB (self: ptr Fl_Widget, pUserdata: ptr any) {.cdecl.} =
+proc RenameMePasswordCB (self: ptr Fl_Widget, pUserdata: pointer=nil) {.cdecl.} =
   flMessageTitle("RenameMePasswordCB")
   var pInput = flPassword("Input password:", Fl_WidgetGetLabel(self))
   update_input_text(self, pInput)
 
 
-proc WindowCB(self: ptr Fl_Widget, pUserdata: ptr any) {.cdecl.} =
+proc WindowCB(self: ptr Fl_Widget, pUserdata: pointer=nil) {.cdecl.} =
   flMessageTitle("WindowCB")
   var rep = flChoice("Are you sure you want to quit?", "Cancel", "Quit", "Dunno")
   if (rep == 1) :
@@ -43,7 +43,7 @@ var
     buffer2 = "MyPassword"
 
 var win = Fl_Double_WindowNew(200,105)
-Fl_WidgetSetCallback win, WindowCB
+Fl_WidgetSetCallback cast[ptr Fl_Widget](win), WindowCB
 Fl_WidgetSetCallback Fl_Return_ButtonNew(20, 10, 160, 35, buffer1),RenameMeCB
 Fl_WidgetSetCallback Fl_ButtonNew       (20, 50, 160, 35, buffer2),RenameMePasswordCB
 Fl_GroupSetResizable win,win

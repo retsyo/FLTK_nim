@@ -72,11 +72,11 @@ proc SliderCB (self: ptr Fl_Widget, sld: ptr Fl_Hor_Value_Slider){.cdecl.}=
 # main
 #
 var win = Fl_Double_WindowNew(640, 480, "Drawing04.nim")
-#~ var box = Fl_BoxExNew(0, 0, 640, 430)
-var box = Fl_BoxNew(0, 0, 640, 430)
+var box = Fl_BoxExNew(0, 0, 640, 430)
+#~ var box = Fl_BoxNew(0, 0, 640, 430)
 var sld = Fl_Hor_Value_SliderNew(10, 430, 620,  30, "zoom")
-#~ Fl_BoxExSetDrawCB       box, DrawCB
-Fl_BoxSetDrawCB       box, DrawCB
+Fl_BoxExSetDrawCB       box, DrawCB
+#~ Fl_BoxSetDrawCB       box, DrawCB
 Fl_WidgetSetUserData    box, sld
 Fl_WidgetSetCallbackArg sld, SliderCB, sld
 Fl_ValuatorBounds       sld, 0.01, 3.0

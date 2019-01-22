@@ -18,13 +18,13 @@ Fl_WidgetSetAlign V, Fl_ALIGN_TOP_LEFT
 
 # change the colors of V Scrollbar widget
 Fl_WidgetSetColorSel(V,
-    Fl_RGB_Color(ubyte(rand(255)), ubyte(rand(255)), ubyte(rand(255))),
-    Fl_RGB_Color(ubyte(rand(255)), ubyte(rand(255)), ubyte(rand(255))))
+    Fl_RGB_Color(rand(255), rand(255), rand(255)),
+    Fl_RGB_Color(rand(255), rand(255), rand(255)))
 # get the H Scrollbar
 var H = Fl_ScrollHScrollbar(scr)
 Fl_WidgetSetColorSel(H,
-    Fl_RGB_Color(ubyte(rand(255)), ubyte(rand(255)), ubyte(rand(255))),
-    Fl_RGB_Color(ubyte(rand(255)), ubyte(rand(255)), ubyte(rand(255))))
+    Fl_RGB_Color(rand(255), rand(255), rand(255)),
+    Fl_RGB_Color(rand(255), rand(255), rand(255)))
 
 # create some buttons
 var x, y: integer
@@ -35,8 +35,8 @@ for y in 0 .. 49:
     label = "[" & $(1+y*49 + x) & "]"
     var btn = Fl_ButtonNew(x*50, y*50, 48, 48)
     Fl_WidgetCopyLabel btn, label
-    Fl_WidgetSetColorSel(btn, Fl_RGB_Color(ubyte(rand(255)), ubyte(rand(255)), ubyte(rand(255))),
-                             Fl_RGB_Color(ubyte(rand(255)), ubyte(rand(255)), ubyte(rand(255))))
+    Fl_WidgetSetColorSel(btn, Fl_RGB_Color(rand(255), rand(255), rand(255)),
+                             Fl_RGB_Color(rand(255), rand(255), rand(255)))
 
 # scroll to pixel pos 500, 750
 Fl_ScrollScrollTo scr, 500, 750

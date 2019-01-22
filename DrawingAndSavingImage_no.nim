@@ -5,8 +5,8 @@ proc DrawCB(self: ptr Fl_Widget, SaveButton: ptr Fl_Button){. cdecl .}=
   Fl_WindowMakeCurrent(Fl_WidgetWindow(self))
   var i: int
   for i in 1 .. 100:
-    DrawSetRGBColor(ubyte(rand(256)), ubyte(rand(256)), ubyte(rand(256)))
-    DrawLine((rand(128)), (rand(128)), (rand(128)), (rand(128)))
+    DrawSetRGBColor(rand(256), rand(256), rand(256))
+    DrawLine(rand(128), rand(128), rand(128), rand(128))
 
   Fl_WidgetActivate SaveButton
 

@@ -8,7 +8,7 @@ var win = Fl_Double_WindowNew(128,128,"resize me ...")
 var box = Fl_BoxNew(0,0,128,128)
 var img = Fl_PNG_ImageNew("media/renata.png")
 Fl_WidgetSetImage box,Fl_Tiled_ImageNew(img)
-Fl_WidgetResize(win,100,100, long(128 * 2.5), long(128 * 0.5))
+Fl_WidgetResize(win,100,100, 128 * 2.5, 128 * 0.5)
 Fl_GroupSetResizable(win,win)
 Fl_WindowShow win
 Fl_Run()

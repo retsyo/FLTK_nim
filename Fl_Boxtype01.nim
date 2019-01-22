@@ -11,7 +11,7 @@ const BOX_HEIGHT = 50
 
 var i, row, col: int
 
-var win = Fl_Double_WindowNew(long(6*10+5*BOX_WIDTH), long(12*10+11*BOX_HEIGHT), "Fl_Boxtype01.nim")
+var win = Fl_Double_WindowNew(6*10+5*BOX_WIDTH, 12*10+11*BOX_HEIGHT, "Fl_Boxtype01.nim")
 Fl_WidgetSetColor win,12
 for i in 0 .. 55:
   row = int(i / 5)

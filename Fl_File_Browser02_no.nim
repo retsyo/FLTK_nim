@@ -17,8 +17,9 @@ else:
     const PATH = "$HOME"
 
 
-var UserPath: string
+var UserPath: cstring
 #~ UserPath = callocate(FL_MAX_PATH)
+#~ var UserPath: array[FL_MAX_PATH, char]
 flFilenameExpand(UserPath, FL_MAX_PATH, PATH)
 
 proc BrowserCB  (self: ptr FL_WIDGET, filebrowser: ptr Fl_File_Browser){.cdecl.}=

@@ -8,31 +8,37 @@ var
     w{.global.} = 150
     h{.global.} = 150
 
-proc Draw_OverlayCB (self: ptr any) {. cdecl.} =
+proc Draw_OverlayCB (self: pointer) {. cdecl.} =
+  var self = cast[ptr Fl_Widget](self)
   DrawSetColor(FL_RED)
   DrawRect((Fl_WidgetGetW(self)-w)/2, (Fl_WidgetGetH(self)-h)/2, w, h)
 
-proc HandleCB(self: ptr any, event: Fl_Event)  : long {. cdecl.}=
+proc HandleCB(self: pointer, event: Fl_Event)  : long {. cdecl.}=
+  var self = cast[ptr Fl_Overlay_WindowEx](self)
   return Fl_Overlay_WindowExHandleBase(self, event) # don't eat the event
 
 
-proc Button1CB  (self: ptr Fl_Widget, ovl: ptr any)  {. cdecl.} =
+proc Button1CB  (self: ptr Fl_Widget, ovl: pointer)  {. cdecl.} =
   h += 20
+  var ovl = cast[ptr Fl_Overlay_WindowEx](ovl)
   Fl_Overlay_WindowRedrawOverlay ovl
 
 
-proc Button2CB  (self: ptr Fl_Widget, ovl: ptr any) {. cdecl.} =
+proc Button2CB  (self: ptr Fl_Widget, ovl: pointer) {. cdecl.} =
   h -= 20
+  var ovl = cast[ptr Fl_Overlay_WindowEx](ovl)
   Fl_Overlay_WindowRedrawOverlay ovl
 
 
-proc Button3CB (self: ptr Fl_Widget, ovl: ptr any) {. cdecl.} =
+proc Button3CB (self: ptr Fl_Widget, ovl: pointer) {. cdecl.} =
   w += 20
+  var ovl = cast[ptr Fl_Overlay_WindowEx](ovl)
   Fl_Overlay_WindowRedrawOverlay ovl
 
 
-proc Button4CB (self: ptr Fl_Widget, ovl: ptr any) {. cdecl.} =
+proc Button4CB (self: ptr Fl_Widget, ovl: pointer) {. cdecl.} =
   w -= 20
+  var ovl = cast[ptr Fl_Overlay_WindowEx](ovl)
   Fl_Overlay_WindowRedrawOverlay ovl
 
 

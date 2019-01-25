@@ -3,13 +3,13 @@ import fltk_main
 # test of:
 # Fl_Choice    http://www.fltk.org/doc-1.3/classFl__Choice.html
 
-proc ChoiceCB(self: ptr Fl_Widget, cho: ptr Fl_Choice) {.cdecl.} =
+proc ChoiceCB(self: ptr Fl_Widget, cho: pointer) {.cdecl.} =
   # get parent of the widget
   var win = Fl_WidgetWindow(self)
   # get index of selected item
   var ind = Fl_ChoiceGetValue(cho)
   # copy label from item to window caption
-  Fl_WindowCopyLabel win, Fl_Menu_GetMenu(cho)[ind].text
+  Fl_WindowCopyLabel win, Fl_Menu_GetMenu(cast[ptr Fl_Menu_TT](cho))[ind].text
 
 
 #

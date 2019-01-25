@@ -22,7 +22,7 @@ var UserPath: cstring
 #~ var UserPath: array[FL_MAX_PATH, char]
 flFilenameExpand(UserPath, FL_MAX_PATH, PATH)
 
-proc BrowserCB  (self: ptr FL_WIDGET, filebrowser: ptr Fl_File_Browser){.cdecl.}=
+proc BrowserCB  (self: ptr FL_WIDGET, filebrowser: pointer){.cdecl.}=
   var index = Fl_BrowserGetValue(filebrowser)
   echo $Fl_BrowserGetText(filebrowser,index)
 

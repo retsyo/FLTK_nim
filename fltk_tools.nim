@@ -17,6 +17,12 @@ when not defined(fltk_tools_bi):
     #~ '
     #~ '    http://www.freebasic.net/forum/viewtopic.php?f=14&t=24547
 
+    template iif(cond: untyped, value1: untyped, value2: untyped): untyped=
+        if bool(cond):
+            value1
+        else:
+            value2
+
     when not defined(FLTK_MAIN_BI):
         #~ const FLTK_MAIN_BI* = true
        import fltk_main
@@ -71,60 +77,60 @@ when not defined(fltk_tools_bi):
       #~ DrawBox bt,x,y,w,h,Fl_RGB_Color(r,g,b)
     #~ end sub
 
-    #~ proc Fl_Menu_AddImageLabel(mnuBar: ptr Fl_Menu_TT,
-                                   #~ mnuPath:   string,
-                                   #~ labText:   string,
-                                   #~ imgFile:   string,
-                                   #~ shortcut:  long=0,
-                                   #~ cb:        Fl_Callback=0,
-                                   #~ imgAlign:  FL_ALIGN=0,
-                                   #~ txtalign:  FL_ALIGN=0): ptr Fl_Menu_Item =
-        #~ if mnuBar == 0:
-            #~ return 0
-        #~ if mnuPath == 0:
-            #~ return 0
-        #~ if labText == 0:
-            #~ return 0
-        #~ if imgFile == 0:
-            #~ return 0
+    proc Fl_Menu_AddImageLabel*(mnuBar: ptr Fl_Menu_TT,
+                                   mnuPath:   cstring,
+                                   labText:   cstring,
+                                   imgFile:   cstring,
+                                   shortcut:  long=0,
+                                   cb:        Fl_Callback=nil,
+                                   imgAlign:  FL_ALIGN=0,
+                                   txtalign:  FL_ALIGN=0): ptr Fl_Menu_Item {.discardable.}=
+        if mnuBar.isNil :
+            return nil
+        if mnuPath.isNil :
+            return nil
+        if labText.isNil :
+            return nil
+        if imgFile.isNil :
+            return nil
 
-        #~ Fl_Menu_Add(mnuBar,mnuPath,shortcut,cb)
+        Fl_Menu_Add(mnuBar, mnuPath, shortcut, cb)
 
-        #~ var itm: ptr Fl_Menu_Item = Fl_Menu_FindItemByName(mnuBar,mnuPath)
-        #~ var img = Fl_PNG_ImageNew(imgFile)
+        var itm: ptr Fl_Menu_Item = Fl_Menu_FindItemByName(mnuBar, mnuPath)
+        var img = Fl_PNG_ImageNew(imgFile)
 
-        #~ Fl_WindowMakeCurrent Fl_WidgetWindow(mnuBar)
+        Fl_WindowMakeCurrent Fl_WidgetWindow(mnuBar)
 
-        #~ DrawSetFont Fl_WidgetGetLabelFont(mnuBar),Fl_WidgetGetLabelSize(mnuBar)
+        DrawSetFont Fl_WidgetGetLabelFont(mnuBar), Fl_WidgetGetLabelSize(mnuBar)
 
-        #~ var
-            #~ w, h: long
+        var
+            w, h: long
 
-        #~ if (imgAlign and Fl_ALIGN_IMAGE_NEXT_TO_TEXT):
-            #~ w = DrawGetStrWidth(labText) + Fl_ImageW(img)
-            #~ h = iif(DrawGetFontHeight()>Fl_ImageH(img),DrawGetFontHeight(),Fl_ImageH(img))
-        #~ else:
-            #~ h = DrawGetFontHeight() + Fl_ImageH(img)
-            #~ w = DrawGetStrWidth(labText)
-            #~ if (w < Fl_ImageW(img)):
-                #~ w = Fl_ImageW(img)
+        if bool(imgAlign and Fl_ALIGN_IMAGE_NEXT_TO_TEXT) :
+            w = DrawGetStrWidth(labText) + Fl_ImageW(img)
+            h = iif(DrawGetFontHeight()>Fl_ImageH(img),DrawGetFontHeight(), Fl_ImageH(img))
+        else:
+            h = DrawGetFontHeight() + Fl_ImageH(img)
+            w = DrawGetStrWidth(labText)
+            if (w < Fl_ImageW(img)):
+                w = Fl_ImageW(img)
 
 
-        #~ if h<32:
-            #~ h= 32
-        #~ if w<100:
-            #~ w=100
+        if h<32:
+            h = 32
+        if w<100:
+            w =100
 
-        #~ DrawSetColor Fl_BACKGROUND_COLOR
-        #~ DrawRectFill 0,0,w,h
-        #~ DrawSetColor Fl_WidgetGetLabelColor(mnuBar)
-        #~ DrawStrBox labText,0,0,w,h,imgAlign or txtAlign,img,0
-        #'DrawStrBox labText,0,0,w,h,imgAlign or txtAlign or FL_ALIGN_CLIP,img,0
-        #~ Fl_RGB_ImageDelete img
-        #~ var pixels=DrawReadImage(0,0,0,w,h,0)
-        #~ Fl_Menu_ItemImage itm,Fl_RGB_ImageNew(pixels,w,h,3)
+        DrawSetColor Fl_BACKGROUND_COLOR
+        DrawRectFill 0, 0, w, h
+        DrawSetColor Fl_WidgetGetLabelColor(mnuBar)
+        DrawStrBox labText, 0, 0, w, h, imgAlign or txtAlign, img, 0
+        #~ #'DrawStrBox labText,0,0,w,h,imgAlign or txtAlign or FL_ALIGN_CLIP,img,0
+        Fl_RGB_ImageDelete img
+        var pixels = DrawReadImage(nil, 0, 0, w, h, 0)
+        Fl_Menu_ItemImage itm,Fl_RGB_ImageNew(pixels, w, h, 3)
 
-        #~ return itm
+        return itm
 
 
     #~ function flbox(byval b as Fl_Boxtype) as Fl_Boxtype

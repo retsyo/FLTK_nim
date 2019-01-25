@@ -4,7 +4,7 @@ import fltk_main
 
 proc `\` (x: long; y: long): long = long(x.float / y.float)
 
-proc CanvasDrawCB  (me: ptr Fl_Canvas,
+proc CanvasDrawCB  (me: pointer,
                         dstX: var long, dstY: var long,
                         cpyW: var long, cpyH: var long,
                         srcX: var long, srcY: var long) {.cdecl.} =
@@ -15,6 +15,9 @@ proc CanvasDrawCB  (me: ptr Fl_Canvas,
     ys {.global.}:long = 1
     sw {.global.}:long = 0
     sh {.global.}:long = 0
+
+  var me = cast[ptr Fl_Canvas](me)
+
   var par = Fl_WidgetGetParent(me)
   var x = Fl_WidgetGetX(me)
   var y = Fl_WidgetGetY(me)
@@ -64,7 +67,7 @@ proc CanvasDrawCB  (me: ptr Fl_Canvas,
     yp = h
 
 
-proc TimeoutCB  (can: ptr any){.cdecl.} =
+proc TimeoutCB  (can: pointer){.cdecl.} =
   Fl_WidgetDraw can
   Fl_RepeatTimeout 1.0/80, TimeoutCB, can
 

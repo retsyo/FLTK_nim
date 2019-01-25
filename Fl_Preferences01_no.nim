@@ -65,11 +65,11 @@ echo $sValue
 var inData: ptr ubyte
 group = Fl_PreferencesNewGroup(pref, "mygroup")
 
-#~ Fl_PreferencesGetData(group, "key_bin", inData, addr outData, datasize)
-#~ for i in 0 .. datasize-1:
-  #~ echo $inData[i]
+Fl_PreferencesGetData(group, "key_bin", inData, addr outData, datasize)
+for i in 0 .. datasize-1:
+  echo $inData[i]
 
-#~ Fl_Free inData
+Fl_Free inData
 
 Fl_PreferencesDelete pref
 

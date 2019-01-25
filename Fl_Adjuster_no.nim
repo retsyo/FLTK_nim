@@ -1,9 +1,10 @@
 import fltk_main
 
-proc AdjusterCB  (self: ptr Fl_Widget,  box: ptr FL_BOXTYPE) {.cdecl.} =
+proc AdjusterCB  (self: ptr Fl_Widget,  box: pointer) {.cdecl.} =
     var tmp = Fl_WidgetGetLabel(box)
-    var label = $(tmp)
-    Fl_ValuatorFormat self,  tmp
+    var label = tmp
+    #~ Fl_ValuatorFormat self,  tmp
+    Fl_ValuatorFormat cast[ptr Fl_Valuator](self), label
     Fl_WidgetRedraw box
 
 
@@ -11,7 +12,7 @@ proc AdjusterCB  (self: ptr Fl_Widget,  box: ptr FL_BOXTYPE) {.cdecl.} =
 #~ dim as string * 128 buf1
 #~ dim as string * 128 buf2
 var
-    buf1,  buf2: string
+    buf1,  buf2: cstring
 
 var win = Fl_Double_WindowNew(400, 100, "click adjusters and drag")
 

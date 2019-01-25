@@ -1,4 +1,11 @@
 when not defined(FLTK_MAIN_BI):
+
+    template iif*(cond: untyped, value1: untyped, value2: untyped): untyped=
+        if bool(cond):
+            value1
+        else:
+            value2
+
     const  FLTK_MAIN_BI* = true
 
     #_   FreeBASIC header file for the Fast Light Tool Kit C wrapper.
@@ -48,6 +55,7 @@ when not defined(FLTK_MAIN_BI):
 
     converter toUbyte*(x: int|int16|int32|long|single):ubyte = ubyte(x)
     converter toLong*(x: int|int16|int32|float):long = long(x)
+    converter toDouble*(x: int|int16|int32|int64|float):double = double(x)
 
 
     type
@@ -65,6 +73,7 @@ when not defined(FLTK_MAIN_BI):
 
         Fl_Tree_Item* = ulong
         Fl_Tree* = ulong
+
         Fl_Label* = ulong
         Fl_Widget* = ulong
         Fl_Image* = ulong
@@ -306,6 +315,19 @@ when not defined(FLTK_MAIN_BI):
         Fl_Wizard* = ulong
         Fl_WizardPage* = ulong
 
+    type P_Fl_Widget = ptr Fl_Widget
+
+    type P_Fl_tree = ptr Fl_Tree
+    type P_Fl_Button = ptr Fl_Button
+
+    converter toP_Fl_tree*(x: pointer): P_Fl_tree = cast[P_Fl_Tree](x)
+    converter topointer*(x: P_Fl_tree|cstring|string): pointer = cast[pointer](x)
+    converter toP_Fl_Widget*(x: P_Fl_tree|P_Fl_Button): P_Fl_Widget = cast[P_Fl_Widget](x)
+    converter toCstring*(x: pointer|string): cstring = cast[cstring](x)
+
+    converter toInt16*(x: pointer): int16 = cast[int16](x)
+
+
     #ifdef __FB_WIN32__
 
      #ifndef __FB_64BIT__
@@ -404,7 +426,7 @@ when not defined(FLTK_MAIN_BI):
 
     #_  Colors
     ## original: type Fl_COLOR as ulong
-    type Fl_COLOR  =  ulong
+    type Fl_COLOR*  =  ulong
     #_  The Fl_Color type holds an FLTK color value.
     #_  Colors are either 8-bit indexes into a virtual colormap or 24-bit RGB color values.
     #_  Color indices occupy the lower 8 bits of the value, while RGB colors occupy the upper 24 bits, for a byte organization of RGBI.
@@ -426,6 +448,10 @@ when not defined(FLTK_MAIN_BI):
     const Fl_INACTIVE_COLOR*    =  8 #_  the inactive foreground color
     ## original: const as Fl_COLOR Fl_SELECTION_COLOR   = 15 #_  the default selection/highlight color
     const Fl_SELECTION_COLOR*   = 15 #_  the default selection/highlight color
+
+    converter toFl_COLOR*(x: int|long): Fl_COLOR = cast[Fl_COLOR](x)
+    converter toLong*(x: Fl_COLOR): long = cast[long](x)
+
 
     const Fl_FREE_COLOR_TT* =     16
     const Fl_NUM_FREE_COLOR* = 16
@@ -530,6 +556,8 @@ when not defined(FLTK_MAIN_BI):
     const Fl_ZAPF_DINGBATS*          = 15 #_  Zapf-dingbats font
     ## original: const as FL_FONT Fl_FREE_FONT              = 16 #_  first one to allocate
     const Fl_FREE_FONT*              = 16 #_  first one to allocate
+
+    converter toFL_FONT*(num: int): FL_FONT = cast[FL_FONT](num)
 
     #_  FLTK enums
     ## original: type FL_BEEP as ulong
@@ -1223,6 +1251,8 @@ when not defined(FLTK_MAIN_BI):
     ## original: const as FL_TABLECONTEXT FL_CONTEXT_RC_RESIZE     = 0X40 #_  [r]ow or [c]olumn being resized
     const FL_CONTEXT_RC_RESIZE*     = 0X40 #_  [r]ow or [c]olumn being resized
 
+    converter toInt*(x: FL_TABLECONTEXT): int = int(x)
+
     ## original: type FL_TABLEROWSELECTMODE as ulong
     type FL_TABLEROWSELECTMODE*  =  ulong
     ## original: const as FL_TABLEROWSELECTMODE FL_SELECT_NONE     = 0
@@ -1272,41 +1302,41 @@ when not defined(FLTK_MAIN_BI):
     ## original: type FL_TREE_SORT as ulong        #_  Sort order options for items added to the tree.
     type FL_TREE_SORT*  =  ulong        #_  Sort order options for items added to the tree.
     ## original: const as FL_TREE_SORT FL_TREE_SORT_NONE           = 0 #_  No sorting; items are added in the order defined (default).
-    const FL_TREE_SORT_NONE           = 0 #_  No sorting; items are added in the order defined (default).
+    const FL_TREE_SORT_NONE*           = 0 #_  No sorting; items are added in the order defined (default).
     ## original: const as FL_TREE_SORT FL_TREE_SORT_ASCENDING      = 1 #_  Add items in ascending sort order.
-    const FL_TREE_SORT_ASCENDING      = 1 #_  Add items in ascending sort order.
+    const FL_TREE_SORT_ASCENDING*      = 1 #_  Add items in ascending sort order.
     ## original: const as FL_TREE_SORT FL_TREE_SORT_DESCENDING     = 2 #_  Add items in descending sort order.
-    const FL_TREE_SORT_DESCENDING     = 2 #_  Add items in descending sort order.
+    const FL_TREE_SORT_DESCENDING*     = 2 #_  Add items in descending sort order.
 
     ## original: type FL_VALUATOR_TYPE as ulong
-    type FL_VALUATOR_TYPE  =  ulong
+    type FL_VALUATOR_TYPE*  =  ulong
     ## original: const as FL_VALUATOR_TYPE FL_VALUATOR_VERTICAL    = 0 #_  The valuator can work vertically
-    const FL_VALUATOR_VERTICAL    = 0 #_  The valuator can work vertically
+    const FL_VALUATOR_VERTICAL*    = 0 #_  The valuator can work vertically
     ## original: const as FL_VALUATOR_TYPE FL_VALUATOR_HORIZONTAL  = 1 #_  The valuator can work horizontally
-    const FL_VALUATOR_HORIZONTAL  = 1 #_  The valuator can work horizontally
+    const FL_VALUATOR_HORIZONTAL*  = 1 #_  The valuator can work horizontally
 
     #_  Defines the ways an item can be (re) selected via item_reselect_mode().
     ## original: type FL_TREE_ITEM_RESELECT_MODE as ulong
-    type FL_TREE_ITEM_RESELECT_MODE  =  ulong
+    type FL_TREE_ITEM_RESELECT_MODE*  =  ulong
     #_  Item can only be selected once (default)
     ## original: const as FL_TREE_ITEM_RESELECT_MODE FL_TREE_SELECTABLE_ONCE   = 0
-    const FL_TREE_SELECTABLE_ONCE   = 0
+    const FL_TREE_SELECTABLE_ONCE*   = 0
     #_  Enables FL_TREE_REASON_RESELECTED events for callbacks
     ## original: const as FL_TREE_ITEM_RESELECT_MODE FL_TREE_SELECTABLE_ALWAYS = 1
-    const FL_TREE_SELECTABLE_ALWAYS = 1
+    const FL_TREE_SELECTABLE_ALWAYS* = 1
 
     #_  NEW: Bit flags that control how item's labels and widget()s are drawn in the tree.
     ## original: type FL_TREE_ITEM_DRAW_MODE as ulong
-    type FL_TREE_ITEM_DRAW_MODE  =  ulong
+    type FL_TREE_ITEM_DRAW_MODE*  =  ulong
     #_  If widget() defined, draw in place of label, and widget() tracks item height (default)
     ## original: const as FL_TREE_ITEM_DRAW_MODE FL_TREE_ITEM_DRAW_DEFAULT          = 0
-    const FL_TREE_ITEM_DRAW_DEFAULT          = 0
+    const FL_TREE_ITEM_DRAW_DEFAULT*          = 0
     #_  If widget() defined, include label to the left of the widget
     ## original: const as FL_TREE_ITEM_DRAW_MODE FL_TREE_ITEM_DRAW_LABEL_AND_WIDGET = 1
-    const FL_TREE_ITEM_DRAW_LABEL_AND_WIDGET = 1
+    const FL_TREE_ITEM_DRAW_LABEL_AND_WIDGET* = 1
     #_  If widget() defined, widget()'s height controls item's height
     ## original: const as FL_TREE_ITEM_DRAW_MODE FL_TREE_ITEM_HEIGHT_FROM_WIDGET    = 2
-    const FL_TREE_ITEM_HEIGHT_FROM_WIDGET    = 2
+    const FL_TREE_ITEM_HEIGHT_FROM_WIDGET*    = 2
 
     ## original: type FL_WHEN as ulong #_  Fl_WidgetSetWhen():
     type FL_WHEN*  =  ulong #_  Fl_WidgetSetWhen():
@@ -1913,10 +1943,10 @@ when not defined(FLTK_MAIN_BI):
     type Fl_Event_Handler* = proc( event:  FL_EVENT): long {.cdecl.}
 
     ## original: type Fl_FD_Handler       as sub      (byval fd as Fl_SOCKET, byval userdata as any ptr)
-    type Fl_FD_Handler* = proc( fd:  Fl_SOCKET;  userdata:  ptr any) {.cdecl.}
+    type Fl_FD_Handler* = proc( fd:  Fl_SOCKET;  userdata:  pointer) {.cdecl.}
 
     ## original: type Fl_Idle_Handler     as sub      (byval pUserData as any ptr)
-    type Fl_Idle_Handler* = proc( pUserData:  ptr any) {.cdecl.}
+    type Fl_Idle_Handler* = proc( pUserData:  pointer) {.cdecl.}
 
     ## original: type Fl_Label_Draw_F     as sub      (byval label as const Fl_Label ptr, byval x as long, byval y as long, byval w as long, byval h as long, byval align as FL_ALIGN)
     type Fl_Label_Draw_F* = proc( label:  ptr Fl_Label;  x:  long;  y:  long;  w:  long;  h:  long;  align:  FL_ALIGN) {.cdecl.}
@@ -1928,31 +1958,31 @@ when not defined(FLTK_MAIN_BI):
     type Fl_Old_Idle_Handler* = proc() {.cdecl.}
 
     ## original: type Fl_Timeout_Handler  as sub      (byval userdata as any ptr)
-    type Fl_Timeout_Handler* = proc( userdata:  ptr any) {.cdecl.}
+    type Fl_Timeout_Handler* = proc( userdata:  pointer) {.cdecl.}
 
     ## original: type Fl_File_Sort_F      as function (byval as dirent ptr ptr, byval as dirent ptr ptr) as long
     #~ type Fl_File_Sort_F* = proc(a:  ptr ptr dirent; b:  ptr ptr dirent): long {.cdecl, importc: "Fl_File_Sort_F", dynlib: fltk, discardable.}
     #_  source=0 selection buffer changed  source=1 clipboard changed
     ## original: type Fl_Clipboard_Notify_Handler as sub(byval source as long, byval userdata as any ptr)
-    type Fl_Clipboard_Notify_Handler* = proc( source:  long;  userdata:  ptr any) {.cdecl.}
+    type Fl_Clipboard_Notify_Handler* = proc( source:  long;  userdata:  pointer) {.cdecl.}
     #_  callback's for all extended FLTK classes
     ## original: type Fl_DestructorEx     as sub      (byval self as any ptr)
-    type Fl_DestructorEx* = proc( self:  ptr any) {.cdecl.}
+    type Fl_DestructorEx* = proc( self:  pointer) {.cdecl.}
 
     ## original: type Fl_DrawEx           as function (byval self as any ptr) as long
-    type Fl_DrawEx* = proc( self:  ptr any): long {.cdecl.}
+    type Fl_DrawEx* = proc( self:  pointer): long {.cdecl.}
 
     ## original: type Fl_HandleEx         as function (byval self as any ptr, byval event as FL_EVENT) as long
-    type Fl_HandleEx* = proc( self:  ptr any;  event:  FL_EVENT): long {.cdecl.}
+    type Fl_HandleEx* = proc( self:  pointer;  event:  FL_EVENT): long {.cdecl.}
 
     ## original: type Fl_ResizeEx         as function (byval self as any ptr, byval x as long, byval y as long, byval w as long, byval h as long) as long
-    type Fl_ResizeEx* = proc( self:  ptr any;  x:  long;  y:  long;  w:  long;  h:  long): long {.cdecl.}
+    type Fl_ResizeEx* = proc( self:  pointer;  x:  long;  y:  long;  w:  long;  h:  long): long {.cdecl.}
     #_  callback for the Fl_Overlay_WindowEx, Fl_GL_WindowEx and Fl_GlutWindowEx widget's
     ## original: type Fl_Draw_OverlayEx   as sub      (byval self as any ptr)
     type Fl_Draw_OverlayEx* = proc( self:  pointer) {.cdecl.}
     #_  callback for the Fl_TableEx Fl_Table_RowEx widget only
     ## original: type Fl_DrawCellEx       as function (byval self as any ptr, byval context as FL_TABLECONTEXT, byval row as long, byval col as long, byval x as long, byval y as long, byval w as long, byval h as long) as long
-    type Fl_DrawCellEx* = proc( self:  ptr any;  context:  FL_TABLECONTEXT;  row:  long;  col:  long;  x:  long;  y:  long;  w:  long;  h:  long): long {.cdecl.}
+    type Fl_DrawCellEx* = proc( self:  pointer;  context:  FL_TABLECONTEXT;  row:  long;  col:  long;  x:  long;  y:  long;  w:  long;  h:  long): long {.cdecl.}
     #_  callback for the Fl_Canvas only
     ## original: type Fl_CanvasDraw       as sub      (byval self as any ptr, byref dtsX as long, byref dstY as long, byref cpyW as long, byref cpyH as long, byref srcX as long, byref srcY as long)
     type Fl_CanvasDraw* = proc( self:  pointer;  dtsX:  var long;  dstY:  var long;  cpyW:  var long;  cpyH:  var long;  srcX:  var long;  srcY:  var long) {.cdecl.}
@@ -1978,19 +2008,19 @@ when not defined(FLTK_MAIN_BI):
     ## original: type Fl_Shared_Handler   as function (byval ImageName as cstring, byval Header as ubyte ptr, byval HeaderLen as long) as Fl_Image ptr
     type Fl_Shared_Handler* = proc( ImageName:  cstring;  Header:  ptr ubyte;  HeaderLen:  long): ptr Fl_Image {.cdecl.}
     ## original: type Fl_Draw_Image_CB    as sub      (byval pUserData as any ptr, byval pixelstart as long, byval scanline as long, byval nPixels as long, byval pScanline as ubyte ptr)
-    type Fl_Draw_Image_CB* = proc( pUserData:  ptr any;  pixelstart:  long;  scanline:  long;  nPixels:  long;  pScanline:  ptr ubyte) {.cdecl.}
+    type Fl_Draw_Image_CB* = proc( pUserData:  pointer;  pixelstart:  long;  scanline:  long;  nPixels:  long;  pScanline:  ptr ubyte) {.cdecl.}
 
     #_  callback for the Fl_File_Chooser
     ## original: type Fl_File_Chose_CB    as sub      (byval self as Fl_File_Chooser ptr, byval pUserData as any ptr)
-    type Fl_File_Chose_CB* = proc( self:  ptr Fl_File_Chooser;  pUserData:  ptr any) {.cdecl.}
+    type Fl_File_Chose_CB* = proc( self:  ptr Fl_File_Chooser;  pUserData:  pointer) {.cdecl.}
 
     #_  callbacks for FL_TEXT_XXX widgets
     ## original: type Fl_Text_Modify_CB    as sub     (byval pos as long, byval nInserted as long, byval nDeleted as long, byval nRestyled as long, byval deletedText as cstring, byval pUserdata as any ptr)
-    type Fl_Text_Modify_CB* = proc( pos:  long;  nInserted:  long;  nDeleted:  long;  nRestyled:  long;  deletedText:  cstring;  pUserdata:  ptr any) {.cdecl.}
+    type Fl_Text_Modify_CB* = proc( pos:  long;  nInserted:  long;  nDeleted:  long;  nRestyled:  long;  deletedText:  cstring;  pUserdata:  pointer) {.cdecl.}
     ## original: type Fl_Text_Predelete_CB as sub     (byval pos as long, byval nDeleted  as long, byval pUserData as any ptr)
-    type Fl_Text_Predelete_CB* = proc( pos:  long;  nDeleted:  long;  pUserData:  ptr any) {.cdecl.}
+    type Fl_Text_Predelete_CB* = proc( pos:  long;  nDeleted:  long;  pUserData:  pointer) {.cdecl.}
     ## original: type Unfinished_Style_CB  as sub     (byval i as long, byval p as any ptr)
-    type Unfinished_Style_CB* = proc( i:  long;  p:  ptr int) {.cdecl.}
+    type Unfinished_Style_CB* = proc( i:  long;  p:  pointer) {.cdecl.}
     ## original: type Key_Func             as function(byval key as long, byval editor as Fl_Text_Editor ptr) as long
     type Key_Func* = proc( key:  long;  editor:  ptr Fl_Text_Editor): long {.cdecl.}
 
@@ -2005,7 +2035,7 @@ when not defined(FLTK_MAIN_BI):
       text                : cstring                            #_  menu item text, returned by label()
       shortcut_TT           : long                           #_  menu item shortcut
       cb_TT                 : Fl_Callback                    #_  menu item callback
-      user_data_TT          : ptr any                         #_  menu item user_data for the menu's callback
+      user_data_TT          : pointer                         #_  menu item user_data for the menu's callback
       flags               : long                           #_  menu item flags like FL_MENU_TOGGLE, FL_MENU_RADIO
       labeltype_TT          : ubyte                          #_  how the menu item text looks like (see FL_LABEL_TYPE)
       labelfont_TT          : FL_FONT                        #_  which font for this menu item text
@@ -2181,7 +2211,7 @@ when not defined(FLTK_MAIN_BI):
     proc Fl_access* ( f:  cstring;  mode:  long):  long {.cdecl, importc: "Fl_access", dynlib: fltk, discardable.}
     #_  OD: Portable UTF8 aware stat wrapper             !!! buffer as stat ptr
     ## original: declare function Fl_stat(byval path as cstring, byval buffer as any ptr) as long
-    proc Fl_stat* ( path:  cstring;  buffer:  ptr any):  long {.cdecl, importc: "Fl_stat", dynlib: fltk, discardable.}
+    proc Fl_stat* ( path:  cstring;  buffer:  pointer):  long {.cdecl, importc: "Fl_stat", dynlib: fltk, discardable.}
     #_  OD: Portable UTF8 aware getcwd wrapper
     ## original: declare function Fl_getcwd(byval buf as cstring, byval maxlen as long) as cstring
     proc Fl_getcwd* ( buf:  cstring;  maxlen:  long):  cstring {.cdecl, importc: "Fl_getcwd", dynlib: fltk, discardable.}
@@ -2261,7 +2291,7 @@ when not defined(FLTK_MAIN_BI):
     proc Fl_PreferencesSetString* ( pref:  ptr Fl_Preferences;  entry:  cstring;  value:  cstring):  long {.cdecl, importc: "Fl_PreferencesSetString", dynlib: fltk, discardable.}
 
     ## original: declare function Fl_PreferencesSetData   (byval pref as Fl_Preferences ptr, byval entry as cstring, byval value as const any ptr, byval size as long) as long
-    proc Fl_PreferencesSetData* ( pref:  ptr Fl_Preferences;  entry:  cstring;  value:  ptr int;  size:  long):  long {.cdecl, importc: "Fl_PreferencesSetData", dynlib: fltk, discardable.}
+    proc Fl_PreferencesSetData* ( pref:  ptr Fl_Preferences;  entry:  cstring;  value:  pointer;  size:  long):  long {.cdecl, importc: "Fl_PreferencesSetData", dynlib: fltk, discardable.}
     #_  read values from group:key returns 0 if the default value was used
     ## original: declare function Fl_PreferencesGetInt    (byval pref as Fl_Preferences ptr, byval entry as cstring, byref value as long       , byval defaultValue as long) as long
     proc Fl_PreferencesGetInt* ( pref:  ptr Fl_Preferences;  entry:  cstring;  value:  var long;  defaultValue:  long):  long {.cdecl, importc: "Fl_PreferencesGetInt", dynlib: fltk, discardable.}
@@ -2276,7 +2306,7 @@ when not defined(FLTK_MAIN_BI):
     ## original: declare function Fl_PreferencesGetData   (byval pref as Fl_Preferences ptr, byval entry as cstring, byref value as any ptr    , byval defaultValue as const any ptr    , byval defaultSize as long) as long
     proc Fl_PreferencesGetData* ( pref:  ptr Fl_Preferences;  entry:  cstring;  value:  var pointer;  defaultValue:  pointer;  defaultSize:  long):  long {.cdecl, importc: "Fl_PreferencesGetData", dynlib: fltk, discardable.}
     ## original: declare function Fl_PreferencesGetData2  (byval pref as Fl_Preferences ptr, byval entry as cstring, byval value as any ptr    , byval defaultValue as const any ptr    , byval defaultSize as long, byval maxSize as long) as long
-    proc Fl_PreferencesGetData2* ( pref:  ptr Fl_Preferences;  entry:  cstring;  value:  ptr any;  defaultValue:  ptr any;  defaultSize:  long;  maxSize:  long):  long {.cdecl, importc: "Fl_PreferencesGetData2", dynlib: fltk, discardable.}
+    proc Fl_PreferencesGetData2* ( pref:  ptr Fl_Preferences;  entry:  cstring;  value:  pointer;  defaultValue:  pointer;  defaultSize:  long;  maxSize:  long):  long {.cdecl, importc: "Fl_PreferencesGetData2", dynlib: fltk, discardable.}
 
     #_  Returns the size of the value part of an entry.
     ## original: declare function Fl_PreferencesGetSize(byval pref as Fl_Preferences ptr, byval entry as cstring) as long
@@ -2347,7 +2377,7 @@ when not defined(FLTK_MAIN_BI):
 
     ## original: declare sub      flFileChooserCallback(byval cb as sub cdecl(byval file as cstring))
     #~ proc flFileChooserCallback*() {.cdecl, importc: "flFileChooserCallback", dynlib: fltk, discardable.}
-    proc flFileChooserCallback*(cb: proc (f: cstring)){.cdecl, importc: "flFileChooserCallback", dynlib: fltk, discardable.}
+    proc flFileChooserCallback*(cb: proc (f: cstring){.cdecl.}){.cdecl, importc: "flFileChooserCallback", dynlib: fltk, discardable.}
 
     ## original: declare sub      flFileChooserOkLabel(byval label as cstring)
     proc flFileChooserOkLabel*( label:  cstring) {.cdecl, importc: "flFileChooserOkLabel", dynlib: fltk, discardable.}
@@ -2469,9 +2499,9 @@ when not defined(FLTK_MAIN_BI):
     proc Fl_File_ChooserGetType* ( fc:  ptr Fl_File_Chooser):  long {.cdecl, importc: "Fl_File_ChooserGetType", dynlib: fltk, discardable.}
 
     ## original: declare sub      Fl_File_ChooserSetUserData(byval fc as Fl_File_Chooser ptr, byval pUserdata as any ptr)
-    proc Fl_File_ChooserSetUserData*( fc:  ptr Fl_File_Chooser;  pUserdata:  ptr any) {.cdecl, importc: "Fl_File_ChooserSetUserData", dynlib: fltk, discardable.}
+    proc Fl_File_ChooserSetUserData*( fc:  ptr Fl_File_Chooser;  pUserdata:  pointer) {.cdecl, importc: "Fl_File_ChooserSetUserData", dynlib: fltk, discardable.}
     ## original: declare function Fl_File_ChooserGetUserData(byval fc as Fl_File_Chooser ptr) as any ptr
-    proc Fl_File_ChooserGetUserData* ( fc:  ptr Fl_File_Chooser):  ptr any {.cdecl, importc: "Fl_File_ChooserGetUserData", dynlib: fltk, discardable.}
+    proc Fl_File_ChooserGetUserData* ( fc:  ptr Fl_File_Chooser):  pointer {.cdecl, importc: "Fl_File_ChooserGetUserData", dynlib: fltk, discardable.}
 
     ## original: declare sub      Fl_File_ChooserSetValue(byval fc as Fl_File_Chooser ptr, byval filename as cstring)
     proc Fl_File_ChooserSetValue*( fc:  ptr Fl_File_Chooser;  filename:  cstring) {.cdecl, importc: "Fl_File_ChooserSetValue", dynlib: fltk, discardable.}
@@ -2572,7 +2602,7 @@ when not defined(FLTK_MAIN_BI):
     #_  Restores the previous clip region.
     #_  !!! You must call DrawPopClip() once for every time you call DrawPushClip(), DrawPushNoClip(). !!!
     ## original: declare sub      DrawPopClip()
-    proc DrawPopClip*() {.cdecl, importc: "DrawPopClip", dynlib: fltk, discardable.}
+    proc DrawPopClip*() {.cdecl, importc: "DrawPopClip", dynlib: fltk.}
     #_  Undoes any clobbering of clip done by your program.
     ## original: declare sub      DrawRestoreClip()
     proc DrawRestoreClip*() {.cdecl, importc: "DrawRestoreClip", dynlib: fltk, discardable.}
@@ -2824,7 +2854,7 @@ when not defined(FLTK_MAIN_BI):
     proc DrawStrRot2*( angle:  long;  txt:  cstring;  nChars:  long;  x:  long;  y:  long) {.cdecl, importc: "DrawStrRot2", dynlib: fltk, discardable.}
 
     ## original: declare sub      DrawStrBox        (byval txt as cstring, byval x as long, byval y as long, byval w as long, byval h as long, byval aligh as FL_ALIGN=0, byval img as Fl_Image ptr=0, byval draw_symbols as long = 1)
-    proc DrawStrBox*( txt:  cstring;  x:  long;  y:  long;  w:  long;  h:  long;  aligh:  FL_ALIGN=0;  img:  ptr Fl_Image;  draw_symbols:  long) {.cdecl, importc: "DrawStrBox", dynlib: fltk, discardable.}
+    proc DrawStrBox*( txt:  cstring;  x:  long;  y:  long;  w:  long;  h:  long;  aligh:  FL_ALIGN=0;  img:  ptr Fl_Image=nil;  draw_symbols:  long=1) {.cdecl, importc: "DrawStrBox", dynlib: fltk, discardable.}
 
     ## original: declare function DrawLatin1ToLocal(byval txt as cstring, byval nChars as long=-1) as cstring
     proc DrawLatin1ToLocal* ( txt:  cstring;  nChars:  long = -1):  cstring {.cdecl, importc: "DrawLatin1ToLocal", dynlib: fltk, discardable.}
@@ -2837,17 +2867,17 @@ when not defined(FLTK_MAIN_BI):
     #_  #################
     #_  Draws an 8-bit per color RGB or luminance image.
     ## original: declare sub      DrawImage    (byval buf as const any ptr, byval x as long, byval y as long, byval w as long, byval h as long, byval BytesPerPixel as long=3, byval pitch as long=0)
-    proc DrawImage*( buf:  ptr any;  x:  long;  y:  long;  w:  long;  h:  long;  BytesPerPixel:  long = 3;  pitch:  long = 0) {.cdecl, importc: "DrawImage", dynlib: fltk, discardable.}
+    proc DrawImage*( buf:  pointer;  x:  long;  y:  long;  w:  long;  h:  long;  BytesPerPixel:  long = 3;  pitch:  long = 0) {.cdecl, importc: "DrawImage", dynlib: fltk, discardable.}
     #_  Draws a gray-scale (1 channel) image.
     ## original: declare sub      DrawImageMono(byval buf as const any ptr, byval x as long, byval y as long, byval w as long, byval h as long, byval BytesPerPixel as long=1, byval pitch as long=0)
-    proc DrawImageMono*( buf:  ptr any;  x:  long;  y:  long;  w:  long;  h:  long;  BytesPerPixel:  long = 1;  pitch:  long = 0) {.cdecl, importc: "DrawImageMono", dynlib: fltk, discardable.}
+    proc DrawImageMono*( buf:  pointer;  x:  long;  y:  long;  w:  long;  h:  long;  BytesPerPixel:  long = 1;  pitch:  long = 0) {.cdecl, importc: "DrawImageMono", dynlib: fltk, discardable.}
 
     #_  Draws an image using a callback function to generate image data.
     ## original: declare sub      DrawImageCallback    (byval cb as Fl_Draw_Image_Cb, byval pUserData as any ptr, byval x as long, byval y as long, byval w as long, byval h as long, byval BytesPerPixel as long)
-    proc DrawImageCallback*( cb:  Fl_Draw_Image_Cb;  pUserData:  ptr any;  x:  long;  y:  long;  w:  long;  h:  long;  BytesPerPixel:  long) {.cdecl, importc: "DrawImageCallback", dynlib: fltk, discardable.}
+    proc DrawImageCallback*( cb:  Fl_Draw_Image_Cb;  pUserData:  pointer;  x:  long;  y:  long;  w:  long;  h:  long;  BytesPerPixel:  long) {.cdecl, importc: "DrawImageCallback", dynlib: fltk, discardable.}
     #_  Draws a gray-scale image using a callback function to generate image data.
     ## original: declare sub      DrawImageMonoCallback(byval cb as Fl_Draw_Image_Cb, byval pUserData as any ptr, byval x as long, byval y as long, byval w as long, byval h as long, byval BytesPerPixel as long)
-    proc DrawImageMonoCallback*( cb:  Fl_Draw_Image_Cb;  pUserData:  ptr any;  x:  long;  y:  long;  w:  long;  h:  long;  BytesPerPixel:  long) {.cdecl, importc: "DrawImageMonoCallback", dynlib: fltk, discardable.}
+    proc DrawImageMonoCallback*( cb:  Fl_Draw_Image_Cb;  pUserData:  pointer;  x:  long;  y:  long;  w:  long;  h:  long;  BytesPerPixel:  long) {.cdecl, importc: "DrawImageMonoCallback", dynlib: fltk, discardable.}
 
     #_  Reads an RGB(A) image from the current window
     #_  p    pixel buffer, or NULL to allocate one
@@ -2856,7 +2886,7 @@ when not defined(FLTK_MAIN_BI):
     #_  alphavalue value for image (0 for none)
     #_  Returns:  pointer to pixel buffer, or NULL if allocation failed..
     ## original: declare function DrawReadImage(byval p as any ptr=0, byval x as long, byval y as long, byval w as long, byval h as long, byval alphavalue as long=0) as any ptr
-    proc DrawReadImage* ( p:  ptr any;  x:  long;  y:  long;  w:  long;  h:  long;  alphavalue:  long = 0):  ptr any {.cdecl, importc: "DrawReadImage", dynlib: fltk, discardable.}
+    proc DrawReadImage* ( p:  pointer=nil;  x:  long;  y:  long;  w:  long;  h:  long;  alphavalue:  long = 0):  pointer {.cdecl, importc: "DrawReadImage", dynlib: fltk, discardable.}
     #_  Draw XPM image data, with the top-left corner at the given position.
     ## original: declare function DrawPixmap(byval pdata as ubyte ptr const ptr, byval x as long, byval y as long, byval c as Fl_COLOR=FL_GRAY) as long
     proc DrawPixmap* ( pdata:  ptr ubyte;  x:  long;  y:  long;  c:  Fl_COLOR = FL_GRAY):  long {.cdecl, importc: "DrawPixmap", dynlib: fltk, discardable.}
@@ -3226,7 +3256,7 @@ when not defined(FLTK_MAIN_BI):
     #_ # class Fl_RGB_Image extends Fl_Image # truecolor 16,24,32 bit per pixel
     #_ #######################################
     ## original: declare function Fl_RGB_ImageNew(byval bits as const any ptr, byval w as long, byval h as long, byval BytesPerPixel as long=3, byval pitch as long=0) as Fl_RGB_Image ptr
-    proc Fl_RGB_ImageNew* ( bits:  ptr any;  w:  long;  h:  long;  BytesPerPixel:  long=3;  pitch:  long=0):  ptr Fl_RGB_Image {.cdecl, importc: "Fl_RGB_ImageNew", dynlib: fltk, discardable.}
+    proc Fl_RGB_ImageNew* ( bits:  pointer;  w:  long;  h:  long;  BytesPerPixel:  long=3;  pitch:  long=0):  ptr Fl_RGB_Image {.cdecl, importc: "Fl_RGB_ImageNew", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_RGB_ImageDelete(byref rgbimg as Fl_RGB_Image ptr)
     proc Fl_RGB_ImageDelete*( rgbimg:  var ptr Fl_RGB_Image) {.cdecl, importc: "Fl_RGB_ImageDelete", dynlib: fltk, discardable.}
 
@@ -3274,7 +3304,7 @@ when not defined(FLTK_MAIN_BI):
     proc Fl_PNG_ImageDelete*( png:  var ptr Fl_PNG_Image) {.cdecl, importc: "Fl_PNG_ImageDelete", dynlib: fltk, discardable.}
     #_  load from memory If a name is given, the image is added to the list of shared images (see: Fl_Shared_Image) and will be available by that name.
     ## original: declare function Fl_PNG_ImageMem(byval e_name as cstring=0, byval buffer as const any ptr, byval datasize as long) as FL_PNG_Image ptr
-    proc Fl_PNG_ImageMem* ( e_name:  cstring=nil;  buffer:  ptr any;  datasize:  long):  ptr FL_PNG_Image {.cdecl, importc: "Fl_PNG_ImageMem", dynlib: fltk, discardable.}
+    proc Fl_PNG_ImageMem* ( e_name:  cstring=nil;  buffer:  pointer;  datasize:  long):  ptr FL_PNG_Image {.cdecl, importc: "Fl_PNG_ImageMem", dynlib: fltk, discardable.}
 
     #_ ############################################
     #_ # class Fl_JPEG_Image extends Fl_RGB_Image #  truecolor
@@ -3291,7 +3321,7 @@ when not defined(FLTK_MAIN_BI):
     #_  load from memory
     #_  If a name is given, the image is added to the list of shared images (see: Fl_Shared_Image) and will be available by that name.
     ## original: declare function Fl_JPEG_ImageMem(byval a_name as cstring=0, byval buffer as const any ptr) as FL_JPEG_Image ptr
-    proc Fl_JPEG_ImageMem* ( a_name:  cstring=nil;  buffer: ptr any):  ptr FL_JPEG_Image {.cdecl, importc: "Fl_JPEG_ImageMem", dynlib: fltk, discardable.}
+    proc Fl_JPEG_ImageMem* ( a_name:  cstring=nil;  buffer: pointer):  ptr FL_JPEG_Image {.cdecl, importc: "Fl_JPEG_ImageMem", dynlib: fltk, discardable.}
     #define Fl_JPG_ImageMem Fl_JPEG_ImageMem
 
     #_ ###########################################
@@ -3379,9 +3409,9 @@ when not defined(FLTK_MAIN_BI):
 
     #ifdef __FB_WIN32__
     ## original: declare function Fl_Find(byval xid as any ptr) as Fl_Window ptr
-    proc Fl_Find* ( xid:  ptr any):  ptr Fl_Window {.cdecl, importc: "Fl_Find", dynlib: fltk, discardable.}
+    proc Fl_Find* ( xid:  pointer):  ptr Fl_Window {.cdecl, importc: "Fl_Find", dynlib: fltk, discardable.}
     ## original: declare function Fl_XID(byval win as const Fl_Window ptr) as any ptr
-    proc Fl_XID* ( win:  ptr Fl_Window):  ptr ulong {.cdecl, importc: "Fl_XID", dynlib: fltk, discardable.}
+    proc Fl_XID* ( win:  ptr Fl_Window):  pointer {.cdecl, importc: "Fl_XID", dynlib: fltk, discardable.}
     #else
     ## original: declare function Fl_Find(byval xid as ulong) as Fl_Window ptr
     proc Fl_Find* ( xid:  ulong):  ptr Fl_Window {.cdecl, importc: "Fl_Find", dynlib: fltk, discardable.}
@@ -3394,7 +3424,7 @@ when not defined(FLTK_MAIN_BI):
     #_  #############
     #_  Adds an awake handler for use in Fl_Awake().
     ## original: declare function Fl_AddAwakeHandler(byval h as Fl_Awake_Handler, byval pArg as any ptr=0) as long
-    proc Fl_AddAwakeHandler* ( h:  Fl_Awake_Handler;  pArg:  ptr any):  long {.cdecl, importc: "Fl_AddAwakeHandler", dynlib: fltk, discardable.}
+    proc Fl_AddAwakeHandler* ( h:  Fl_Awake_Handler;  pArg:  pointer):  long {.cdecl, importc: "Fl_AddAwakeHandler", dynlib: fltk, discardable.}
     #_  Sends a message pointer to the main thread, causing any pending Fl_Wait() call to terminate
     #_  so that the main thread can retrieve the message and any pending redraws can be processed.
     ## original: declare sub      Fl_Awake(byval message as any ptr = 0)
@@ -3404,7 +3434,7 @@ when not defined(FLTK_MAIN_BI):
     proc Fl_Awake2* ( h:  Fl_Awake_Handler;  message:  pointer=nil):  long {.cdecl, importc: "Fl_Awake2", dynlib: fltk, discardable.}
     #_  Gets the last stored awake handler for use in Fl_Awake().
     ## original: declare function Fl_GetAwakeHandler_(byref h as Fl_Awake_Handler, byref pArg as any ptr) as long
-    proc Fl_GetAwakeHandler* ( h:  var Fl_Awake_Handler;  pArg:  ptr any):  long {.cdecl, importc: "Fl_GetAwakeHandler_", dynlib: fltk, discardable.}
+    proc Fl_GetAwakeHandler* ( h:  var Fl_Awake_Handler;  pArg:  pointer):  long {.cdecl, importc: "Fl_GetAwakeHandler_", dynlib: fltk, discardable.}
     #_  FLTK will call this callback just before it flushes the display and waits for events.
     ## original: declare sub      Fl_AddCheck(byval h as Fl_Timeout_Handler, byval pArg as any ptr = 0)
     proc Fl_AddCheck*( h:  Fl_Timeout_Handler;  pArg:  pointer=nil) {.cdecl, importc: "Fl_AddCheck", dynlib: fltk, discardable.}
@@ -3478,7 +3508,7 @@ when not defined(FLTK_MAIN_BI):
     proc Fl_SetAtclose*( h:  Fl_Atclose_Handler) {.cdecl, importc: "Fl_SetAtclose", dynlib: fltk, discardable.}
     #_  Default callback for window widgets.
     ## original: declare sub      Fl_DefaultAtclose(byval win as Fl_Window ptr, byval pArg as any ptr)
-    proc Fl_DefaultAtclose*( win:  ptr Fl_Window;  pArg:  ptr any) {.cdecl, importc: "Fl_DefaultAtclose", dynlib: fltk, discardable.}
+    proc Fl_DefaultAtclose*( win:  ptr Fl_Window;  pArg:  pointer) {.cdecl, importc: "Fl_DefaultAtclose", dynlib: fltk, discardable.}
 
     #_  ##########
     #_  # thread #
@@ -3491,7 +3521,7 @@ when not defined(FLTK_MAIN_BI):
     proc Fl_Unlock*() {.cdecl, importc: "Fl_Unlock", dynlib: fltk, discardable.}
     #_  The Fl_ThreadMessage() method returns the last message that was sent from a child by the Fl_Awake() method.
     ## original: declare function Fl_ThreadMessage as any ptr
-    proc Fl_ThreadMessage* ():  ptr any {.cdecl, importc: "Fl_ThreadMessage", dynlib: fltk, discardable.}
+    proc Fl_ThreadMessage* ():  pointer {.cdecl, importc: "Fl_ThreadMessage", dynlib: fltk, discardable.}
 
     #_  ################
     #_  # message loop #
@@ -3833,7 +3863,7 @@ when not defined(FLTK_MAIN_BI):
     #_  new
     #_  During an FL_PASTE event of non-textual data, returns a pointer to the pasted data.
     ## original: declare function Fl_EventClipboardData() as any ptr
-    proc Fl_EventClipboardData* ():  ptr any {.cdecl, importc: "Fl_EventClipboardData", dynlib: fltk, discardable.}
+    proc Fl_EventClipboardData* ():  pointer {.cdecl, importc: "Fl_EventClipboardData", dynlib: fltk, discardable.}
     #_  Returns the type of the pasted data during an FL_PASTE event.
     #_  Fl_clipboard_plain_text ("text/plain") or Fl_clipboard_image ("image")
     ## original: declare function Fl_EventClipboardType() as cstring
@@ -3856,7 +3886,7 @@ when not defined(FLTK_MAIN_BI):
     #_  To locate a "family" of fonts, search forward and back for a set with non-zero attributes,
     #_  these faces along with the face with a zero attribute before them constitute a family.
     ## original: declare function Fl_GetFontName(byval f as FL_FONT, byval attributes as long ptr=0) as cstring
-    proc Fl_GetFontName* ( f:  FL_FONT;  attributes:  ptr long):  cstring {.cdecl, importc: "Fl_GetFontName", dynlib: fltk, discardable.}
+    proc Fl_GetFontName* ( f:  FL_FONT;  attributes:  ptr long=nil):  cstring {.cdecl, importc: "Fl_GetFontName", dynlib: fltk, discardable.}
     #_  Return an array of sizes in size.  A zero in the first location of the array indicates a scalable font, where any size works.
     ## original: declare function Fl_GetFontSizes alias "Fl_GeFontSizes"(byval f as FL_FONT, byref size as long ptr) as long
     proc Fl_GetFontSizes* ( f: FL_FONT, size: var ptr long): long  {.cdecl, importc: "Fl_GetFontSizes", dynlib: fltk, discardable.}
@@ -4034,8 +4064,8 @@ when not defined(FLTK_MAIN_BI):
     proc Fl_WidgetSetCallback*( wgt:  ptr Fl_Widget;  cb:  Fl_Callback) {.cdecl, importc: "Fl_WidgetSetCallback", dynlib: fltk, discardable.}
 
     ## original: declare sub      Fl_WidgetSetCallbackArg (byval wgt as Fl_Widget ptr, byval cb as Fl_Callback, byval arg as any ptr)
-    #~ proc Fl_WidgetSetCallbackArg*( wgt:  ptr Fl_Widget;  cb:  Fl_Callback;  arg:  ptr any) {.cdecl, importc: "Fl_WidgetSetCallbackArg", dynlib: fltk, discardable.}
-    proc Fl_WidgetSetCallbackArg*( wgt:  ptr Fl_Widget;  cb:  Fl_Callback;  arg:  ptr any) {.cdecl, importc: "Fl_WidgetSetCallbackArg", dynlib: fltk, discardable.}
+    #~ proc Fl_WidgetSetCallbackArg*( wgt:  ptr Fl_Widget;  cb:  Fl_Callback;  arg:  pointer) {.cdecl, importc: "Fl_WidgetSetCallbackArg", dynlib: fltk, discardable.}
+    proc Fl_WidgetSetCallbackArg*( wgt:  ptr Fl_Widget;  cb:  Fl_Callback;  arg:  pointer) {.cdecl, importc: "Fl_WidgetSetCallbackArg", dynlib: fltk, discardable.}
 
     ## original: declare sub      Fl_WidgetSetCallback0   (byval wgt as Fl_Widget ptr, byval cb as Fl_Callback0)
     proc Fl_WidgetSetCallback0*( wgt:  ptr Fl_Widget;  cb:  Fl_Callback0) {.cdecl, importc: "Fl_WidgetSetCallback0", dynlib: fltk, discardable.}
@@ -4294,7 +4324,7 @@ when not defined(FLTK_MAIN_BI):
     proc Fl_WidgetGetH* ( wgt:  ptr Fl_Widget):  long {.cdecl, importc: "Fl_WidgetGetH", dynlib: fltk, discardable.}
 
     ## original: declare sub      Fl_WidgetDefaultCallback(byval cb as Fl_Widget ptr, byval pArg as any ptr)
-    proc Fl_WidgetDefaultCallback*( cb:  ptr Fl_Widget;  pArg:  ptr any) {.cdecl, importc: "Fl_WidgetDefaultCallback", dynlib: fltk, discardable.}
+    proc Fl_WidgetDefaultCallback*( cb:  ptr Fl_Widget;  pArg:  pointer) {.cdecl, importc: "Fl_WidgetDefaultCallback", dynlib: fltk, discardable.}
     #_  static members
     ## original: declare function Fl_WidgetLabelShortcut(byval t as cstring) as long
     proc Fl_WidgetLabelShortcut* ( t:  cstring):  long {.cdecl, importc: "Fl_WidgetLabelShortcut", dynlib: fltk, discardable.}
@@ -4918,7 +4948,7 @@ when not defined(FLTK_MAIN_BI):
     #~ proc Fl_Menu_ItemDraw*( it:  ptr Fl_Menu_Item;  x:  long;  y:  long;  w:  long;  h:  long;  m:  ptr Fl_Menu;  t:  long = 0) {.cdecl, importc: "Fl_Menu_ItemDraw", dynlib: fltk, discardable.}
     #_  Search only the top level menu for a shortcut.
     ## original: declare function Fl_Menu_ItemFindShortcut(byval it as Fl_Menu_Item ptr, byval ip as long ptr=0, byval require_alt as const long=0) as Fl_Menu_Item ptr
-    proc Fl_Menu_ItemFindShortcut* ( it:  ptr Fl_Menu_Item;  ip:  ptr long;  require_alt:  long = 0):  ptr Fl_Menu_Item {.cdecl, importc: "Fl_Menu_ItemFindShortcut", dynlib: fltk, discardable.}
+    proc Fl_Menu_ItemFindShortcut* ( it:  ptr Fl_Menu_Item;  ip:  ptr long=nil;  require_alt:  long = 0):  ptr Fl_Menu_Item {.cdecl, importc: "Fl_Menu_ItemFindShortcut", dynlib: fltk, discardable.}
     #_  Returns the first menu item, same as next(0)
     ## original: declare function Fl_Menu_ItemFirst(byval it as Fl_Menu_Item ptr) as Fl_Menu_Item ptr
     proc Fl_Menu_ItemFirst* ( it:  ptr Fl_Menu_Item):  ptr Fl_Menu_Item {.cdecl, importc: "Fl_Menu_ItemFirst", dynlib: fltk, discardable.}
@@ -4970,7 +5000,7 @@ when not defined(FLTK_MAIN_BI):
 
     #_  Measures width of label, including effect of & characters.
     ## original: declare function Fl_Menu_ItemMeasure(byval it as Fl_Menu_Item ptr, byval h as long ptr, byval m as const Fl_Menu_ ptr) as long
-    #~ proc Fl_Menu_ItemMeasure* ( it:  ptr Fl_Menu_Item;  h:  ptr long;  m:  ptr FL_Menu_TT):  long {.cdecl, importc: "Fl_Menu_ItemMeasure", dynlib: fltk, discardable.}
+    proc Fl_Menu_ItemMeasure* ( it:  ptr Fl_Menu_Item;  h:  ptr long;  m:  ptr FL_Menu_TT):  long {.cdecl, importc: "Fl_Menu_ItemMeasure", dynlib: fltk, discardable.}
 
     #_  This method is called by widgets that want to display menus.
     ## original: declare function Fl_Menu_ItemPopup   (byval it as Fl_Menu_Item ptr, byval x as long, byval y as long, byval title as cstring=0, byval picked as Fl_Menu_Item ptr=0, byval m as const Fl_Menu_ ptr=0) as Fl_Menu_Item ptr
@@ -5005,9 +5035,9 @@ when not defined(FLTK_MAIN_BI):
     proc Fl_Menu_ItemSubmenu* ( it:  ptr Fl_Menu_Item):  long {.cdecl, importc: "Fl_Menu_ItemSubmenu", dynlib: fltk, discardable.}
     #_  Sets/Gets the user data argument that is sent to the callback function.
     ## original: declare sub      Fl_Menu_ItemSetUserData(byval it as Fl_Menu_Item ptr, byval userdata as any ptr)
-    proc Fl_Menu_ItemSetUserData*( it:  ptr Fl_Menu_Item;  userdata:  ptr any) {.cdecl, importc: "Fl_Menu_ItemSetUserData", dynlib: fltk, discardable.}
+    proc Fl_Menu_ItemSetUserData*( it:  ptr Fl_Menu_Item;  userdata:  pointer) {.cdecl, importc: "Fl_Menu_ItemSetUserData", dynlib: fltk, discardable.}
     ## original: declare function Fl_Menu_ItemGetUserData(byval it as Fl_Menu_Item ptr) as any ptr
-    proc Fl_Menu_ItemGetUserData* ( it:  ptr Fl_Menu_Item):  ptr any {.cdecl, importc: "Fl_Menu_ItemGetUserData", dynlib: fltk, discardable.}
+    proc Fl_Menu_ItemGetUserData* ( it:  ptr Fl_Menu_Item):  pointer {.cdecl, importc: "Fl_Menu_ItemGetUserData", dynlib: fltk, discardable.}
     #_  Returns the current value of the check or radio item.
     ## original: declare function Fl_Menu_ItemValue(byval it as Fl_Menu_Item ptr) as long
     proc Fl_Menu_ItemValue* ( it:  ptr Fl_Menu_Item):  long {.cdecl, importc: "Fl_Menu_ItemValue", dynlib: fltk, discardable.}
@@ -5019,7 +5049,7 @@ when not defined(FLTK_MAIN_BI):
     #_ # class Fl_Menu_ extends Fl_Widget #
     #_ ####################################
     ## original: declare function Fl_Menu_Add (byval m_ as Fl_Menu_ ptr, byval label as cstring, byval shortcut as long=0             , byval cb as Fl_Callback=0, byval userdata as any ptr=0, byval flag as long=0) as long
-    proc Fl_Menu_Add* ( m:  ptr Fl_Menu_TT;  label:  cstring;  shortcut:  long=0;  cb:  ptr Fl_Callback=nil;  userdata:  pointer=nil;  flag:  long=0):  long {.cdecl, importc: "Fl_Menu_Add", dynlib: fltk, discardable.}
+    proc Fl_Menu_Add* ( m:  ptr Fl_Menu_TT;  label:  cstring;  shortcut:  long=0;  cb:  Fl_Callback=nil;  userdata:  pointer=nil;  flag:  long=0):  long {.cdecl, importc: "Fl_Menu_Add", dynlib: fltk, discardable.}
     ## original: declare function Fl_Menu_Add2(byval m_ as Fl_Menu_ ptr, byval label as cstring, byval shortcut as cstring=0, byval cb as Fl_Callback=0, byval userdata as any ptr=0, byval flag as long=0) as long
     proc Fl_Menu_Add2* ( m:  ptr Fl_Menu_TT;  label:  cstring;  shortcut:  cstring=nil;  cb:  ptr Fl_Callback=nil;  userdata:  pointer=nil;  flag:  long=0):  long {.cdecl, importc: "Fl_Menu_Add2", dynlib: fltk, discardable.}
     ## original: declare function Fl_Menu_Add3(byval m_ as Fl_Menu_ ptr, byval label as cstring) as long
@@ -5066,7 +5096,7 @@ when not defined(FLTK_MAIN_BI):
     proc Fl_Menu_Insert* ( m:  ptr Fl_Menu_TT;  index:  long;  label:  cstring;  shortcut:  cstring=nil;  cb:  Fl_Callback=nil;  userdata:  pointer=nil;  flag:  long=0):  long {.cdecl, importc: "Fl_Menu_Insert", dynlib: fltk, discardable.}
 
     ## original: declare function Fl_Menu_Insert2(byval m_ as Fl_Menu_ ptr, byval index as long, byval label as cstring, byval shortcut as long          =0, byval cb as Fl_Callback=0, byval userdata as any ptr=0, byval flag as long=0) as long
-    #~ proc Fl_Menu_Insert2* ( m:  ptr Fl_Menu_TT;  index:  long;  label:  cstring;  shortcut:  long;  cb:  Fl_Callback=0;  userdata:  ptr any;  flag:  long=0):  long {.cdecl, importc: "Fl_Menu_Insert2", dynlib: fltk, discardable.}
+    proc Fl_Menu_Insert2* ( m:  ptr Fl_Menu_TT;  index:  long;  label:  cstring;  shortcut:  long;  cb:  Fl_Callback=nil;  userdata:  pointer;  flag:  long=0):  long {.cdecl, importc: "Fl_Menu_Insert2", dynlib: fltk, discardable.}
 
     ## original: declare function Fl_Menu_ItemPathName(byval m_ as Fl_Menu_ ptr, byval name_ as cstring, byval namelen as long, byval item as Fl_Menu_Item ptr=0) as long
     proc Fl_Menu_ItemPathName* ( m:  ptr Fl_Menu_TT;  name_TT:  cstring;  namelen:  long;  item:  ptr Fl_Menu_Item=nil):  long {.cdecl, importc: "Fl_Menu_ItemPathName", dynlib: fltk, discardable.}
@@ -5728,7 +5758,7 @@ when not defined(FLTK_MAIN_BI):
     proc Fl_Browser_Deselect* ( br:  ptr Fl_Browser;  docallbacks:  long=0):  long {.cdecl, importc: "Fl_Browser_Deselect", dynlib: fltk, discardable.}
     #_  Displays the item, scrolling the list as necessary.
     ## original: declare sub      Fl_Browser_Display(byval br as Fl_Browser_ ptr, byval item as any ptr)
-    proc Fl_Browser_Display*( br:  ptr Fl_Browser;  item:  ptr any) {.cdecl, importc: "Fl_Browser_Display", dynlib: fltk, discardable.}
+    proc Fl_Browser_Display*( br:  ptr Fl_Browser;  item:  pointer) {.cdecl, importc: "Fl_Browser_Display", dynlib: fltk, discardable.}
     #_  Sets/Gets whether the widget should have scrollbars or not (default FL_SCROLL_BOTH).
     ## original: declare sub      Fl_Browser_SetHasScrollbar(byval br as Fl_Browser_ ptr, byval mode as ubyte)
     proc Fl_Browser_SetHasScrollbar*( br:  ptr Fl_Browser;  mode:  ubyte) {.cdecl, importc: "Fl_Browser_SetHasScrollbar", dynlib: fltk, discardable.}
@@ -5764,10 +5794,10 @@ when not defined(FLTK_MAIN_BI):
     proc Fl_Browser_GetScrollbarWidth* ( br:  ptr Fl_Browser):  long {.cdecl, importc: "Fl_Browser_GetScrollbarWidth", dynlib: fltk, discardable.}
     #_  Sets the selection state of item to val, and returns 1 if the state changed or 0 if it did not.
     ## original: declare function Fl_Browser_Select(byval br as Fl_Browser_ ptr, byval item as any ptr, byval v as long=1, byval docallbacks as long=0) as long
-    proc Fl_Browser_Select* ( br:  ptr Fl_Browser;  item:  ptr any;  v:  long=1;  docallbacks:  long=0):  long {.cdecl, importc: "Fl_Browser_Select", dynlib: fltk, discardable.}
+    proc Fl_Browser_Select* ( br:  ptr Fl_Browser;  item:  pointer;  v:  long=1;  docallbacks:  long=0):  long {.cdecl, importc: "Fl_Browser_Select", dynlib: fltk, discardable.}
     #_  Selects item and returns 1 if the state changed or 0 if it did not.
     ## original: declare function Fl_Browser_SelectOnly(byval br as Fl_Browser_ ptr, byval item as any ptr, byval docallbacks as long=0) as long
-    proc Fl_Browser_SelectOnly* ( br:  ptr Fl_Browser;  item:  ptr any;  docallbacks:  long=0):  long {.cdecl, importc: "Fl_Browser_SelectOnly", dynlib: fltk, discardable.}
+    proc Fl_Browser_SelectOnly* ( br:  ptr Fl_Browser;  item:  pointer;  docallbacks:  long=0):  long {.cdecl, importc: "Fl_Browser_SelectOnly", dynlib: fltk, discardable.}
     #_  Sort the items in the browser based on flags.
     ## original: declare sub      Fl_Browser_Sort(byval br as Fl_Browser_ ptr, byval flags as long=0)
     proc Fl_Browser_Sort*( br:  ptr Fl_Browser;  flags:  long=0) {.cdecl, importc: "Fl_Browser_Sort", dynlib: fltk, discardable.}
@@ -5904,10 +5934,10 @@ when not defined(FLTK_MAIN_BI):
     proc Fl_BrowserGetColumnWidths* ( br:  ptr Fl_Browser):  ptr long {.cdecl, importc: "Fl_BrowserGetColumnWidths", dynlib: fltk, discardable.}
     #_  Sets the user data for specified line.
     ## original: declare sub      Fl_BrowserSetData(byval br as Fl_Browser ptr, byval line_ as long, byval pData as any ptr)
-    proc Fl_BrowserSetData*( br:  ptr Fl_Browser;  line_TT:  long;  pData:  ptr any) {.cdecl, importc: "Fl_BrowserSetData", dynlib: fltk, discardable.}
+    proc Fl_BrowserSetData*( br:  ptr Fl_Browser;  line_TT:  long;  pData:  pointer) {.cdecl, importc: "Fl_BrowserSetData", dynlib: fltk, discardable.}
     #_  Returns the user data for specified line.
     ## original: declare function Fl_BrowserGetData(byval br as Fl_Browser ptr, byval line_ as long) as any ptr
-    proc Fl_BrowserGetData* ( br:  ptr Fl_Browser;  line_TT:  long):  ptr any {.cdecl, importc: "Fl_BrowserGetData", dynlib: fltk, discardable.}
+    proc Fl_BrowserGetData* ( br:  ptr Fl_Browser;  line_TT:  long):  pointer {.cdecl, importc: "Fl_BrowserGetData", dynlib: fltk, discardable.}
     #_  For back compatibility.
     ## original: declare sub      Fl_BrowserDisplay(byval br as Fl_Browser ptr, byval line_ as long, byval v as long=1)
     proc Fl_BrowserDisplay*( br:  ptr Fl_Browser;  line_TT:  long;  v:  long=1) {.cdecl, importc: "Fl_BrowserDisplay", dynlib: fltk, discardable.}
@@ -6496,7 +6526,7 @@ when not defined(FLTK_MAIN_BI):
     proc Fl_Table_RowClear*( tr:  ptr Fl_Table_Row) {.cdecl, importc: "Fl_Table_RowClear", dynlib: fltk, discardable.}
     #_  Checks to see if 'row' is selected.
     ## original: declare function Fl_Table_RowRowSelected(byval tr as Fl_Table_Row ptr, byval r as long) as long
-    proc Fl_Table_RowRowSelected* ( tr:  ptr Fl_Table_Row;  r:  long):  long {.cdecl, importc: "Fl_Table_RowRowSelected", dynlib: fltk, discardable.}
+    proc Fl_Table_RowRowSelected* ( tr:  ptr Fl_Table_Row;  r:  long):  bool {.cdecl, importc: "Fl_Table_RowRowSelected", dynlib: fltk, discardable.}
     #_  Sets the number of rows in the table, and the table is redrawn.
     ## original: declare sub      Fl_Table_RowSetRows(byval tr as Fl_Table_Row ptr, byval nRows as long)
     proc Fl_Table_RowSetRows*( tr:  ptr Fl_Table_Row;  nRows:  long) {.cdecl, importc: "Fl_Table_RowSetRows", dynlib: fltk, discardable.}
@@ -6609,19 +6639,19 @@ when not defined(FLTK_MAIN_BI):
     proc Fl_Text_BufferDelete*( tb:  var ptr Fl_Text_Buffer) {.cdecl, importc: "Fl_Text_BufferDelete", dynlib: fltk, discardable.}
     #_  Adds a callback function that is called whenever the text buffer is modified.
     ## original: declare sub      Fl_Text_BufferAddModifyCallback(byval tb as Fl_Text_Buffer ptr, byval cb as Fl_Text_Modify_Cb, byval cbArg as any ptr)
-    proc Fl_Text_BufferAddModifyCallback*( tb:  ptr Fl_Text_Buffer;  cb:  Fl_Text_Modify_Cb;  cbArg:  ptr any) {.cdecl, importc: "Fl_Text_BufferAddModifyCallback", dynlib: fltk, discardable.}
+    proc Fl_Text_BufferAddModifyCallback*( tb:  ptr Fl_Text_Buffer;  cb:  Fl_Text_Modify_Cb;  cbArg:  pointer) {.cdecl, importc: "Fl_Text_BufferAddModifyCallback", dynlib: fltk, discardable.}
 
     ## original: declare sub      Fl_Text_BufferRemoveModifyCallback(byval tb as Fl_Text_Buffer ptr, byval cb as Fl_Text_Modify_Cb, byval cbArg as any ptr)
-    proc Fl_Text_BufferRemoveModifyCallback*( tb:  ptr Fl_Text_Buffer;  cb:  Fl_Text_Modify_Cb;  cbArg:  ptr any) {.cdecl, importc: "Fl_Text_BufferRemoveModifyCallback", dynlib: fltk, discardable.}
+    proc Fl_Text_BufferRemoveModifyCallback*( tb:  ptr Fl_Text_Buffer;  cb:  Fl_Text_Modify_Cb;  cbArg:  pointer) {.cdecl, importc: "Fl_Text_BufferRemoveModifyCallback", dynlib: fltk, discardable.}
     #_  Calls all modify callbacks that have been registered using the add_modify_callback() method.
     ## original: declare sub      Fl_Text_BufferCallModifyCallbacks(byval tb as Fl_Text_Buffer ptr)
     proc Fl_Text_BufferCallModifyCallbacks*( tb:  ptr Fl_Text_Buffer) {.cdecl, importc: "Fl_Text_BufferCallModifyCallbacks", dynlib: fltk, discardable.}
     #_  Adds a callback routine to be called before text is deleted from the buffer.
     ## original: declare sub      Fl_Text_BufferAddPredeleteCallback(byval tb as Fl_Text_Buffer ptr, byval cb as Fl_Text_Predelete_Cb, byval cbArg as any ptr)
-    proc Fl_Text_BufferAddPredeleteCallback*( tb:  ptr Fl_Text_Buffer;  cb:  Fl_Text_Predelete_Cb;  cbArg:  ptr any) {.cdecl, importc: "Fl_Text_BufferAddPredeleteCallback", dynlib: fltk, discardable.}
+    proc Fl_Text_BufferAddPredeleteCallback*( tb:  ptr Fl_Text_Buffer;  cb:  Fl_Text_Predelete_Cb;  cbArg:  pointer) {.cdecl, importc: "Fl_Text_BufferAddPredeleteCallback", dynlib: fltk, discardable.}
 
     ## original: declare sub      Fl_Text_BufferRemovePredeleteCallback(byval tb as Fl_Text_Buffer ptr, byval cb as Fl_Text_Predelete_Cb, byval cbArg as any ptr)
-    proc Fl_Text_BufferRemovePredeleteCallback*( tb:  ptr Fl_Text_Buffer;  cb:  Fl_Text_Predelete_Cb;  cbArg:  ptr any) {.cdecl, importc: "Fl_Text_BufferRemovePredeleteCallback", dynlib: fltk, discardable.}
+    proc Fl_Text_BufferRemovePredeleteCallback*( tb:  ptr Fl_Text_Buffer;  cb:  Fl_Text_Predelete_Cb;  cbArg:  pointer) {.cdecl, importc: "Fl_Text_BufferRemovePredeleteCallback", dynlib: fltk, discardable.}
     #_  Calls the stored pre-delete callback procedure(s) for this buffer to update the changed area(s) on the screen and any other listeners.
     ## original: declare sub      Fl_Text_BufferCallPredeleteCallbacks(byval tb as Fl_Text_Buffer ptr)
     proc Fl_Text_BufferCallPredeleteCallbacks*( tb:  ptr Fl_Text_Buffer) {.cdecl, importc: "Fl_Text_BufferCallPredeleteCallbacks", dynlib: fltk, discardable.}
@@ -6804,7 +6834,7 @@ when not defined(FLTK_MAIN_BI):
     proc Fl_Text_BufferTextRange* ( tb:  ptr Fl_Text_Buffer;  start:  long;  end_TT:  long):  cstring {.cdecl, importc: "Fl_Text_BufferTextRange", dynlib: fltk, discardable.}
     #_  Undo text modification according to the undo variables or insert text from the undo buffer.
     ## original: declare function Fl_Text_BufferUndo(byval tb as Fl_Text_Buffer ptr, byval cp as long ptr=0) as long
-    proc Fl_Text_BufferUndo* ( tb:  ptr Fl_Text_Buffer;  cp:  ptr long):  long {.cdecl, importc: "Fl_Text_BufferUndo", dynlib: fltk, discardable.}
+    proc Fl_Text_BufferUndo* ( tb:  ptr Fl_Text_Buffer;  cp:  ptr long=nil):  long {.cdecl, importc: "Fl_Text_BufferUndo", dynlib: fltk, discardable.}
     #_  Unhighlights text in the buffer.
     ## original: declare sub      Fl_Text_BufferUnhighlight(byval tb as Fl_Text_Buffer ptr)
     proc Fl_Text_BufferUnhighlight*( tb:  ptr Fl_Text_Buffer) {.cdecl, importc: "Fl_Text_BufferUnhighlight", dynlib: fltk, discardable.}
@@ -7240,9 +7270,9 @@ when not defined(FLTK_MAIN_BI):
 
     #_  Set/Get a user-data value for the item.
     ## original: declare sub      Fl_Tree_ItemSetUserData(byval item as Fl_Tree_Item ptr, byval userdata as any ptr)
-    proc Fl_Tree_ItemSetUserData*( item:  ptr Fl_Tree_Item;  userdata:  ptr any) {.cdecl, importc: "Fl_Tree_ItemSetUserData", dynlib: fltk, discardable.}
+    proc Fl_Tree_ItemSetUserData*( item:  ptr Fl_Tree_Item;  userdata:  pointer) {.cdecl, importc: "Fl_Tree_ItemSetUserData", dynlib: fltk, discardable.}
     ## original: declare function Fl_Tree_ItemGetUserData(byval item as Fl_Tree_Item ptr) as any ptr
-    proc Fl_Tree_ItemGetUserData* ( item:  ptr Fl_Tree_Item):  ptr any {.cdecl, importc: "Fl_Tree_ItemGetUserData", dynlib: fltk, discardable.}
+    proc Fl_Tree_ItemGetUserData* ( item:  ptr Fl_Tree_Item):  pointer {.cdecl, importc: "Fl_Tree_ItemGetUserData", dynlib: fltk, discardable.}
 
     #_  Set/Get item's label
     ## original: declare sub      Fl_Tree_ItemSetLabel(byval item as Fl_Tree_Item ptr, byval newlabel as cstring)

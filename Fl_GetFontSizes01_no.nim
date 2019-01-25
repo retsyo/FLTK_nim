@@ -5,13 +5,13 @@ import fltk_main
 #~ ' Fl_GetFontSizes
 
 var
-    fontName: string
+    fontName: cstring
 
     attributes: long
     defaultSize: long
     fontSize: long
 
-    fontsizes: ptr long = addr(fontSize)
+    fontsizes: ptr long
 
 #~ ' load font list
 var nFonts = Fl_SetFonts()
@@ -23,7 +23,7 @@ var
 for i in 0 ..  nFonts-1:
   fontName = Fl_GetFontName(i, addr(attributes))
   if len(fontName) > 0  and fontName[0] != '@' :
-    echo  $i & " " & fontName & " "
+    echo  $i & " " & $fontName & " "
     case attributes:
       of FL_BOLD        :
           echo "is bold "
@@ -35,7 +35,7 @@ for i in 0 ..  nFonts-1:
           discard
 
     defaultSize = Fl_GetFontSizes(i, fontsizes)
-    if (defaultSize > 1) and (fontsizes[] != 0) :
+    if (defaultSize > 1) and (not fontsizes.isNil) :
       echo "font has fixed sizes: "
 
       fontSize = fontsizes[j]

@@ -20,7 +20,7 @@ var win=Fl_WindowNew(10+Fl_Shared_ImageNumImages()*138, 148, "Fl_Shared_Image02.
 
 var i = 0
 for i in 0 .. Fl_Shared_ImageNumImages()-1:
-  Fl_WidgetSetImage Fl_BoxNew( 10+i*138, 10, 128, 128), cast[ptr Fl_Image](Fl_Shared_ImageImages[0][i])
+  Fl_WidgetSetImage Fl_BoxNew( 10+i*138, 10, 128, 128), Fl_Shared_ImageImages[0][i]
 
 #~ echo Fl_Shared_ImageNumImages()
 #~ echo Fl_Shared_ImageImages()

@@ -3,7 +3,7 @@ import fltk_main
 #~ #test of:
 #~ # Fl_Tree_ItemSetWidget
 
-proc TreeCB  (wgt: ptr Fl_Widget, tree: ptr Fl_Tree){.cdecl.} =
+proc TreeCB  (wgt: ptr Fl_Widget, tree: pointer){.cdecl.} =
     var item = Fl_TreeGetCallbackItem(tree)
     #~ if (item=0) then exit sub
     var label = Fl_Tree_ItemGetLabel(item)
@@ -19,13 +19,13 @@ proc TreeCB  (wgt: ptr Fl_Widget, tree: ptr Fl_Tree){.cdecl.} =
         else:
             discard
 
-proc ButtonCB(self: ptr Fl_Widget, btn: ptr Fl_ButtonEx){.cdecl.} =
+proc ButtonCB(self: ptr Fl_Widget, btn: pointer){.cdecl.} =
   echo "ButtonCB " & $Fl_WidgetGetLabel(self)
 
-proc InputCB(self: ptr Fl_Widget, ip: ptr Fl_Input){.cdecl.} =
+proc InputCB(self: ptr Fl_Widget, ip: pointer){.cdecl.} =
   echo "InputCB "  & $Fl_Input_GetValue(ip)
 
-proc SliderCB(self: ptr Fl_Widget, sld: ptr Fl_Hor_Slider){.cdecl.} =
+proc SliderCB(self: ptr Fl_Widget, sld: pointer){.cdecl.} =
   echo "SliderCB "  & $(int(Fl_ValuatorGetValue(sld)*100))
 
 

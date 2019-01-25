@@ -1,9 +1,10 @@
+import strUtils
 import fltk_main
 
 
 proc MinCB (button: ptr Fl_Widget) {.cdecl.} =
   var win = Fl_WidgetWindow(button)
-  echo "minimize cb " & $win
+  echo "minimize cb " & toHex(cast[long](win), 8)
   Fl_Handle(FL_EVENT_UNFOCUS, win)
   Fl_Handle(FL_EVENT_HIDE, win)
   Fl_WidgetRedraw(win)
@@ -11,7 +12,7 @@ proc MinCB (button: ptr Fl_Widget) {.cdecl.} =
 
 proc MaxCB (button: ptr Fl_Widget) {.cdecl.} =
   var win = Fl_WidgetWindow(button)
-  #~ echo "maximize cb " &  win[]
+  echo "maximize cb " &  toHex(cast[long](win), 8)
   Fl_Handle(FL_EVENT_SHOW, win)
   Fl_Handle(FL_EVENT_FOCUS, win)
   Fl_WidgetRedraw(win)

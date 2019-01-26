@@ -16,7 +16,7 @@ proc CanvasDrawCB  (me: pointer,
     sw {.global.}:long = 0
     sh {.global.}:long = 0
 
-  var me = cast[ptr Fl_Canvas](me)
+  #~ var me = cast[ptr Fl_Canvas](me)
 
   var par = Fl_WidgetGetParent(me)
   var x = Fl_WidgetGetX(me)
@@ -25,6 +25,12 @@ proc CanvasDrawCB  (me: pointer,
   var h = cpyH #Fl_WidgetGetH(me)
   var x2 = x + w
   var y2 = y + h
+
+  echo x
+  echo y
+  echo w
+  echo h
+
   if sw == 0 or sh == 0 :
     DrawSetFont Fl_HELVETICA_BOLD, 50
     sw = DrawGetStrWidth("Canvas")

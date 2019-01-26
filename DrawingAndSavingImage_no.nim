@@ -1,7 +1,7 @@
 import random, posix, os
 import fltk_main
 
-proc DrawCB(self: ptr Fl_Widget, SaveButton: ptr Fl_Button){. cdecl .}=
+proc DrawCB(self: ptr Fl_Widget, SaveButton: pointer){. cdecl .}=
   Fl_WindowMakeCurrent(Fl_WidgetWindow(self))
   var i: int
   for i in 1 .. 100:
@@ -11,7 +11,7 @@ proc DrawCB(self: ptr Fl_Widget, SaveButton: ptr Fl_Button){. cdecl .}=
   Fl_WidgetActivate SaveButton
 
 
-proc SaveCB(self: ptr Fl_Widget, LoadButton: ptr Fl_Button){. cdecl .}=
+proc SaveCB(self: ptr Fl_Widget, LoadButton: pointer){. cdecl .}=
   Fl_WindowMakeCurrent(Fl_WidgetWindow(self))
   #~ ScreenRes 128, 128, 32, , -1
   #~ var p: ptr ubyte  = ImageCreate(128, 128)
@@ -30,7 +30,7 @@ proc SaveCB(self: ptr Fl_Widget, LoadButton: ptr Fl_Button){. cdecl .}=
   Fl_WidgetActivate LoadButton
 
 
-proc LoadCB(self: ptr Fl_Widget, RightBox: ptr Fl_Box){. cdecl .}=
+proc LoadCB(self: ptr Fl_Widget, RightBox: pointer){. cdecl .}=
   Fl_WidgetSetImage RightBox, Fl_BMP_ImageNew("media/temp.bmp")
   Fl_WidgetRedraw RightBox
 

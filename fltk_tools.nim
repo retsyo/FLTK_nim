@@ -106,7 +106,7 @@ when not defined(fltk_tools_bi):
         var
             w, h: long
 
-        if bool(imgAlign and Fl_ALIGN_IMAGE_NEXT_TO_TEXT) :
+        if (imgAlign and Fl_ALIGN_IMAGE_NEXT_TO_TEXT) > 0:
             w = DrawGetStrWidth(labText) + Fl_ImageW(img)
             h = iif(DrawGetFontHeight()>Fl_ImageH(img),DrawGetFontHeight(), Fl_ImageH(img))
         else:
@@ -132,6 +132,17 @@ when not defined(fltk_tools_bi):
 
         return itm
 
+
+    proc Fl_Menu_AddImageLabel*(mnuBar: ptr Fl_Menu_TT,
+                                   mnuPath:   cstring,
+                                   labText:   cstring,
+                                   imgFile:   cstring,
+                                   shortcut:  long=0,
+                                   cb:        static[uint]=0,
+                                   imgAlign:  FL_ALIGN=0,
+                                   txtalign:  FL_ALIGN=0): ptr Fl_Menu_Item {.discardable.}=
+        doAssert cb == 0
+        return Fl_Menu_AddImageLabel(mnuBar, mnuPath, labText, imgFile, shortcut, nil, imgAlign, txtalign)
 
     #~ function flbox(byval b as Fl_Boxtype) as Fl_Boxtype
       #~ return iif((b<BoxType(FL_UP_BOX) or b mod 4>1),b,(b-2))

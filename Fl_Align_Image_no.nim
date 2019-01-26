@@ -1,9 +1,12 @@
+import strUtils
 import fltk_main
 import media/gradient_xpm
 
 # test of:
 # Fl_PixmapNew
 # FL_ALIGN_IMAGE_BACKDROP
+
+#~ var gradient_xpm1 = allocCStringArray(gradient_xpm0).join("")
 
 var win  = Fl_WindowNew(320, 45, "FL_ALIGN_IMAGE_BACKDROP")
 var but1 = Fl_ButtonNew( 10,  10, 140, 25, "Button 1")
@@ -14,4 +17,6 @@ Fl_WidgetSetAlign but1, FL_ALIGN_IMAGE_BACKDROP
 Fl_WindowShow win
 Fl_Run()
 
+
+#~ deallocCStringArray(gradient_xpm1)
 

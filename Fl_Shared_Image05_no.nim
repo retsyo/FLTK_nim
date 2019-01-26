@@ -21,7 +21,7 @@ echo "Fl_Shared_ImageNumImages() = " & $nImages
 
 var i = 0
 for i in 0 .. nImages-1:
-  var img = Fl_Shared_ImageImages()[i]
+  var img = Fl_Shared_ImageImages()[][i]
   echo "Fl_Shared_ImageRefcount(" & i & ") = " & Fl_Shared_ImageRefcount(img)
 
 

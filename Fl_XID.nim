@@ -5,6 +5,12 @@ import fltk_main
 proc ShowCB  (self: ptr Fl_Widget, box: pointer) {.cdecl.} =
   var win = Fl_WidgetWindow(self)
   Fl_WidgetCopyLabel(box, "0x" & toHex(cast[long](Fl_XID(win)), 8))
+
+  # 以下几个是等效的
+  echo "0x" & toHex(cast[long](Fl_XID(win)), 8)
+  echo repr(Fl_XID(win))
+  echo repr(Fl_XID(win))[^9 .. ^1]
+
   Fl_WidgetDeactivate self
 
 

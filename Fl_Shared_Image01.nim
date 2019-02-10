@@ -21,7 +21,7 @@ echo "load same bmp again !"
 var img5 = Fl_Shared_ImageGet("media/renata.bmp")
 echo "num images loaded = " & $Fl_Shared_ImageNumImages()
 
-var win=Fl_WindowNew(694, 148, "Fl_Shared_Image01.bas")
+var win=Fl_WindowNew(694, 148, "Fl_Shared_Image01.nim")
 Fl_WidgetSetImage Fl_BoxNew( 10, 10, 128, 128), img1
 Fl_WidgetSetImage Fl_BoxNew(148, 10, 128, 128), img2
 Fl_WidgetSetImage Fl_BoxNew(286, 10, 128, 128), img3

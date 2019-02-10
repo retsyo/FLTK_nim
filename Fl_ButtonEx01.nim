@@ -8,9 +8,9 @@ import fltk_main
 #~ ' Fl_EventX()       http://www.fltk.org/doc-1.3/group__fl__events.html#ga91585fcbaa1e79f7452fd2d16a82136e
 #~ ' Fl_EventY()       http://www.fltk.org/doc-1.3/group__fl__events.html#ga192a0c5a37f33b9d117a69f20977c2a1
 
-proc ButtonHandleCB (self: ptr any, event: Fl_Event): long {.cdecl.} =
+proc ButtonHandleCB (self: pointer, event: Fl_Event): long {.cdecl.} =
   var msg: string
-  case event:
+  case int(event):
     of FL_EVENT_PUSH:
         msg = "Button pushed with mouse button "
         case Fl_EventButtons():
@@ -20,8 +20,12 @@ proc ButtonHandleCB (self: ptr any, event: Fl_Event): long {.cdecl.} =
                 msg &= "2 "
             of FL_BUTTON3 :
                 msg &= "3 "
+            else:
+                discard
+    else:
+        discard
 
-  msg &= "at position " & Fl_EventX() & "," & Fl_EventY()
+  msg &= "at position " & $Fl_EventX() & "," & $Fl_EventY()
   echo  msg
 
   return Fl_ButtonExHandleBase(self,event) # don't eat the event

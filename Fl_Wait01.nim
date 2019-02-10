@@ -11,5 +11,6 @@ Fl_WindowShow Win
 
 #~ ' Waits until "something happens" and then returns.
 while Fl_Wait() != 0:
-  echo "."
+  stdout.write(".")
+  stdout.flushFile()
 

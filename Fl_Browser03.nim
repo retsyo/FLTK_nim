@@ -5,7 +5,7 @@ import fltk_main
 # Fl_WidgetSetSelectionColor()
 # Fl_Browser_ScrollbarLeft()
 
-proc BrowserCB (self: ptr FL_WIDGET, box: ptr Fl_Browser) {.cdecl.}=
+proc BrowserCB (self: ptr FL_WIDGET, box: pointer) {.cdecl.}=
   var brw = cast[ptr Fl_Browser ](self)
   Fl_WidgetCopyLabel box,Fl_BrowserGetText(brw,Fl_BrowserGetValue(brw))
   Fl_WidgetRedrawLabel box

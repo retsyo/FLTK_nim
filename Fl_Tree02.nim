@@ -3,7 +3,7 @@ import fltk_main
 #test of:
 # Fl_Tree  http://www.fltk.org/doc-1.3/classFl__Tree.html
 
-proc TreeCB  (wgt: ptr Fl_Widget, pdata: ptr integer) {.cdecl.} =
+proc TreeCB  (wgt: ptr Fl_Widget, pdata: pointer) {.cdecl.} =
     #~ var tr = cptr(Fl_Tree ptr,wgt)
     var tr = cast[ptr Fl_Tree](wgt)
     var item = Fl_TreeGetCallbackItem(tr)

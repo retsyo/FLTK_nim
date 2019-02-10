@@ -13,6 +13,7 @@ Fl_WindowShow win
 while Fl_WindowShown(win) != 0:
   #~ ' wait for any event with time out value
   var t = Fl_Wait2(0.1)
-  echo ".";
+  stdout.write(".")
+  stdout.flushFile()
 
 

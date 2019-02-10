@@ -8,7 +8,7 @@ import fltk_main
 # Fl_BrowserGetValue
 # Fl_BrowserGetText
 
-proc BrowserCB  (self: ptr FL_WIDGET,browser: ptr Fl_Hold_Browser){.cdecl.}=
+proc BrowserCB  (self: ptr FL_WIDGET, browser: pointer){.cdecl.}=
   echo "BrowserCB " & $Fl_BrowserGetText(browser, Fl_BrowserGetValue(browser))
 
 

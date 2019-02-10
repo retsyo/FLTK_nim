@@ -4,6 +4,9 @@ import fltk_main
 proc `\=` (x: var long; y: long) =
     x = long(x.float / y.float)
 
+proc `<` (x: float; y: int64): bool =
+    return x.int64 < y              # I hate nim's behaviour here
+
 proc ButtonCB  (wgt: ptr Fl_Widget, pData: pointer ){.cdecl.}=
   var
     w,h,l,t,r,b,pw,ph : long
@@ -36,7 +39,7 @@ proc ButtonCB  (wgt: ptr Fl_Widget, pData: pointer ){.cdecl.}=
             x: float = 0
             y: float = 0
 
-        while x < w-1:
+        while x < w-1:  #ambiguous call. both system.<(x: float, y: float) and system.<(x: int64, y: int64)
           DrawLine x, 0, x, h-1
           x += CM
 

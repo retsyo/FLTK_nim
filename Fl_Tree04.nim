@@ -5,7 +5,7 @@ import fltk_main
 #~ # Fl_TreeSetOpenIcon
 #~ # Fl_TreeSetCloseIcon
 #~ # Fl_TreeClose
-proc TreeCB  (self: ptr Fl_Widget, tree: ptr Fl_Tree){.cdecl.} =
+proc TreeCB  (self: ptr Fl_Widget, tree: pointer){.cdecl.} =
   if Fl_TreeGetCallbackReason(tree) == FL_TREE_REASON_SELECTED :
     var item = Fl_TreeGetCallbackItem(tree)
     Fl_WidgetCopyLabel self,Fl_Tree_ItemGetLabel(item)
@@ -19,7 +19,7 @@ discard chDir getAppDir()
 
 Fl_Register_Images() # be sure png,jpg ... loader#s are reistered
 
-var win = Fl_WindowNew(200,200, "Fl_Tree04.bas")
+var win = Fl_WindowNew(200,200, "Fl_Tree04.nim")
 Fl_WindowBegin win
 var tree = Fl_TreeNew(10,24,Fl_WidgetGetW(win)-20,Fl_WidgetGetH(win)-34,"slecet an item ...")
 Fl_TreeBegin tree

@@ -1,0 +1,10 @@
+20190116
+first release
+
+20190120
+expand some DeclareEx(sth) by hand
+
+20192010
+use DeclareEx(sth) 
+comment out expanded DeclareEx(sth)
+thank you zah @ https://stackoverflow.com/questions/54376844/batch-created-c-interface-in-nimlang-with-template-macro

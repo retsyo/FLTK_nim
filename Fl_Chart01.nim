@@ -16,8 +16,8 @@ proc AddItems(chart: ptr Fl_chart) {.cdecl.} =
   Fl_ChartAdd chart,-0.4 ,"value -0.4" ,Fl_BLACK
 
 var
-  ww: long = long(Fl_GetW()*0.5)
-  hh: long = long(Fl_GetH()*0.5)
+  ww: long = Fl_GetW()\2
+  hh: long = Fl_GetH()\2
   w:  long = (ww-40) \ 3
   h:  long = (hh-60) \ 2
 

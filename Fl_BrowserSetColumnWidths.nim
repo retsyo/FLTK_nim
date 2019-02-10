@@ -1,5 +1,6 @@
 import lenientops
 import math
+import strfmt
 import fltk_main
 #~ ' test of:
 #~ ' Fl_BrowserSetColumnWidths
@@ -16,7 +17,7 @@ var brw = Fl_BrowserNew(20, 20, 360, 360)
 Fl_BrowserSetColumnWidths(brw, cast[ptr long](addr(col)))
 Fl_BrowserAdd(brw, "x" & T9 & "x^2" & T9 & "Sqr(x)")
 for x in 1 .. 100:
-    Fl_BrowserAdd(brw, $x & T9 & $(x*x) & T9 & $(sqrt(float32(x))))
+    Fl_BrowserAdd(brw, $x & T9 & $(x*x) & T9 & format(sqrt(float32(x)), ".6f"))
 
 
 Fl_BrowserEnd brw

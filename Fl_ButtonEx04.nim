@@ -7,10 +7,6 @@ import fltk_main
 #~ ' Fl_WidgetDeactivate
 #~ ' Fl_WidgetSetTooltip
 
-const Fl_ButtonEx = uLong
-
-type Fl_ButtonExHandleBase* = proc (ex: ptr Fl_ButtonEx, event: FL_EVENT): long
-type Fl_ButtonExNew* = proc(x: long, y: long; w: long; h: long, title: string=cast[string](0)): ptr Fl_ButtonEx
 
 proc HandleCB  (self: pointer, event: Fl_Event): long {.cdecl.} =
     var msg = $Fl_WidgetGetLabel(self) & " "
@@ -35,8 +31,6 @@ proc HandleCB  (self: pointer, event: Fl_Event): long {.cdecl.} =
             echo msg
         else:
             discard
-
-
 
     return Fl_ButtonExHandleBase(self, event) # don't eat the event
 

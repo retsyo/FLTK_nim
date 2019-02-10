@@ -7,7 +7,7 @@ import fltk_main
 #~ ' Fl_AddTimeout()          http://www.fltk.org/doc-1.3/classFl.html#a23e63eb7cec3a27fa360e66c6e2b2e52
 #~ ' Fl_RepeatTimeout ()      http://www.fltk.org/doc-1.3/classFl.html#ae5373d1d50c2b0ba38280d78bb6d2628
 
-proc TimeoutHandler (self: ptr Fl_Window) {.cdecl.} =
+proc TimeoutHandler (self: pointer) {.cdecl.} =
   if Fl_WindowFullscreenActive(self) > 0 :
     Fl_WindowFullscreenOff self
   else:

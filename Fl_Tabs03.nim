@@ -10,7 +10,7 @@ proc TabCB (tabs: ptr FL_Widget, parent: pointer) {.cdecl.} =
 proc ButtonCB (btn: ptr FL_Widget)  {.cdecl.}=
   echo  "ButtonCB: " & $Fl_WidgetGetLabel(btn)
 
-var win = Fl_WindowNew(500, 200, "Tabs03.bas")
+var win = Fl_WindowNew(500, 200, "Tabs03.nim")
 var tabs = Fl_TabsNew(10, 10, 500-20, 200-20)
 Fl_WidgetSetCallbackArg tabs, TabCB, tabs
 var tab1 = Fl_TabNew(10, 35, 500-20, 200-45, "Tab 1")

@@ -60,16 +60,16 @@ when not defined(FLTK_MAIN_BI):
 
     type
         Fl_Window* = ulong
-        Fl_WindowEX* = ulong
+        #~ Fl_WindowEX* = ulong
 
         Fl_Double_Window* = ulong
-        Fl_Double_WindowEX* = ulong
+        #~ Fl_Double_WindowEX* = ulong
 
         Fl_Single_Window* = ulong
-        Fl_Single_WindowEX* = ulong
+        #~ Fl_Single_WindowEX* = ulong
 
         Fl_Overlay_Window* = ulong
-        Fl_Overlay_WindowEX* = ulong
+        #~ Fl_Overlay_WindowEX* = ulong
 
         Fl_Tree_Item* = ulong
         Fl_Tree* = ulong
@@ -83,7 +83,7 @@ when not defined(FLTK_MAIN_BI):
         Fl_Button* = ulong
 
         Fl_Check_Button* = ulong
-        Fl_Check_ButtonEX* = ulong
+        #~ Fl_Check_ButtonEX* = ulong
 
         Fl_Native_File_Chooser* = ulong
         Fl_File_Icon* = ulong
@@ -100,203 +100,203 @@ when not defined(FLTK_MAIN_BI):
         Fl_PNM_Image* = ulong
 
         Fl_Group* = ulong
-        Fl_GroupEX* = ulong
+        #~ Fl_GroupEX* = ulong
 
         Fl_Widget_Tracker* = ulong
-        Fl_WidgetEx* = ulong
+        #~ Fl_WidgetEx* = ulong
         Fl_Box* = ulong
-        Fl_BoxEx* = ulong
+        #~ Fl_BoxEx* = ulong
 
         Fl_Canvas* = ulong
 
         Fl_Menu_Window* = ulong
-        Fl_Menu_WindowEx* = ulong
+        #~ Fl_Menu_WindowEx* = ulong
 
         #~ Fl_Event* = ulong
-        Fl_ButtonEx* = ulong
+        #~ Fl_ButtonEx* = ulong
 
         Fl_Tabs* = ulong
-        Fl_TabsEx* = ulong
+        #~ Fl_TabsEx* = ulong
 
         Fl_Table* = ulong
-        Fl_TableEx* = ulong
+        #~ Fl_TableEx* = ulong
 
         Fl_Table_Row* = ulong
-        Fl_Table_RowEX* = ulong
+        #~ Fl_Table_RowEX* = ulong
 
     type
         Fl_Radio_Button* = ulong
-        Fl_Radio_ButtonEX* = ulong
+        #~ Fl_Radio_ButtonEX* = ulong
 
         Fl_Repeat_Button* = ulong
-        Fl_Repeat_ButtonEX* = ulong
+        #~ Fl_Repeat_ButtonEX* = ulong
 
         Fl_Return_Button* = ulong
-        Fl_Return_ButtonEX* = ulong
+        #~ Fl_Return_ButtonEX* = ulong
 
         Fl_Toggle_Button* = ulong
-        Fl_Toggle_ButtonEX* = ulong
+        #~ Fl_Toggle_ButtonEX* = ulong
 
         Fl_Light_Button* = ulong
-        Fl_Light_ButtonEX* = ulong
+        #~ Fl_Light_ButtonEX* = ulong
 
         Fl_Radio_Light_Button* = ulong
-        Fl_Radio_Light_ButtonEX* = ulong
+        #~ Fl_Radio_Light_ButtonEX* = ulong
 
         Fl_Round_Button* = ulong
-        Fl_Round_ButtonEX* = ulong
+        #~ Fl_Round_ButtonEX* = ulong
 
         Fl_Radio_Round_Button* = ulong
-        Fl_Radio_Round_ButtonEX* = ulong
+        #~ Fl_Radio_Round_ButtonEX* = ulong
 
         Fl_Chart* = ulong
-        Fl_ChartEX* = ulong
+        #~ Fl_ChartEX* = ulong
 
         Fl_Clock_Output* = ulong
-        Fl_Clock_OutputEX* = ulong
+        #~ Fl_Clock_OutputEX* = ulong
 
         Fl_Clock* = ulong
-        Fl_ClockEX* = ulong
+        #~ Fl_ClockEX* = ulong
 
         Fl_Round_Clock* = ulong
-        Fl_Round_ClockEX* = ulong
+        #~ Fl_Round_ClockEX* = ulong
 
         Fl_Input* = ulong
-        Fl_InputEX* = ulong
+        #~ Fl_InputEX* = ulong
 
         Fl_Float_Input* = ulong
-        Fl_Float_InputEX* = ulong
+        #~ Fl_Float_InputEX* = ulong
 
         Fl_Int_Input* = ulong
-        Fl_Int_InputEX* = ulong
+        #~ Fl_Int_InputEX* = ulong
 
         Fl_Multiline_Input* = ulong
-        Fl_Multiline_InputEX* = ulong
+        #~ Fl_Multiline_InputEX* = ulong
 
         Fl_Secret_Input* = ulong
-        Fl_Secret_InputEX* = ulong
+        #~ Fl_Secret_InputEX* = ulong
 
         Fl_Output* = ulong
-        Fl_OutputEX* = ulong
+        #~ Fl_OutputEX* = ulong
 
         Fl_Multiline_Output* = ulong
-        Fl_Multiline_OutputEX* = ulong
+        #~ Fl_Multiline_OutputEX* = ulong
 
         Fl_File_Input* = ulong
-        Fl_File_InputEX* = ulong
+        #~ Fl_File_InputEX* = ulong
 
         FL_Menu_TT* = ulong
-        FL_Menu_TTEX* = ulong
+        #~ FL_Menu_TTEX* = ulong
 
         Fl_Menu_Button* = ulong
-        Fl_Menu_ButtonEX* = ulong
+        #~ Fl_Menu_ButtonEX* = ulong
 
         Fl_Menu_Bar* = ulong
-        Fl_Menu_BarEX* = ulong
+        #~ Fl_Menu_BarEX* = ulong
 
         Fl_Choice* = ulong
-        Fl_ChoiceEX* = ulong
+        #~ Fl_ChoiceEX* = ulong
 
         Fl_Progress* = ulong
-        Fl_ProgressEX* = ulong
+        #~ Fl_ProgressEX* = ulong
 
         Fl_Valuator* = ulong
-        Fl_ValuatorEX* = ulong
+        #~ Fl_ValuatorEX* = ulong
 
         Fl_Adjuster* = ulong
-        Fl_AdjusterEX* = ulong
+        #~ Fl_AdjusterEX* = ulong
 
         Fl_Counter* = ulong
-        Fl_CounterEX* = ulong
+        #~ Fl_CounterEX* = ulong
 
         Fl_Simple_Counter* = ulong
-        Fl_Simple_CounterEX* = ulong
+        #~ Fl_Simple_CounterEX* = ulong
 
         Fl_Dial* = ulong
-        Fl_DialEX* = ulong
+        #~ Fl_DialEX* = ulong
 
         Fl_Fill_Dial* = ulong
-        Fl_Fill_DialEX* = ulong
+        #~ Fl_Fill_DialEX* = ulong
 
         Fl_Line_Dial* = ulong
-        Fl_Line_DialEX* = ulong
+        #~ Fl_Line_DialEX* = ulong
 
         Fl_Roller* = ulong
-        Fl_RollerEX* = ulong
+        #~ Fl_RollerEX* = ulong
 
         Fl_Slider* = ulong
-        Fl_SliderEX* = ulong
+        #~ Fl_SliderEX* = ulong
 
         Fl_Hor_Slider* = ulong
-        Fl_Hor_SliderEX* = ulong
+        #~ Fl_Hor_SliderEX* = ulong
 
         Fl_Fill_Slider* = ulong
-        Fl_Fill_SliderEX* = ulong
+        #~ Fl_Fill_SliderEX* = ulong
 
         Fl_Hor_Fill_Slider* = ulong
-        Fl_Hor_Fill_SliderEX* = ulong
+        #~ Fl_Hor_Fill_SliderEX* = ulong
 
         Fl_Nice_Slider* = ulong
-        Fl_Nice_SliderEX* = ulong
+        #~ Fl_Nice_SliderEX* = ulong
 
         Fl_Hor_Nice_Slider* = ulong
-        Fl_Hor_Nice_SliderEX* = ulong
+        #~ Fl_Hor_Nice_SliderEX* = ulong
 
         Fl_Scrollbar* = ulong
-        Fl_ScrollbarEX* = ulong
+        #~ Fl_ScrollbarEX* = ulong
 
         Fl_Value_Slider* = ulong
-        Fl_Value_SliderEX* = ulong
+        #~ Fl_Value_SliderEX* = ulong
 
         Fl_Hor_Value_Slider* = ulong
-        Fl_Hor_Value_SliderEX* = ulong
+        #~ Fl_Hor_Value_SliderEX* = ulong
 
         Fl_Value_Input* = ulong
-        Fl_Value_InputEX* = ulong
+        #~ Fl_Value_InputEX* = ulong
 
         Fl_Value_Output* = ulong
-        Fl_Value_OutputEX* = ulong
+        #~ Fl_Value_OutputEX* = ulong
 
         Fl_Pack* = ulong
-        Fl_PackEX* = ulong
+        #~ Fl_PackEX* = ulong
 
         Fl_Tile* = ulong
-        Fl_TileEX* = ulong
+        #~ Fl_TileEX* = ulong
 
         Fl_Scroll* = ulong
-        Fl_ScrollEX* = ulong
+        #~ Fl_ScrollEX* = ulong
 
         Fl_Browser* = ulong
-        Fl_BrowserEX* = ulong
+        #~ Fl_BrowserEX* = ulong
 
         Fl_Check_Browser* = ulong
-        Fl_Check_BrowserEX* = ulong
+        #~ Fl_Check_BrowserEX* = ulong
 
         Fl_File_Browser* = ulong
-        Fl_File_BrowserEX* = ulong
+        #~ Fl_File_BrowserEX* = ulong
 
         Fl_Color_Chooser* = ulong
-        Fl_Color_ChooserEX* = ulong
+        #~ Fl_Color_ChooserEX* = ulong
 
         Fl_Help_View * = ulong
-        Fl_Help_ViewEX* = ulong
+        #~ Fl_Help_ViewEX* = ulong
 
         Fl_Hold_Browser* = ulong
-        Fl_Hold_BrowserEX* = ulong
+        #~ Fl_Hold_BrowserEX* = ulong
 
         Fl_Multi_Browser* = ulong
-        Fl_Multi_BrowserEX* = ulong
+        #~ Fl_Multi_BrowserEX* = ulong
 
         Fl_Select_Browser* = ulong
-        Fl_Select_BrowserEX* = ulong
+        #~ Fl_Select_BrowserEX* = ulong
 
         Fl_Input_Choice* = ulong
-        Fl_Input_ChoiceEX* = ulong
+        #~ Fl_Input_ChoiceEX* = ulong
 
         Fl_Text_Display* = ulong
-        Fl_Text_DisplayEX* = ulong
+        #~ Fl_Text_DisplayEX* = ulong
 
-        Fl_TreeEX* = ulong
+        #~ Fl_TreeEX* = ulong
 
         Fl_Spinner* = ulong
 
@@ -1906,19 +1906,34 @@ when not defined(FLTK_MAIN_BI):
     #~ proc _name_##ExSetResizeCB*( ex:  ptr _name_##Ex;  cb:  Fl_ResizeEx) {.cdecl, importc: "_name_##ExSetResizeCB", dynlib: fltk, discardable.}
     #~ #endmacro
 
-    template DeclareEx*(name: untyped) =
-        discard
-        #~ type `name ExNew`*{.inject.} = proc(x: long, y: long; w: long; h: long, title: cstring=nil): ptr `name Ex`{.cdecl, importc: "name ExNew", dynlib: fltk, discardable.}
+    #~ template DeclareEx*(name: untyped) {.dirty.}=
+        #~ const
+            #~ exNewProc = astToStr(name) & "ExNew"
+            #~ exDeleteProc = astToStr(name) & "ExDelete"
+            #~ exHandleBase = astToStr(name) & "ExHandleBase"
+            #~ exSetDestructorCB = astToStr(name) & "ExSetDestructorCB"
+            #~ exSetDrawCB = astToStr(name) & "ExSetDrawCB"
+            #~ exSetHandleCB = astToStr(name) & "ExSetHandleCB"
+            #~ exSetResizeCB = astToStr(name) & "ExSetResizeCB"
 
-        #~ type `name ExDelete`*{.inject.}  = proc(ex: ptr `name Ex`) {.cdecl, importc: "name ExDelete", dynlib: fltk, discardable.}
+        #~ type `name Ex`* = ulong
+        #~ proc `name ExNew`*(x: long, y: long, w: long, h: long, title: cstring=nil): ptr `name Ex` {.cdecl, importc: exNewProc, dynlib: fltk, discardable.}
+        #~ proc `name ExDelete`*(ex: ptr `name Ex`) {.cdecl, importc: exDeleteProc, dynlib: fltk, discardable.}
+        #~ proc `name ExHandleBase`*( ex:  ptr `name Ex`;  event:  FL_EVENT):  long {.cdecl, importc: exHandleBase, dynlib: fltk, discardable.}
+        #~ proc `name ExSetDestructorCB`*( ex:  ptr `name Ex`;  cb:  Fl_DestructorEx) {.cdecl, importc: exSetDestructorCB, dynlib: fltk, discardable.}
+        #~ proc `name ExSetDrawCB`*( ex:  ptr `name Ex`;  cb:  Fl_DrawEx) {.cdecl, importc: exSetDrawCB, dynlib: fltk, discardable.}
+        #~ proc `name ExSetHandleCB`*( ex:  ptr `name Ex`;  cb:  Fl_HandleEx) {.cdecl, importc: exSetHandleCB, dynlib: fltk, discardable.}
+        #~ proc `name ExSetResizeCB`*( ex:  ptr `name Ex`;  cb:  Fl_ResizeEx) {.cdecl, importc: exSetResizeCB, dynlib: fltk, discardable.}
 
-        #~ type `name ExHandleBase`*{.inject.} = proc (ex: ptr `name Ex`, event: FL_EVENT): long {.cdecl, importc: "name ExHandleBase", dynlib: fltk, discardable.}
-
-        #~ proc `name ExHandleBase`*{.inject.} ( tex:  ptr `name Ex`;  event:  FL_EVENT):  long {.cdecl, importc: "name ExHandleBase", dynlib: fltk, discardable.}
-        #~ type `name ExSetDestructorCB`*{.inject.} = proc(ex: ptr `name Ex`,  cb: Fl_DestructorEx)
-        #~ type `name ExSetDrawCB` *{.inject.} = proc(ex: ptr `name Ex`, cb: Fl_DrawEx)
-        #~ type `name ExSetHandleCB`*{.inject.} = proc(ex: ptr `name Ex`, cb: Fl_HandleEx)
-        #~ type `name ExSetResizeCB`*{.inject.} = proc(ex: ptr `name Ex`, cb: Fl_ResizeEx)
+    template DeclareEx*(name: untyped) {.dirty.}=
+        type `name Ex`* = ulong
+        proc `name ExNew`*(x: long, y: long, w: long, h: long, title: cstring=nil): ptr `name Ex` {.cdecl, importc: astToStr(name) & "ExNew", dynlib: fltk, discardable.}
+        proc `name ExDelete`*(ex: ptr `name Ex`) {.cdecl, importc: astToStr(name) & "ExDelete", dynlib: fltk, discardable.}
+        proc `name ExHandleBase`*( ex:  ptr `name Ex`;  event:  FL_EVENT):  long {.cdecl, importc: astToStr(name) & "ExHandleBase", dynlib: fltk, discardable.}
+        proc `name ExSetDestructorCB`*( ex:  ptr `name Ex`;  cb:  Fl_DestructorEx) {.cdecl, importc: astToStr(name) & "ExSetDestructorCB", dynlib: fltk, discardable.}
+        proc `name ExSetDrawCB`*( ex:  ptr `name Ex`;  cb:  Fl_DrawEx) {.cdecl, importc: astToStr(name) & "ExSetDrawCB", dynlib: fltk, discardable.}
+        proc `name ExSetHandleCB`*( ex:  ptr `name Ex`;  cb:  Fl_HandleEx) {.cdecl, importc: astToStr(name) & "ExSetHandleCB", dynlib: fltk, discardable.}
+        proc `name ExSetResizeCB`*( ex:  ptr `name Ex`;  cb:  Fl_ResizeEx) {.cdecl, importc: astToStr(name) & "ExSetResizeCB", dynlib: fltk, discardable.}
 
     #~ extern "c"
 
@@ -4354,20 +4369,22 @@ when not defined(FLTK_MAIN_BI):
     #_ #######################################
     #_ # class Fl_WidgetEx extends Fl_Widget #
     #_ #######################################
+
+    #~ DeclareEx(Fl_Widget)
     ## original: declare function Fl_WidgetExNew(byval x as long, byval y as long, byval w as long, byval h as long, byval title as cstring=0) as Fl_WidgetEx ptr
-    proc Fl_WidgetExNew* ( x:  long;  y:  long;  w:  long;  h:  long;  title:  cstring=nil):  ptr Fl_WidgetEx {.cdecl, importc: "Fl_WidgetExNew", dynlib: fltk, discardable.}
+    #~ proc Fl_WidgetExNew* ( x:  long;  y:  long;  w:  long;  h:  long;  title:  cstring=nil):  ptr Fl_WidgetEx {.cdecl, importc: "Fl_WidgetExNew", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_WidgetExDelete         (byref ex as Fl_WidgetEx ptr)
-    proc Fl_WidgetExDelete*( ex:  var ptr Fl_WidgetEx) {.cdecl, importc: "Fl_WidgetExDelete", dynlib: fltk, discardable.}
+    #~ proc Fl_WidgetExDelete*( ex:  var ptr Fl_WidgetEx) {.cdecl, importc: "Fl_WidgetExDelete", dynlib: fltk, discardable.}
     ## original: declare function Fl_WidgetExHandleBase     (byval ex as Fl_WidgetEx ptr, byval event as FL_EVENT) as long
-    proc Fl_WidgetExHandleBase* ( ex:  ptr Fl_WidgetEx;  event:  FL_EVENT):  long {.cdecl, importc: "Fl_WidgetExHandleBase", dynlib: fltk, discardable.}
+    #~ proc Fl_WidgetExHandleBase* ( ex:  ptr Fl_WidgetEx;  event:  FL_EVENT):  long {.cdecl, importc: "Fl_WidgetExHandleBase", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_WidgetExSetDestructorCB(byval ex as Fl_WidgetEx ptr, byval cb as Fl_DestructorEx)
-    proc Fl_WidgetExSetDestructorCB*( ex:  ptr Fl_WidgetEx;  cb:  Fl_DestructorEx) {.cdecl, importc: "Fl_WidgetExSetDestructorCB", dynlib: fltk, discardable.}
+    #~ proc Fl_WidgetExSetDestructorCB*( ex:  ptr Fl_WidgetEx;  cb:  Fl_DestructorEx) {.cdecl, importc: "Fl_WidgetExSetDestructorCB", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_WidgetExSetDrawCB      (byval ex as Fl_WidgetEx ptr, byval cb as Fl_DrawEx)
-    proc Fl_WidgetExSetDrawCB*( ex:  ptr Fl_WidgetEx;  cb:  Fl_DrawEx) {.cdecl, importc: "Fl_WidgetExSetDrawCB", dynlib: fltk, discardable.}
+    #~ proc Fl_WidgetExSetDrawCB*( ex:  ptr Fl_WidgetEx;  cb:  Fl_DrawEx) {.cdecl, importc: "Fl_WidgetExSetDrawCB", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_WidgetExSetHandleCB    (byval ex as Fl_WidgetEx ptr, byval cb as Fl_HandleEx)
-    proc Fl_WidgetExSetHandleCB*( ex:  ptr Fl_WidgetEx;  cb:  Fl_HandleEx) {.cdecl, importc: "Fl_WidgetExSetHandleCB", dynlib: fltk, discardable.}
+    #~ proc Fl_WidgetExSetHandleCB*( ex:  ptr Fl_WidgetEx;  cb:  Fl_HandleEx) {.cdecl, importc: "Fl_WidgetExSetHandleCB", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_WidgetExSetResizeCB    (byval ex as Fl_WidgetEx ptr, byval cb as Fl_ResizeEx)
-    proc Fl_WidgetExSetResizeCB*( ex:  ptr Fl_WidgetEx;  cb:  Fl_ResizeEx) {.cdecl, importc: "Fl_WidgetExSetResizeCB", dynlib: fltk, discardable.}
+    #~ proc Fl_WidgetExSetResizeCB*( ex:  ptr Fl_WidgetEx;  cb:  Fl_ResizeEx) {.cdecl, importc: "Fl_WidgetExSetResizeCB", dynlib: fltk, discardable.}
 
     #_ ##################################
     #_ # class Fl_Box extends Fl_Widget #
@@ -4376,22 +4393,22 @@ when not defined(FLTK_MAIN_BI):
     ## original: declare function BoxType(byval nType as long) as FL_BOXTYPE
     proc BoxType* ( nType:  long):  FL_BOXTYPE {.cdecl, importc: "BoxType", dynlib: fltk, discardable.}
 
-    ## DeclareEx(Fl_Box)
+    DeclareEx(Fl_Box)
     ## expand by hand, begin
     ## original: declare function Fl_BoxExNew(byval x as long, byval y as long, byval w as long, byval h as long, byval title as cstring=0) as Fl_BoxEx ptr
-    proc Fl_BoxExNew* ( x:  long;  y:  long;  w:  long;  h:  long;  title:  cstring=nil):  ptr Fl_BoxEx {.cdecl, importc: "Fl_BoxExNew", dynlib: fltk, discardable.}
+    #~ proc Fl_BoxExNew* ( x:  long;  y:  long;  w:  long;  h:  long;  title:  cstring=nil):  ptr Fl_BoxEx {.cdecl, importc: "Fl_BoxExNew", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_BoxExDelete         (byref ex as Fl_BoxEx ptr)
-    proc Fl_BoxExDelete*( ex:  ptr Fl_BoxEx) {.cdecl, importc: "Fl_BoxExDelete", dynlib: fltk, discardable.}
+    #~ proc Fl_BoxExDelete*( ex:  ptr Fl_BoxEx) {.cdecl, importc: "Fl_BoxExDelete", dynlib: fltk, discardable.}
     ## original: declare function Fl_BoxExHandleBase     (byval ex as Fl_BoxEx ptr, byval event as FL_EVENT) as long
-    proc Fl_BoxExHandleBase* ( ex:  ptr Fl_BoxEx;  event:  FL_EVENT):  long {.cdecl, importc: "Fl_BoxExHandleBase", dynlib: fltk, discardable.}
+    #~ proc Fl_BoxExHandleBase* ( ex:  ptr Fl_BoxEx;  event:  FL_EVENT):  long {.cdecl, importc: "Fl_BoxExHandleBase", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_BoxExSetDestructorCB(byval ex as Fl_BoxEx ptr, byval cb as Fl_DestructorEx)
-    proc Fl_BoxExSetDestructorCB*( ex:  ptr Fl_BoxEx;  cb:  Fl_DestructorEx) {.cdecl, importc: "Fl_BoxExSetDestructorCB", dynlib: fltk, discardable.}
+    #~ proc Fl_BoxExSetDestructorCB*( ex:  ptr Fl_BoxEx;  cb:  Fl_DestructorEx) {.cdecl, importc: "Fl_BoxExSetDestructorCB", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_BoxExSetDrawCB      (byval ex as Fl_BoxEx ptr, byval cb as Fl_DrawEx)
-    proc Fl_BoxExSetDrawCB*( ex:  ptr Fl_BoxEx;  cb:  Fl_DrawEx) {.cdecl, importc: "Fl_BoxExSetDrawCB", dynlib: fltk, discardable.}
+    #~ proc Fl_BoxExSetDrawCB*( ex:  ptr Fl_BoxEx;  cb:  Fl_DrawEx) {.cdecl, importc: "Fl_BoxExSetDrawCB", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_BoxExSetHandleCB    (byval ex as Fl_BoxEx ptr, byval cb as Fl_HandleEx)
-    proc Fl_BoxExSetHandleCB*( ex:  ptr Fl_BoxEx;  cb:  Fl_HandleEx) {.cdecl, importc: "Fl_BoxExSetHandleCB", dynlib: fltk, discardable.}
+    #~ proc Fl_BoxExSetHandleCB*( ex:  ptr Fl_BoxEx;  cb:  Fl_HandleEx) {.cdecl, importc: "Fl_BoxExSetHandleCB", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_BoxExSetResizeCB    (byval ex as Fl_BoxEx ptr, byval cb as Fl_ResizeEx)
-    proc Fl_BoxExSetResizeCB*( ex:  ptr Fl_BoxEx;  cb:  Fl_ResizeEx) {.cdecl, importc: "Fl_BoxExSetResizeCB", dynlib: fltk, discardable.}
+    #~ proc Fl_BoxExSetResizeCB*( ex:  ptr Fl_BoxEx;  cb:  Fl_ResizeEx) {.cdecl, importc: "Fl_BoxExSetResizeCB", dynlib: fltk, discardable.}
 
     ## expand by hand, end
 
@@ -4434,22 +4451,22 @@ when not defined(FLTK_MAIN_BI):
     #_ #####################################
     #_ # class Fl_Button extends Fl_Widget #
     #_ #####################################
-    ## DeclareEx(Fl_Button)
+    DeclareEx(Fl_Button)
     ## expand by hand, begin
     ## original: declare function Fl_ButtonExNew(byval x as long, byval y as long, byval w as long, byval h as long, byval title as cstring=0) as Fl_ButtonEx ptr
-    proc Fl_ButtonExNew* ( x:  long;  y:  long;  w:  long;  h:  long;  title:  cstring=nil):  ptr Fl_ButtonEx {.cdecl, importc: "Fl_ButtonExNew", dynlib: fltk, discardable.}
+    #~ proc Fl_ButtonExNew* ( x:  long;  y:  long;  w:  long;  h:  long;  title:  cstring=nil):  ptr Fl_ButtonEx {.cdecl, importc: "Fl_ButtonExNew", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_ButtonExDelete         (byref ex as Fl_ButtonEx ptr)
-    proc Fl_ButtonExDelete*( ex:  ptr Fl_ButtonEx) {.cdecl, importc: "Fl_ButtonExDelete", dynlib: fltk, discardable.}
+    #~ proc Fl_ButtonExDelete*( ex:  ptr Fl_ButtonEx) {.cdecl, importc: "Fl_ButtonExDelete", dynlib: fltk, discardable.}
     ## original: declare function Fl_ButtonExHandleBase     (byval ex as Fl_ButtonEx ptr, byval event as FL_EVENT) as long
-    proc Fl_ButtonExHandleBase* ( ex:  ptr Fl_ButtonEx;  event:  FL_EVENT):  long {.cdecl, importc: "Fl_ButtonExHandleBase", dynlib: fltk, discardable.}
+    #~ proc Fl_ButtonExHandleBase* ( ex:  ptr Fl_ButtonEx;  event:  FL_EVENT):  long {.cdecl, importc: "Fl_ButtonExHandleBase", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_ButtonExSetDestructorCB(byval ex as Fl_ButtonEx ptr, byval cb as Fl_DestructorEx)
-    proc Fl_ButtonExSetDestructorCB*( ex:  ptr Fl_ButtonEx;  cb:  Fl_DestructorEx) {.cdecl, importc: "Fl_ButtonExSetDestructorCB", dynlib: fltk, discardable.}
+    #~ proc Fl_ButtonExSetDestructorCB*( ex:  ptr Fl_ButtonEx;  cb:  Fl_DestructorEx) {.cdecl, importc: "Fl_ButtonExSetDestructorCB", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_ButtonExSetDrawCB      (byval ex as Fl_ButtonEx ptr, byval cb as Fl_DrawEx)
-    proc Fl_ButtonExSetDrawCB*( ex:  ptr Fl_ButtonEx;  cb:  Fl_DrawEx) {.cdecl, importc: "Fl_ButtonExSetDrawCB", dynlib: fltk, discardable.}
+    #~ proc Fl_ButtonExSetDrawCB*( ex:  ptr Fl_ButtonEx;  cb:  Fl_DrawEx) {.cdecl, importc: "Fl_ButtonExSetDrawCB", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_ButtonExSetHandleCB    (byval ex as Fl_ButtonEx ptr, byval cb as Fl_HandleEx)
-    proc Fl_ButtonExSetHandleCB*( ex:  ptr Fl_ButtonEx;  cb:  Fl_HandleEx) {.cdecl, importc: "Fl_ButtonExSetHandleCB", dynlib: fltk, discardable.}
+    #~ proc Fl_ButtonExSetHandleCB*( ex:  ptr Fl_ButtonEx;  cb:  Fl_HandleEx) {.cdecl, importc: "Fl_ButtonExSetHandleCB", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_ButtonExSetResizeCB    (byval ex as Fl_ButtonEx ptr, byval cb as Fl_ResizeEx)
-    proc Fl_ButtonExSetResizeCB*( ex:  ptr Fl_ButtonEx;  cb:  Fl_ResizeEx) {.cdecl, importc: "Fl_ButtonExSetResizeCB", dynlib: fltk, discardable.}
+    #~ proc Fl_ButtonExSetResizeCB*( ex:  ptr Fl_ButtonEx;  cb:  Fl_ResizeEx) {.cdecl, importc: "Fl_ButtonExSetResizeCB", dynlib: fltk, discardable.}
 
     ## expand by hand, end
 
@@ -4497,22 +4514,22 @@ when not defined(FLTK_MAIN_BI):
     #_ ###########################################
     #_ # class Fl_Radio_Button extends Fl_Button #
     #_ ###########################################
-    ## DeclareEx(Fl_Radio_Button)
-    ## expand by hand, begin
-    ## original: declare function Fl_Radio_ButtonExNew(byval x as long, byval y as long, byval w as long, byval h as long, byval title as cstring=0) as Fl_Radio_ButtonEx ptr
-    proc Fl_Radio_ButtonExNew* ( x:  long;  y:  long;  w:  long;  h:  long;  title:  cstring=nil):  ptr Fl_Radio_ButtonEx {.cdecl, importc: "Fl_Radio_ButtonExNew", dynlib: fltk, discardable.}
-    ## original: declare sub      Fl_Radio_ButtonExDelete         (byref ex as Fl_Radio_ButtonEx ptr)
-    proc Fl_Radio_ButtonExDelete*( ex:  ptr Fl_Radio_ButtonEx) {.cdecl, importc: "Fl_Radio_ButtonExDelete", dynlib: fltk, discardable.}
-    ## original: declare function Fl_Radio_ButtonExHandleBase     (byval ex as Fl_Radio_ButtonEx ptr, byval event as FL_EVENT) as long
-    proc Fl_Radio_ButtonExHandleBase* ( ex:  ptr Fl_Radio_ButtonEx;  event:  FL_EVENT):  long {.cdecl, importc: "Fl_Radio_ButtonExHandleBase", dynlib: fltk, discardable.}
-    ## original: declare sub      Fl_Radio_ButtonExSetDestructorCB(byval ex as Fl_Radio_ButtonEx ptr, byval cb as Fl_DestructorEx)
-    proc Fl_Radio_ButtonExSetDestructorCB*( ex:  ptr Fl_Radio_ButtonEx;  cb:  Fl_DestructorEx) {.cdecl, importc: "Fl_Radio_ButtonExSetDestructorCB", dynlib: fltk, discardable.}
-    ## original: declare sub      Fl_Radio_ButtonExSetDrawCB      (byval ex as Fl_Radio_ButtonEx ptr, byval cb as Fl_DrawEx)
-    proc Fl_Radio_ButtonExSetDrawCB*( ex:  ptr Fl_Radio_ButtonEx;  cb:  Fl_DrawEx) {.cdecl, importc: "Fl_Radio_ButtonExSetDrawCB", dynlib: fltk, discardable.}
-    ## original: declare sub      Fl_Radio_ButtonExSetHandleCB    (byval ex as Fl_Radio_ButtonEx ptr, byval cb as Fl_HandleEx)
-    proc Fl_Radio_ButtonExSetHandleCB*( ex:  ptr Fl_Radio_ButtonEx;  cb:  Fl_HandleEx) {.cdecl, importc: "Fl_Radio_ButtonExSetHandleCB", dynlib: fltk, discardable.}
-    ## original: declare sub      Fl_Radio_ButtonExSetResizeCB    (byval ex as Fl_Radio_ButtonEx ptr, byval cb as Fl_ResizeEx)
-    proc Fl_Radio_ButtonExSetResizeCB*( ex:  ptr Fl_Radio_ButtonEx;  cb:  Fl_ResizeEx) {.cdecl, importc: "Fl_Radio_ButtonExSetResizeCB", dynlib: fltk, discardable.}
+    DeclareEx(Fl_Radio_Button)
+    #~ ## expand by hand, begin
+    #~ ## original: declare function Fl_Radio_ButtonExNew(byval x as long, byval y as long, byval w as long, byval h as long, byval title as cstring=0) as Fl_Radio_ButtonEx ptr
+    #~ proc Fl_Radio_ButtonExNew* ( x:  long;  y:  long;  w:  long;  h:  long;  title:  cstring=nil):  ptr Fl_Radio_ButtonEx {.cdecl, importc: "Fl_Radio_ButtonExNew", dynlib: fltk, discardable.}
+    #~ ## original: declare sub      Fl_Radio_ButtonExDelete         (byref ex as Fl_Radio_ButtonEx ptr)
+    #~ proc Fl_Radio_ButtonExDelete*( ex:  ptr Fl_Radio_ButtonEx) {.cdecl, importc: "Fl_Radio_ButtonExDelete", dynlib: fltk, discardable.}
+    #~ ## original: declare function Fl_Radio_ButtonExHandleBase     (byval ex as Fl_Radio_ButtonEx ptr, byval event as FL_EVENT) as long
+    #~ proc Fl_Radio_ButtonExHandleBase* ( ex:  ptr Fl_Radio_ButtonEx;  event:  FL_EVENT):  long {.cdecl, importc: "Fl_Radio_ButtonExHandleBase", dynlib: fltk, discardable.}
+    #~ ## original: declare sub      Fl_Radio_ButtonExSetDestructorCB(byval ex as Fl_Radio_ButtonEx ptr, byval cb as Fl_DestructorEx)
+    #~ proc Fl_Radio_ButtonExSetDestructorCB*( ex:  ptr Fl_Radio_ButtonEx;  cb:  Fl_DestructorEx) {.cdecl, importc: "Fl_Radio_ButtonExSetDestructorCB", dynlib: fltk, discardable.}
+    #~ ## original: declare sub      Fl_Radio_ButtonExSetDrawCB      (byval ex as Fl_Radio_ButtonEx ptr, byval cb as Fl_DrawEx)
+    #~ proc Fl_Radio_ButtonExSetDrawCB*( ex:  ptr Fl_Radio_ButtonEx;  cb:  Fl_DrawEx) {.cdecl, importc: "Fl_Radio_ButtonExSetDrawCB", dynlib: fltk, discardable.}
+    #~ ## original: declare sub      Fl_Radio_ButtonExSetHandleCB    (byval ex as Fl_Radio_ButtonEx ptr, byval cb as Fl_HandleEx)
+    #~ proc Fl_Radio_ButtonExSetHandleCB*( ex:  ptr Fl_Radio_ButtonEx;  cb:  Fl_HandleEx) {.cdecl, importc: "Fl_Radio_ButtonExSetHandleCB", dynlib: fltk, discardable.}
+    #~ ## original: declare sub      Fl_Radio_ButtonExSetResizeCB    (byval ex as Fl_Radio_ButtonEx ptr, byval cb as Fl_ResizeEx)
+    #~ proc Fl_Radio_ButtonExSetResizeCB*( ex:  ptr Fl_Radio_ButtonEx;  cb:  Fl_ResizeEx) {.cdecl, importc: "Fl_Radio_ButtonExSetResizeCB", dynlib: fltk, discardable.}
 
     ## expand by hand, end
 
@@ -4524,22 +4541,22 @@ when not defined(FLTK_MAIN_BI):
     #_ ############################################
     #_ # class Fl_Repeat_Button extends Fl_Button #
     #_ ############################################
-    ## DeclareEx(Fl_Repeat_Button)
+    DeclareEx(Fl_Repeat_Button)
     ## expand by hand, begin
     ## original: declare function Fl_Repeat_ButtonExNew(byval x as long, byval y as long, byval w as long, byval h as long, byval title as cstring=0) as Fl_Repeat_ButtonEx ptr
-    proc Fl_Repeat_ButtonExNew* ( x:  long;  y:  long;  w:  long;  h:  long;  title:  cstring=nil):  ptr Fl_Repeat_ButtonEx {.cdecl, importc: "Fl_Repeat_ButtonExNew", dynlib: fltk, discardable.}
-    ## original: declare sub      Fl_Repeat_ButtonExDelete         (byref ex as Fl_Repeat_ButtonEx ptr)
-    proc Fl_Repeat_ButtonExDelete*( ex:  ptr Fl_Repeat_ButtonEx) {.cdecl, importc: "Fl_Repeat_ButtonExDelete", dynlib: fltk, discardable.}
-    ## original: declare function Fl_Repeat_ButtonExHandleBase     (byval ex as Fl_Repeat_ButtonEx ptr, byval event as FL_EVENT) as long
-    proc Fl_Repeat_ButtonExHandleBase* ( ex:  ptr Fl_Repeat_ButtonEx;  event:  FL_EVENT):  long {.cdecl, importc: "Fl_Repeat_ButtonExHandleBase", dynlib: fltk, discardable.}
-    ## original: declare sub      Fl_Repeat_ButtonExSetDestructorCB(byval ex as Fl_Repeat_ButtonEx ptr, byval cb as Fl_DestructorEx)
-    proc Fl_Repeat_ButtonExSetDestructorCB*( ex:  ptr Fl_Repeat_ButtonEx;  cb:  Fl_DestructorEx) {.cdecl, importc: "Fl_Repeat_ButtonExSetDestructorCB", dynlib: fltk, discardable.}
-    ## original: declare sub      Fl_Repeat_ButtonExSetDrawCB      (byval ex as Fl_Repeat_ButtonEx ptr, byval cb as Fl_DrawEx)
-    proc Fl_Repeat_ButtonExSetDrawCB*( ex:  ptr Fl_Repeat_ButtonEx;  cb:  Fl_DrawEx) {.cdecl, importc: "Fl_Repeat_ButtonExSetDrawCB", dynlib: fltk, discardable.}
-    ## original: declare sub      Fl_Repeat_ButtonExSetHandleCB    (byval ex as Fl_Repeat_ButtonEx ptr, byval cb as Fl_HandleEx)
-    proc Fl_Repeat_ButtonExSetHandleCB*( ex:  ptr Fl_Repeat_ButtonEx;  cb:  Fl_HandleEx) {.cdecl, importc: "Fl_Repeat_ButtonExSetHandleCB", dynlib: fltk, discardable.}
-    ## original: declare sub      Fl_Repeat_ButtonExSetResizeCB    (byval ex as Fl_Repeat_ButtonEx ptr, byval cb as Fl_ResizeEx)
-    proc Fl_Repeat_ButtonExSetResizeCB*( ex:  ptr Fl_Repeat_ButtonEx;  cb:  Fl_ResizeEx) {.cdecl, importc: "Fl_Repeat_ButtonExSetResizeCB", dynlib: fltk, discardable.}
+    #~ proc Fl_Repeat_ButtonExNew* ( x:  long;  y:  long;  w:  long;  h:  long;  title:  cstring=nil):  ptr Fl_Repeat_ButtonEx {.cdecl, importc: "Fl_Repeat_ButtonExNew", dynlib: fltk, discardable.}
+    #~ ## original: declare sub      Fl_Repeat_ButtonExDelete         (byref ex as Fl_Repeat_ButtonEx ptr)
+    #~ proc Fl_Repeat_ButtonExDelete*( ex:  ptr Fl_Repeat_ButtonEx) {.cdecl, importc: "Fl_Repeat_ButtonExDelete", dynlib: fltk, discardable.}
+    #~ ## original: declare function Fl_Repeat_ButtonExHandleBase     (byval ex as Fl_Repeat_ButtonEx ptr, byval event as FL_EVENT) as long
+    #~ proc Fl_Repeat_ButtonExHandleBase* ( ex:  ptr Fl_Repeat_ButtonEx;  event:  FL_EVENT):  long {.cdecl, importc: "Fl_Repeat_ButtonExHandleBase", dynlib: fltk, discardable.}
+    #~ ## original: declare sub      Fl_Repeat_ButtonExSetDestructorCB(byval ex as Fl_Repeat_ButtonEx ptr, byval cb as Fl_DestructorEx)
+    #~ proc Fl_Repeat_ButtonExSetDestructorCB*( ex:  ptr Fl_Repeat_ButtonEx;  cb:  Fl_DestructorEx) {.cdecl, importc: "Fl_Repeat_ButtonExSetDestructorCB", dynlib: fltk, discardable.}
+    #~ ## original: declare sub      Fl_Repeat_ButtonExSetDrawCB      (byval ex as Fl_Repeat_ButtonEx ptr, byval cb as Fl_DrawEx)
+    #~ proc Fl_Repeat_ButtonExSetDrawCB*( ex:  ptr Fl_Repeat_ButtonEx;  cb:  Fl_DrawEx) {.cdecl, importc: "Fl_Repeat_ButtonExSetDrawCB", dynlib: fltk, discardable.}
+    #~ ## original: declare sub      Fl_Repeat_ButtonExSetHandleCB    (byval ex as Fl_Repeat_ButtonEx ptr, byval cb as Fl_HandleEx)
+    #~ proc Fl_Repeat_ButtonExSetHandleCB*( ex:  ptr Fl_Repeat_ButtonEx;  cb:  Fl_HandleEx) {.cdecl, importc: "Fl_Repeat_ButtonExSetHandleCB", dynlib: fltk, discardable.}
+    #~ ## original: declare sub      Fl_Repeat_ButtonExSetResizeCB    (byval ex as Fl_Repeat_ButtonEx ptr, byval cb as Fl_ResizeEx)
+    #~ proc Fl_Repeat_ButtonExSetResizeCB*( ex:  ptr Fl_Repeat_ButtonEx;  cb:  Fl_ResizeEx) {.cdecl, importc: "Fl_Repeat_ButtonExSetResizeCB", dynlib: fltk, discardable.}
 
     ## expand by hand, end
 
@@ -4558,22 +4575,22 @@ when not defined(FLTK_MAIN_BI):
     #_ ############################################
     #_ # class Fl_Return_Button extends Fl_Button #
     #_ ############################################
-    ## DeclareEx(Fl_Return_Button)
+    DeclareEx(Fl_Return_Button)
     ## expand by hand, begin
     ## original: declare function Fl_Return_ButtonExNew(byval x as long, byval y as long, byval w as long, byval h as long, byval title as cstring=0) as Fl_Return_ButtonEx ptr
-    proc Fl_Return_ButtonExNew* ( x:  long;  y:  long;  w:  long;  h:  long;  title:  cstring=nil):  ptr Fl_Return_ButtonEx {.cdecl, importc: "Fl_Return_ButtonExNew", dynlib: fltk, discardable.}
-    ## original: declare sub      Fl_Return_ButtonExDelete         (byref ex as Fl_Return_ButtonEx ptr)
-    proc Fl_Return_ButtonExDelete*( ex:  ptr Fl_Return_ButtonEx) {.cdecl, importc: "Fl_Return_ButtonExDelete", dynlib: fltk, discardable.}
-    ## original: declare function Fl_Return_ButtonExHandleBase     (byval ex as Fl_Return_ButtonEx ptr, byval event as FL_EVENT) as long
-    proc Fl_Return_ButtonExHandleBase* ( ex:  ptr Fl_Return_ButtonEx;  event:  FL_EVENT):  long {.cdecl, importc: "Fl_Return_ButtonExHandleBase", dynlib: fltk, discardable.}
-    ## original: declare sub      Fl_Return_ButtonExSetDestructorCB(byval ex as Fl_Return_ButtonEx ptr, byval cb as Fl_DestructorEx)
-    proc Fl_Return_ButtonExSetDestructorCB*( ex:  ptr Fl_Return_ButtonEx;  cb:  Fl_DestructorEx) {.cdecl, importc: "Fl_Return_ButtonExSetDestructorCB", dynlib: fltk, discardable.}
-    ## original: declare sub      Fl_Return_ButtonExSetDrawCB      (byval ex as Fl_Return_ButtonEx ptr, byval cb as Fl_DrawEx)
-    proc Fl_Return_ButtonExSetDrawCB*( ex:  ptr Fl_Return_ButtonEx;  cb:  Fl_DrawEx) {.cdecl, importc: "Fl_Return_ButtonExSetDrawCB", dynlib: fltk, discardable.}
-    ## original: declare sub      Fl_Return_ButtonExSetHandleCB    (byval ex as Fl_Return_ButtonEx ptr, byval cb as Fl_HandleEx)
-    proc Fl_Return_ButtonExSetHandleCB*( ex:  ptr Fl_Return_ButtonEx;  cb:  Fl_HandleEx) {.cdecl, importc: "Fl_Return_ButtonExSetHandleCB", dynlib: fltk, discardable.}
-    ## original: declare sub      Fl_Return_ButtonExSetResizeCB    (byval ex as Fl_Return_ButtonEx ptr, byval cb as Fl_ResizeEx)
-    proc Fl_Return_ButtonExSetResizeCB*( ex:  ptr Fl_Return_ButtonEx;  cb:  Fl_ResizeEx) {.cdecl, importc: "Fl_Return_ButtonExSetResizeCB", dynlib: fltk, discardable.}
+    #~ proc Fl_Return_ButtonExNew* ( x:  long;  y:  long;  w:  long;  h:  long;  title:  cstring=nil):  ptr Fl_Return_ButtonEx {.cdecl, importc: "Fl_Return_ButtonExNew", dynlib: fltk, discardable.}
+    #~ ## original: declare sub      Fl_Return_ButtonExDelete         (byref ex as Fl_Return_ButtonEx ptr)
+    #~ proc Fl_Return_ButtonExDelete*( ex:  ptr Fl_Return_ButtonEx) {.cdecl, importc: "Fl_Return_ButtonExDelete", dynlib: fltk, discardable.}
+    #~ ## original: declare function Fl_Return_ButtonExHandleBase     (byval ex as Fl_Return_ButtonEx ptr, byval event as FL_EVENT) as long
+    #~ proc Fl_Return_ButtonExHandleBase* ( ex:  ptr Fl_Return_ButtonEx;  event:  FL_EVENT):  long {.cdecl, importc: "Fl_Return_ButtonExHandleBase", dynlib: fltk, discardable.}
+    #~ ## original: declare sub      Fl_Return_ButtonExSetDestructorCB(byval ex as Fl_Return_ButtonEx ptr, byval cb as Fl_DestructorEx)
+    #~ proc Fl_Return_ButtonExSetDestructorCB*( ex:  ptr Fl_Return_ButtonEx;  cb:  Fl_DestructorEx) {.cdecl, importc: "Fl_Return_ButtonExSetDestructorCB", dynlib: fltk, discardable.}
+    #~ ## original: declare sub      Fl_Return_ButtonExSetDrawCB      (byval ex as Fl_Return_ButtonEx ptr, byval cb as Fl_DrawEx)
+    #~ proc Fl_Return_ButtonExSetDrawCB*( ex:  ptr Fl_Return_ButtonEx;  cb:  Fl_DrawEx) {.cdecl, importc: "Fl_Return_ButtonExSetDrawCB", dynlib: fltk, discardable.}
+    #~ ## original: declare sub      Fl_Return_ButtonExSetHandleCB    (byval ex as Fl_Return_ButtonEx ptr, byval cb as Fl_HandleEx)
+    #~ proc Fl_Return_ButtonExSetHandleCB*( ex:  ptr Fl_Return_ButtonEx;  cb:  Fl_HandleEx) {.cdecl, importc: "Fl_Return_ButtonExSetHandleCB", dynlib: fltk, discardable.}
+    #~ ## original: declare sub      Fl_Return_ButtonExSetResizeCB    (byval ex as Fl_Return_ButtonEx ptr, byval cb as Fl_ResizeEx)
+    #~ proc Fl_Return_ButtonExSetResizeCB*( ex:  ptr Fl_Return_ButtonEx;  cb:  Fl_ResizeEx) {.cdecl, importc: "Fl_Return_ButtonExSetResizeCB", dynlib: fltk, discardable.}
 
     ## expand by hand, end
 
@@ -4587,22 +4604,22 @@ when not defined(FLTK_MAIN_BI):
     #_ ############################################
     #_ # class Fl_Toggle_Button extends Fl_Button #
     #_ ############################################
-    ## DeclareEx(Fl_Toggle_Button)
+    DeclareEx(Fl_Toggle_Button)
     ## expand by hand, begin
     ## original: declare function Fl_Toggle_ButtonExNew(byval x as long, byval y as long, byval w as long, byval h as long, byval title as cstring=0) as Fl_Toggle_ButtonEx ptr
-    proc Fl_Toggle_ButtonExNew* ( x:  long;  y:  long;  w:  long;  h:  long;  title:  cstring=nil):  ptr Fl_Toggle_ButtonEx {.cdecl, importc: "Fl_Toggle_ButtonExNew", dynlib: fltk, discardable.}
-    ## original: declare sub      Fl_Toggle_ButtonExDelete         (byref ex as Fl_Toggle_ButtonEx ptr)
-    proc Fl_Toggle_ButtonExDelete*( ex:  ptr Fl_Toggle_ButtonEx) {.cdecl, importc: "Fl_Toggle_ButtonExDelete", dynlib: fltk, discardable.}
-    ## original: declare function Fl_Toggle_ButtonExHandleBase     (byval ex as Fl_Toggle_ButtonEx ptr, byval event as FL_EVENT) as long
-    proc Fl_Toggle_ButtonExHandleBase* ( ex:  ptr Fl_Toggle_ButtonEx;  event:  FL_EVENT):  long {.cdecl, importc: "Fl_Toggle_ButtonExHandleBase", dynlib: fltk, discardable.}
-    ## original: declare sub      Fl_Toggle_ButtonExSetDestructorCB(byval ex as Fl_Toggle_ButtonEx ptr, byval cb as Fl_DestructorEx)
-    proc Fl_Toggle_ButtonExSetDestructorCB*( ex:  ptr Fl_Toggle_ButtonEx;  cb:  Fl_DestructorEx) {.cdecl, importc: "Fl_Toggle_ButtonExSetDestructorCB", dynlib: fltk, discardable.}
-    ## original: declare sub      Fl_Toggle_ButtonExSetDrawCB      (byval ex as Fl_Toggle_ButtonEx ptr, byval cb as Fl_DrawEx)
-    proc Fl_Toggle_ButtonExSetDrawCB*( ex:  ptr Fl_Toggle_ButtonEx;  cb:  Fl_DrawEx) {.cdecl, importc: "Fl_Toggle_ButtonExSetDrawCB", dynlib: fltk, discardable.}
-    ## original: declare sub      Fl_Toggle_ButtonExSetHandleCB    (byval ex as Fl_Toggle_ButtonEx ptr, byval cb as Fl_HandleEx)
-    proc Fl_Toggle_ButtonExSetHandleCB*( ex:  ptr Fl_Toggle_ButtonEx;  cb:  Fl_HandleEx) {.cdecl, importc: "Fl_Toggle_ButtonExSetHandleCB", dynlib: fltk, discardable.}
-    ## original: declare sub      Fl_Toggle_ButtonExSetResizeCB    (byval ex as Fl_Toggle_ButtonEx ptr, byval cb as Fl_ResizeEx)
-    proc Fl_Toggle_ButtonExSetResizeCB*( ex:  ptr Fl_Toggle_ButtonEx;  cb:  Fl_ResizeEx) {.cdecl, importc: "Fl_Toggle_ButtonExSetResizeCB", dynlib: fltk, discardable.}
+    #~ proc Fl_Toggle_ButtonExNew* ( x:  long;  y:  long;  w:  long;  h:  long;  title:  cstring=nil):  ptr Fl_Toggle_ButtonEx {.cdecl, importc: "Fl_Toggle_ButtonExNew", dynlib: fltk, discardable.}
+    #~ ## original: declare sub      Fl_Toggle_ButtonExDelete         (byref ex as Fl_Toggle_ButtonEx ptr)
+    #~ proc Fl_Toggle_ButtonExDelete*( ex:  ptr Fl_Toggle_ButtonEx) {.cdecl, importc: "Fl_Toggle_ButtonExDelete", dynlib: fltk, discardable.}
+    #~ ## original: declare function Fl_Toggle_ButtonExHandleBase     (byval ex as Fl_Toggle_ButtonEx ptr, byval event as FL_EVENT) as long
+    #~ proc Fl_Toggle_ButtonExHandleBase* ( ex:  ptr Fl_Toggle_ButtonEx;  event:  FL_EVENT):  long {.cdecl, importc: "Fl_Toggle_ButtonExHandleBase", dynlib: fltk, discardable.}
+    #~ ## original: declare sub      Fl_Toggle_ButtonExSetDestructorCB(byval ex as Fl_Toggle_ButtonEx ptr, byval cb as Fl_DestructorEx)
+    #~ proc Fl_Toggle_ButtonExSetDestructorCB*( ex:  ptr Fl_Toggle_ButtonEx;  cb:  Fl_DestructorEx) {.cdecl, importc: "Fl_Toggle_ButtonExSetDestructorCB", dynlib: fltk, discardable.}
+    #~ ## original: declare sub      Fl_Toggle_ButtonExSetDrawCB      (byval ex as Fl_Toggle_ButtonEx ptr, byval cb as Fl_DrawEx)
+    #~ proc Fl_Toggle_ButtonExSetDrawCB*( ex:  ptr Fl_Toggle_ButtonEx;  cb:  Fl_DrawEx) {.cdecl, importc: "Fl_Toggle_ButtonExSetDrawCB", dynlib: fltk, discardable.}
+    #~ ## original: declare sub      Fl_Toggle_ButtonExSetHandleCB    (byval ex as Fl_Toggle_ButtonEx ptr, byval cb as Fl_HandleEx)
+    #~ proc Fl_Toggle_ButtonExSetHandleCB*( ex:  ptr Fl_Toggle_ButtonEx;  cb:  Fl_HandleEx) {.cdecl, importc: "Fl_Toggle_ButtonExSetHandleCB", dynlib: fltk, discardable.}
+    #~ ## original: declare sub      Fl_Toggle_ButtonExSetResizeCB    (byval ex as Fl_Toggle_ButtonEx ptr, byval cb as Fl_ResizeEx)
+    #~ proc Fl_Toggle_ButtonExSetResizeCB*( ex:  ptr Fl_Toggle_ButtonEx;  cb:  Fl_ResizeEx) {.cdecl, importc: "Fl_Toggle_ButtonExSetResizeCB", dynlib: fltk, discardable.}
 
     ## expand by hand, end
 
@@ -4614,24 +4631,24 @@ when not defined(FLTK_MAIN_BI):
     #_ ###########################################
     #_ # class Fl_Light_Button extends Fl_Button #
     #_ ###########################################
-    ## DeclareEx(Fl_Light_Button)
-    ## expand by hand, begin
-    ## original: declare function Fl_Light_ButtonExNew(byval x as long, byval y as long, byval w as long, byval h as long, byval title as cstring=0) as Fl_Light_ButtonEx ptr
-    proc Fl_Light_ButtonExNew* ( x:  long;  y:  long;  w:  long;  h:  long;  title:  cstring=nil):  ptr Fl_Light_ButtonEx {.cdecl, importc: "Fl_Light_ButtonExNew", dynlib: fltk, discardable.}
-    ## original: declare sub      Fl_Light_ButtonExDelete         (byref ex as Fl_Light_ButtonEx ptr)
-    proc Fl_Light_ButtonExDelete*( ex:  ptr Fl_Light_ButtonEx) {.cdecl, importc: "Fl_Light_ButtonExDelete", dynlib: fltk, discardable.}
-    ## original: declare function Fl_Light_ButtonExHandleBase     (byval ex as Fl_Light_ButtonEx ptr, byval event as FL_EVENT) as long
-    proc Fl_Light_ButtonExHandleBase* ( ex:  ptr Fl_Light_ButtonEx;  event:  FL_EVENT):  long {.cdecl, importc: "Fl_Light_ButtonExHandleBase", dynlib: fltk, discardable.}
-    ## original: declare sub      Fl_Light_ButtonExSetDestructorCB(byval ex as Fl_Light_ButtonEx ptr, byval cb as Fl_DestructorEx)
-    proc Fl_Light_ButtonExSetDestructorCB*( ex:  ptr Fl_Light_ButtonEx;  cb:  Fl_DestructorEx) {.cdecl, importc: "Fl_Light_ButtonExSetDestructorCB", dynlib: fltk, discardable.}
-    ## original: declare sub      Fl_Light_ButtonExSetDrawCB      (byval ex as Fl_Light_ButtonEx ptr, byval cb as Fl_DrawEx)
-    proc Fl_Light_ButtonExSetDrawCB*( ex:  ptr Fl_Light_ButtonEx;  cb:  Fl_DrawEx) {.cdecl, importc: "Fl_Light_ButtonExSetDrawCB", dynlib: fltk, discardable.}
-    ## original: declare sub      Fl_Light_ButtonExSetHandleCB    (byval ex as Fl_Light_ButtonEx ptr, byval cb as Fl_HandleEx)
-    proc Fl_Light_ButtonExSetHandleCB*( ex:  ptr Fl_Light_ButtonEx;  cb:  Fl_HandleEx) {.cdecl, importc: "Fl_Light_ButtonExSetHandleCB", dynlib: fltk, discardable.}
-    ## original: declare sub      Fl_Light_ButtonExSetResizeCB    (byval ex as Fl_Light_ButtonEx ptr, byval cb as Fl_ResizeEx)
-    proc Fl_Light_ButtonExSetResizeCB*( ex:  ptr Fl_Light_ButtonEx;  cb:  Fl_ResizeEx) {.cdecl, importc: "Fl_Light_ButtonExSetResizeCB", dynlib: fltk, discardable.}
+    DeclareEx(Fl_Light_Button)
+    #~ ## expand by hand, begin
+    #~ ## original: declare function Fl_Light_ButtonExNew(byval x as long, byval y as long, byval w as long, byval h as long, byval title as cstring=0) as Fl_Light_ButtonEx ptr
+    #~ proc Fl_Light_ButtonExNew* ( x:  long;  y:  long;  w:  long;  h:  long;  title:  cstring=nil):  ptr Fl_Light_ButtonEx {.cdecl, importc: "Fl_Light_ButtonExNew", dynlib: fltk, discardable.}
+    #~ ## original: declare sub      Fl_Light_ButtonExDelete         (byref ex as Fl_Light_ButtonEx ptr)
+    #~ proc Fl_Light_ButtonExDelete*( ex:  ptr Fl_Light_ButtonEx) {.cdecl, importc: "Fl_Light_ButtonExDelete", dynlib: fltk, discardable.}
+    #~ ## original: declare function Fl_Light_ButtonExHandleBase     (byval ex as Fl_Light_ButtonEx ptr, byval event as FL_EVENT) as long
+    #~ proc Fl_Light_ButtonExHandleBase* ( ex:  ptr Fl_Light_ButtonEx;  event:  FL_EVENT):  long {.cdecl, importc: "Fl_Light_ButtonExHandleBase", dynlib: fltk, discardable.}
+    #~ ## original: declare sub      Fl_Light_ButtonExSetDestructorCB(byval ex as Fl_Light_ButtonEx ptr, byval cb as Fl_DestructorEx)
+    #~ proc Fl_Light_ButtonExSetDestructorCB*( ex:  ptr Fl_Light_ButtonEx;  cb:  Fl_DestructorEx) {.cdecl, importc: "Fl_Light_ButtonExSetDestructorCB", dynlib: fltk, discardable.}
+    #~ ## original: declare sub      Fl_Light_ButtonExSetDrawCB      (byval ex as Fl_Light_ButtonEx ptr, byval cb as Fl_DrawEx)
+    #~ proc Fl_Light_ButtonExSetDrawCB*( ex:  ptr Fl_Light_ButtonEx;  cb:  Fl_DrawEx) {.cdecl, importc: "Fl_Light_ButtonExSetDrawCB", dynlib: fltk, discardable.}
+    #~ ## original: declare sub      Fl_Light_ButtonExSetHandleCB    (byval ex as Fl_Light_ButtonEx ptr, byval cb as Fl_HandleEx)
+    #~ proc Fl_Light_ButtonExSetHandleCB*( ex:  ptr Fl_Light_ButtonEx;  cb:  Fl_HandleEx) {.cdecl, importc: "Fl_Light_ButtonExSetHandleCB", dynlib: fltk, discardable.}
+    #~ ## original: declare sub      Fl_Light_ButtonExSetResizeCB    (byval ex as Fl_Light_ButtonEx ptr, byval cb as Fl_ResizeEx)
+    #~ proc Fl_Light_ButtonExSetResizeCB*( ex:  ptr Fl_Light_ButtonEx;  cb:  Fl_ResizeEx) {.cdecl, importc: "Fl_Light_ButtonExSetResizeCB", dynlib: fltk, discardable.}
 
-    ## expand by hand, end
+    #~ ## expand by hand, end
 
     ## original: declare function Fl_Light_ButtonNew(byval x as long, byval y as long, byval w as long, byval h as long, byval label as cstring=0) as Fl_Light_Button  ptr
     proc Fl_Light_ButtonNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=nil):   ptr Fl_Light_Button {.cdecl, importc: "Fl_Light_ButtonNew", dynlib: fltk, discardable.}
@@ -4644,24 +4661,24 @@ when not defined(FLTK_MAIN_BI):
     #_ #################################################
     #_ # class Fl_Check_Button extends Fl_Light_Button #
     #_ #################################################
-    ## DeclareEx(Fl_Check_Button)
-    ## expand by hand, begin
-    ## original: declare function Fl_Check_ButtonExNew(byval x as long, byval y as long, byval w as long, byval h as long, byval title as cstring=0) as Fl_Check_ButtonEx ptr
-    proc Fl_Check_ButtonExNew* ( x:  long;  y:  long;  w:  long;  h:  long;  title:  cstring=nil):  ptr Fl_Check_ButtonEx {.cdecl, importc: "Fl_Check_ButtonExNew", dynlib: fltk, discardable.}
-    ## original: declare sub      Fl_Check_ButtonExDelete         (byref ex as Fl_Check_ButtonEx ptr)
-    proc Fl_Check_ButtonExDelete*( ex:  ptr Fl_Check_ButtonEx) {.cdecl, importc: "Fl_Check_ButtonExDelete", dynlib: fltk, discardable.}
-    ## original: declare function Fl_Check_ButtonExHandleBase     (byval ex as Fl_Check_ButtonEx ptr, byval event as FL_EVENT) as long
-    proc Fl_Check_ButtonExHandleBase* ( ex:  ptr Fl_Check_ButtonEx;  event:  FL_EVENT):  long {.cdecl, importc: "Fl_Check_ButtonExHandleBase", dynlib: fltk, discardable.}
-    ## original: declare sub      Fl_Check_ButtonExSetDestructorCB(byval ex as Fl_Check_ButtonEx ptr, byval cb as Fl_DestructorEx)
-    proc Fl_Check_ButtonExSetDestructorCB*( ex:  ptr Fl_Check_ButtonEx;  cb:  Fl_DestructorEx) {.cdecl, importc: "Fl_Check_ButtonExSetDestructorCB", dynlib: fltk, discardable.}
-    ## original: declare sub      Fl_Check_ButtonExSetDrawCB      (byval ex as Fl_Check_ButtonEx ptr, byval cb as Fl_DrawEx)
-    proc Fl_Check_ButtonExSetDrawCB*( ex:  ptr Fl_Check_ButtonEx;  cb:  Fl_DrawEx) {.cdecl, importc: "Fl_Check_ButtonExSetDrawCB", dynlib: fltk, discardable.}
-    ## original: declare sub      Fl_Check_ButtonExSetHandleCB    (byval ex as Fl_Check_ButtonEx ptr, byval cb as Fl_HandleEx)
-    proc Fl_Check_ButtonExSetHandleCB*( ex:  ptr Fl_Check_ButtonEx;  cb:  Fl_HandleEx) {.cdecl, importc: "Fl_Check_ButtonExSetHandleCB", dynlib: fltk, discardable.}
-    ## original: declare sub      Fl_Check_ButtonExSetResizeCB    (byval ex as Fl_Check_ButtonEx ptr, byval cb as Fl_ResizeEx)
-    proc Fl_Check_ButtonExSetResizeCB*( ex:  ptr Fl_Check_ButtonEx;  cb:  Fl_ResizeEx) {.cdecl, importc: "Fl_Check_ButtonExSetResizeCB", dynlib: fltk, discardable.}
+    DeclareEx(Fl_Check_Button)
+    #~ ## expand by hand, begin
+    #~ ## original: declare function Fl_Check_ButtonExNew(byval x as long, byval y as long, byval w as long, byval h as long, byval title as cstring=0) as Fl_Check_ButtonEx ptr
+    #~ proc Fl_Check_ButtonExNew* ( x:  long;  y:  long;  w:  long;  h:  long;  title:  cstring=nil):  ptr Fl_Check_ButtonEx {.cdecl, importc: "Fl_Check_ButtonExNew", dynlib: fltk, discardable.}
+    #~ ## original: declare sub      Fl_Check_ButtonExDelete         (byref ex as Fl_Check_ButtonEx ptr)
+    #~ proc Fl_Check_ButtonExDelete*( ex:  ptr Fl_Check_ButtonEx) {.cdecl, importc: "Fl_Check_ButtonExDelete", dynlib: fltk, discardable.}
+    #~ ## original: declare function Fl_Check_ButtonExHandleBase     (byval ex as Fl_Check_ButtonEx ptr, byval event as FL_EVENT) as long
+    #~ proc Fl_Check_ButtonExHandleBase* ( ex:  ptr Fl_Check_ButtonEx;  event:  FL_EVENT):  long {.cdecl, importc: "Fl_Check_ButtonExHandleBase", dynlib: fltk, discardable.}
+    #~ ## original: declare sub      Fl_Check_ButtonExSetDestructorCB(byval ex as Fl_Check_ButtonEx ptr, byval cb as Fl_DestructorEx)
+    #~ proc Fl_Check_ButtonExSetDestructorCB*( ex:  ptr Fl_Check_ButtonEx;  cb:  Fl_DestructorEx) {.cdecl, importc: "Fl_Check_ButtonExSetDestructorCB", dynlib: fltk, discardable.}
+    #~ ## original: declare sub      Fl_Check_ButtonExSetDrawCB      (byval ex as Fl_Check_ButtonEx ptr, byval cb as Fl_DrawEx)
+    #~ proc Fl_Check_ButtonExSetDrawCB*( ex:  ptr Fl_Check_ButtonEx;  cb:  Fl_DrawEx) {.cdecl, importc: "Fl_Check_ButtonExSetDrawCB", dynlib: fltk, discardable.}
+    #~ ## original: declare sub      Fl_Check_ButtonExSetHandleCB    (byval ex as Fl_Check_ButtonEx ptr, byval cb as Fl_HandleEx)
+    #~ proc Fl_Check_ButtonExSetHandleCB*( ex:  ptr Fl_Check_ButtonEx;  cb:  Fl_HandleEx) {.cdecl, importc: "Fl_Check_ButtonExSetHandleCB", dynlib: fltk, discardable.}
+    #~ ## original: declare sub      Fl_Check_ButtonExSetResizeCB    (byval ex as Fl_Check_ButtonEx ptr, byval cb as Fl_ResizeEx)
+    #~ proc Fl_Check_ButtonExSetResizeCB*( ex:  ptr Fl_Check_ButtonEx;  cb:  Fl_ResizeEx) {.cdecl, importc: "Fl_Check_ButtonExSetResizeCB", dynlib: fltk, discardable.}
 
-    ## expand by hand, end
+    #~ ## expand by hand, end
 
 
     ## original: declare function Fl_Check_ButtonNew(byval x as long, byval y as long, byval w as long, byval h as long, byval label as cstring=0) as Fl_Check_Button ptr
@@ -4672,24 +4689,24 @@ when not defined(FLTK_MAIN_BI):
     #_ #######################################################
     #_ # class Fl_Radio_Light_Button extends Fl_Light_Button #
     #_ #######################################################
-    ## DeclareEx(Fl_Radio_Light_Button)
-    ## expand by hand, begin
-    ## original: declare function Fl_Radio_Light_ButtonExNew(byval x as long, byval y as long, byval w as long, byval h as long, byval title as cstring=0) as Fl_Radio_Light_ButtonEx ptr
-    proc Fl_Radio_Light_ButtonExNew* ( x:  long;  y:  long;  w:  long;  h:  long;  title:  cstring=nil):  ptr Fl_Radio_Light_ButtonEx {.cdecl, importc: "Fl_Radio_Light_ButtonExNew", dynlib: fltk, discardable.}
-    ## original: declare sub      Fl_Radio_Light_ButtonExDelete         (byref ex as Fl_Radio_Light_ButtonEx ptr)
-    proc Fl_Radio_Light_ButtonExDelete*( ex:  ptr Fl_Radio_Light_ButtonEx) {.cdecl, importc: "Fl_Radio_Light_ButtonExDelete", dynlib: fltk, discardable.}
-    ## original: declare function Fl_Radio_Light_ButtonExHandleBase     (byval ex as Fl_Radio_Light_ButtonEx ptr, byval event as FL_EVENT) as long
-    proc Fl_Radio_Light_ButtonExHandleBase* ( ex:  ptr Fl_Radio_Light_ButtonEx;  event:  FL_EVENT):  long {.cdecl, importc: "Fl_Radio_Light_ButtonExHandleBase", dynlib: fltk, discardable.}
-    ## original: declare sub      Fl_Radio_Light_ButtonExSetDestructorCB(byval ex as Fl_Radio_Light_ButtonEx ptr, byval cb as Fl_DestructorEx)
-    proc Fl_Radio_Light_ButtonExSetDestructorCB*( ex:  ptr Fl_Radio_Light_ButtonEx;  cb:  Fl_DestructorEx) {.cdecl, importc: "Fl_Radio_Light_ButtonExSetDestructorCB", dynlib: fltk, discardable.}
-    ## original: declare sub      Fl_Radio_Light_ButtonExSetDrawCB      (byval ex as Fl_Radio_Light_ButtonEx ptr, byval cb as Fl_DrawEx)
-    proc Fl_Radio_Light_ButtonExSetDrawCB*( ex:  ptr Fl_Radio_Light_ButtonEx;  cb:  Fl_DrawEx) {.cdecl, importc: "Fl_Radio_Light_ButtonExSetDrawCB", dynlib: fltk, discardable.}
-    ## original: declare sub      Fl_Radio_Light_ButtonExSetHandleCB    (byval ex as Fl_Radio_Light_ButtonEx ptr, byval cb as Fl_HandleEx)
-    proc Fl_Radio_Light_ButtonExSetHandleCB*( ex:  ptr Fl_Radio_Light_ButtonEx;  cb:  Fl_HandleEx) {.cdecl, importc: "Fl_Radio_Light_ButtonExSetHandleCB", dynlib: fltk, discardable.}
-    ## original: declare sub      Fl_Radio_Light_ButtonExSetResizeCB    (byval ex as Fl_Radio_Light_ButtonEx ptr, byval cb as Fl_ResizeEx)
-    proc Fl_Radio_Light_ButtonExSetResizeCB*( ex:  ptr Fl_Radio_Light_ButtonEx;  cb:  Fl_ResizeEx) {.cdecl, importc: "Fl_Radio_Light_ButtonExSetResizeCB", dynlib: fltk, discardable.}
+    DeclareEx(Fl_Radio_Light_Button)
+    #~ ## expand by hand, begin
+    #~ ## original: declare function Fl_Radio_Light_ButtonExNew(byval x as long, byval y as long, byval w as long, byval h as long, byval title as cstring=0) as Fl_Radio_Light_ButtonEx ptr
+    #~ proc Fl_Radio_Light_ButtonExNew* ( x:  long;  y:  long;  w:  long;  h:  long;  title:  cstring=nil):  ptr Fl_Radio_Light_ButtonEx {.cdecl, importc: "Fl_Radio_Light_ButtonExNew", dynlib: fltk, discardable.}
+    #~ ## original: declare sub      Fl_Radio_Light_ButtonExDelete         (byref ex as Fl_Radio_Light_ButtonEx ptr)
+    #~ proc Fl_Radio_Light_ButtonExDelete*( ex:  ptr Fl_Radio_Light_ButtonEx) {.cdecl, importc: "Fl_Radio_Light_ButtonExDelete", dynlib: fltk, discardable.}
+    #~ ## original: declare function Fl_Radio_Light_ButtonExHandleBase     (byval ex as Fl_Radio_Light_ButtonEx ptr, byval event as FL_EVENT) as long
+    #~ proc Fl_Radio_Light_ButtonExHandleBase* ( ex:  ptr Fl_Radio_Light_ButtonEx;  event:  FL_EVENT):  long {.cdecl, importc: "Fl_Radio_Light_ButtonExHandleBase", dynlib: fltk, discardable.}
+    #~ ## original: declare sub      Fl_Radio_Light_ButtonExSetDestructorCB(byval ex as Fl_Radio_Light_ButtonEx ptr, byval cb as Fl_DestructorEx)
+    #~ proc Fl_Radio_Light_ButtonExSetDestructorCB*( ex:  ptr Fl_Radio_Light_ButtonEx;  cb:  Fl_DestructorEx) {.cdecl, importc: "Fl_Radio_Light_ButtonExSetDestructorCB", dynlib: fltk, discardable.}
+    #~ ## original: declare sub      Fl_Radio_Light_ButtonExSetDrawCB      (byval ex as Fl_Radio_Light_ButtonEx ptr, byval cb as Fl_DrawEx)
+    #~ proc Fl_Radio_Light_ButtonExSetDrawCB*( ex:  ptr Fl_Radio_Light_ButtonEx;  cb:  Fl_DrawEx) {.cdecl, importc: "Fl_Radio_Light_ButtonExSetDrawCB", dynlib: fltk, discardable.}
+    #~ ## original: declare sub      Fl_Radio_Light_ButtonExSetHandleCB    (byval ex as Fl_Radio_Light_ButtonEx ptr, byval cb as Fl_HandleEx)
+    #~ proc Fl_Radio_Light_ButtonExSetHandleCB*( ex:  ptr Fl_Radio_Light_ButtonEx;  cb:  Fl_HandleEx) {.cdecl, importc: "Fl_Radio_Light_ButtonExSetHandleCB", dynlib: fltk, discardable.}
+    #~ ## original: declare sub      Fl_Radio_Light_ButtonExSetResizeCB    (byval ex as Fl_Radio_Light_ButtonEx ptr, byval cb as Fl_ResizeEx)
+    #~ proc Fl_Radio_Light_ButtonExSetResizeCB*( ex:  ptr Fl_Radio_Light_ButtonEx;  cb:  Fl_ResizeEx) {.cdecl, importc: "Fl_Radio_Light_ButtonExSetResizeCB", dynlib: fltk, discardable.}
 
-    ## expand by hand, end
+    #~ ## expand by hand, end
 
 
     ## original: declare function Fl_Radio_Light_ButtonNew(byval x as long, byval y as long, byval w as long, byval h as long, byval label as cstring=0) as Fl_Radio_Light_Button ptr
@@ -4700,24 +4717,24 @@ when not defined(FLTK_MAIN_BI):
     #_ #################################################
     #_ # class Fl_Round_Button extends Fl_Light_Button #
     #_ #################################################
-    ## DeclareEx(Fl_Round_Button)
-    ## expand by hand, begin
-    ## original: declare function Fl_Round_ButtonExNew(byval x as long, byval y as long, byval w as long, byval h as long, byval title as cstring=0) as Fl_Round_ButtonEx ptr
-    proc Fl_Round_ButtonExNew* ( x:  long;  y:  long;  w:  long;  h:  long;  title:  cstring=nil):  ptr Fl_Round_ButtonEx {.cdecl, importc: "Fl_Round_ButtonExNew", dynlib: fltk, discardable.}
-    ## original: declare sub      Fl_Round_ButtonExDelete         (byref ex as Fl_Round_ButtonEx ptr)
-    proc Fl_Round_ButtonExDelete*( ex:  ptr Fl_Round_ButtonEx) {.cdecl, importc: "Fl_Round_ButtonExDelete", dynlib: fltk, discardable.}
-    ## original: declare function Fl_Round_ButtonExHandleBase     (byval ex as Fl_Round_ButtonEx ptr, byval event as FL_EVENT) as long
-    proc Fl_Round_ButtonExHandleBase* ( ex:  ptr Fl_Round_ButtonEx;  event:  FL_EVENT):  long {.cdecl, importc: "Fl_Round_ButtonExHandleBase", dynlib: fltk, discardable.}
-    ## original: declare sub      Fl_Round_ButtonExSetDestructorCB(byval ex as Fl_Round_ButtonEx ptr, byval cb as Fl_DestructorEx)
-    proc Fl_Round_ButtonExSetDestructorCB*( ex:  ptr Fl_Round_ButtonEx;  cb:  Fl_DestructorEx) {.cdecl, importc: "Fl_Round_ButtonExSetDestructorCB", dynlib: fltk, discardable.}
-    ## original: declare sub      Fl_Round_ButtonExSetDrawCB      (byval ex as Fl_Round_ButtonEx ptr, byval cb as Fl_DrawEx)
-    proc Fl_Round_ButtonExSetDrawCB*( ex:  ptr Fl_Round_ButtonEx;  cb:  Fl_DrawEx) {.cdecl, importc: "Fl_Round_ButtonExSetDrawCB", dynlib: fltk, discardable.}
-    ## original: declare sub      Fl_Round_ButtonExSetHandleCB    (byval ex as Fl_Round_ButtonEx ptr, byval cb as Fl_HandleEx)
-    proc Fl_Round_ButtonExSetHandleCB*( ex:  ptr Fl_Round_ButtonEx;  cb:  Fl_HandleEx) {.cdecl, importc: "Fl_Round_ButtonExSetHandleCB", dynlib: fltk, discardable.}
-    ## original: declare sub      Fl_Round_ButtonExSetResizeCB    (byval ex as Fl_Round_ButtonEx ptr, byval cb as Fl_ResizeEx)
-    proc Fl_Round_ButtonExSetResizeCB*( ex:  ptr Fl_Round_ButtonEx;  cb:  Fl_ResizeEx) {.cdecl, importc: "Fl_Round_ButtonExSetResizeCB", dynlib: fltk, discardable.}
+    DeclareEx(Fl_Round_Button)
+    #~ ## expand by hand, begin
+    #~ ## original: declare function Fl_Round_ButtonExNew(byval x as long, byval y as long, byval w as long, byval h as long, byval title as cstring=0) as Fl_Round_ButtonEx ptr
+    #~ proc Fl_Round_ButtonExNew* ( x:  long;  y:  long;  w:  long;  h:  long;  title:  cstring=nil):  ptr Fl_Round_ButtonEx {.cdecl, importc: "Fl_Round_ButtonExNew", dynlib: fltk, discardable.}
+    #~ ## original: declare sub      Fl_Round_ButtonExDelete         (byref ex as Fl_Round_ButtonEx ptr)
+    #~ proc Fl_Round_ButtonExDelete*( ex:  ptr Fl_Round_ButtonEx) {.cdecl, importc: "Fl_Round_ButtonExDelete", dynlib: fltk, discardable.}
+    #~ ## original: declare function Fl_Round_ButtonExHandleBase     (byval ex as Fl_Round_ButtonEx ptr, byval event as FL_EVENT) as long
+    #~ proc Fl_Round_ButtonExHandleBase* ( ex:  ptr Fl_Round_ButtonEx;  event:  FL_EVENT):  long {.cdecl, importc: "Fl_Round_ButtonExHandleBase", dynlib: fltk, discardable.}
+    #~ ## original: declare sub      Fl_Round_ButtonExSetDestructorCB(byval ex as Fl_Round_ButtonEx ptr, byval cb as Fl_DestructorEx)
+    #~ proc Fl_Round_ButtonExSetDestructorCB*( ex:  ptr Fl_Round_ButtonEx;  cb:  Fl_DestructorEx) {.cdecl, importc: "Fl_Round_ButtonExSetDestructorCB", dynlib: fltk, discardable.}
+    #~ ## original: declare sub      Fl_Round_ButtonExSetDrawCB      (byval ex as Fl_Round_ButtonEx ptr, byval cb as Fl_DrawEx)
+    #~ proc Fl_Round_ButtonExSetDrawCB*( ex:  ptr Fl_Round_ButtonEx;  cb:  Fl_DrawEx) {.cdecl, importc: "Fl_Round_ButtonExSetDrawCB", dynlib: fltk, discardable.}
+    #~ ## original: declare sub      Fl_Round_ButtonExSetHandleCB    (byval ex as Fl_Round_ButtonEx ptr, byval cb as Fl_HandleEx)
+    #~ proc Fl_Round_ButtonExSetHandleCB*( ex:  ptr Fl_Round_ButtonEx;  cb:  Fl_HandleEx) {.cdecl, importc: "Fl_Round_ButtonExSetHandleCB", dynlib: fltk, discardable.}
+    #~ ## original: declare sub      Fl_Round_ButtonExSetResizeCB    (byval ex as Fl_Round_ButtonEx ptr, byval cb as Fl_ResizeEx)
+    #~ proc Fl_Round_ButtonExSetResizeCB*( ex:  ptr Fl_Round_ButtonEx;  cb:  Fl_ResizeEx) {.cdecl, importc: "Fl_Round_ButtonExSetResizeCB", dynlib: fltk, discardable.}
 
-    ## expand by hand, end
+    #~ ## expand by hand, end
     ## original: declare function Fl_Round_ButtonNew(byval x as long, byval y as long, byval w as long, byval h as long, byval label as cstring=0) as Fl_Round_Button ptr
     proc Fl_Round_ButtonNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=nil):  ptr Fl_Round_Button {.cdecl, importc: "Fl_Round_ButtonNew", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_Round_ButtonDelete(byref btn as Fl_Round_Button ptr)
@@ -4726,24 +4743,24 @@ when not defined(FLTK_MAIN_BI):
     #_ #######################################################
     #_ # class Fl_Radio_Round_Button extends Fl_Round_Button #
     #_ #######################################################
-    ## DeclareEx(Fl_Radio_Round_Button)
-    ## expand by hand, begin
-    ## original: declare function Fl_Radio_Round_ButtonExNew(byval x as long, byval y as long, byval w as long, byval h as long, byval title as cstring=0) as Fl_Radio_Round_ButtonEx ptr
-    proc Fl_Radio_Round_ButtonExNew* ( x:  long;  y:  long;  w:  long;  h:  long;  title:  cstring=nil):  ptr Fl_Radio_Round_ButtonEx {.cdecl, importc: "Fl_Radio_Round_ButtonExNew", dynlib: fltk, discardable.}
-    ## original: declare sub      Fl_Radio_Round_ButtonExDelete         (byref ex as Fl_Radio_Round_ButtonEx ptr)
-    proc Fl_Radio_Round_ButtonExDelete*( ex:  ptr Fl_Radio_Round_ButtonEx) {.cdecl, importc: "Fl_Radio_Round_ButtonExDelete", dynlib: fltk, discardable.}
-    ## original: declare function Fl_Radio_Round_ButtonExHandleBase     (byval ex as Fl_Radio_Round_ButtonEx ptr, byval event as FL_EVENT) as long
-    proc Fl_Radio_Round_ButtonExHandleBase* ( ex:  ptr Fl_Radio_Round_ButtonEx;  event:  FL_EVENT):  long {.cdecl, importc: "Fl_Radio_Round_ButtonExHandleBase", dynlib: fltk, discardable.}
-    ## original: declare sub      Fl_Radio_Round_ButtonExSetDestructorCB(byval ex as Fl_Radio_Round_ButtonEx ptr, byval cb as Fl_DestructorEx)
-    proc Fl_Radio_Round_ButtonExSetDestructorCB*( ex:  ptr Fl_Radio_Round_ButtonEx;  cb:  Fl_DestructorEx) {.cdecl, importc: "Fl_Radio_Round_ButtonExSetDestructorCB", dynlib: fltk, discardable.}
-    ## original: declare sub      Fl_Radio_Round_ButtonExSetDrawCB      (byval ex as Fl_Radio_Round_ButtonEx ptr, byval cb as Fl_DrawEx)
-    proc Fl_Radio_Round_ButtonExSetDrawCB*( ex:  ptr Fl_Radio_Round_ButtonEx;  cb:  Fl_DrawEx) {.cdecl, importc: "Fl_Radio_Round_ButtonExSetDrawCB", dynlib: fltk, discardable.}
-    ## original: declare sub      Fl_Radio_Round_ButtonExSetHandleCB    (byval ex as Fl_Radio_Round_ButtonEx ptr, byval cb as Fl_HandleEx)
-    proc Fl_Radio_Round_ButtonExSetHandleCB*( ex:  ptr Fl_Radio_Round_ButtonEx;  cb:  Fl_HandleEx) {.cdecl, importc: "Fl_Radio_Round_ButtonExSetHandleCB", dynlib: fltk, discardable.}
-    ## original: declare sub      Fl_Radio_Round_ButtonExSetResizeCB    (byval ex as Fl_Radio_Round_ButtonEx ptr, byval cb as Fl_ResizeEx)
-    proc Fl_Radio_Round_ButtonExSetResizeCB*( ex:  ptr Fl_Radio_Round_ButtonEx;  cb:  Fl_ResizeEx) {.cdecl, importc: "Fl_Radio_Round_ButtonExSetResizeCB", dynlib: fltk, discardable.}
+    DeclareEx(Fl_Radio_Round_Button)
+    #~ ## expand by hand, begin
+    #~ ## original: declare function Fl_Radio_Round_ButtonExNew(byval x as long, byval y as long, byval w as long, byval h as long, byval title as cstring=0) as Fl_Radio_Round_ButtonEx ptr
+    #~ proc Fl_Radio_Round_ButtonExNew* ( x:  long;  y:  long;  w:  long;  h:  long;  title:  cstring=nil):  ptr Fl_Radio_Round_ButtonEx {.cdecl, importc: "Fl_Radio_Round_ButtonExNew", dynlib: fltk, discardable.}
+    #~ ## original: declare sub      Fl_Radio_Round_ButtonExDelete         (byref ex as Fl_Radio_Round_ButtonEx ptr)
+    #~ proc Fl_Radio_Round_ButtonExDelete*( ex:  ptr Fl_Radio_Round_ButtonEx) {.cdecl, importc: "Fl_Radio_Round_ButtonExDelete", dynlib: fltk, discardable.}
+    #~ ## original: declare function Fl_Radio_Round_ButtonExHandleBase     (byval ex as Fl_Radio_Round_ButtonEx ptr, byval event as FL_EVENT) as long
+    #~ proc Fl_Radio_Round_ButtonExHandleBase* ( ex:  ptr Fl_Radio_Round_ButtonEx;  event:  FL_EVENT):  long {.cdecl, importc: "Fl_Radio_Round_ButtonExHandleBase", dynlib: fltk, discardable.}
+    #~ ## original: declare sub      Fl_Radio_Round_ButtonExSetDestructorCB(byval ex as Fl_Radio_Round_ButtonEx ptr, byval cb as Fl_DestructorEx)
+    #~ proc Fl_Radio_Round_ButtonExSetDestructorCB*( ex:  ptr Fl_Radio_Round_ButtonEx;  cb:  Fl_DestructorEx) {.cdecl, importc: "Fl_Radio_Round_ButtonExSetDestructorCB", dynlib: fltk, discardable.}
+    #~ ## original: declare sub      Fl_Radio_Round_ButtonExSetDrawCB      (byval ex as Fl_Radio_Round_ButtonEx ptr, byval cb as Fl_DrawEx)
+    #~ proc Fl_Radio_Round_ButtonExSetDrawCB*( ex:  ptr Fl_Radio_Round_ButtonEx;  cb:  Fl_DrawEx) {.cdecl, importc: "Fl_Radio_Round_ButtonExSetDrawCB", dynlib: fltk, discardable.}
+    #~ ## original: declare sub      Fl_Radio_Round_ButtonExSetHandleCB    (byval ex as Fl_Radio_Round_ButtonEx ptr, byval cb as Fl_HandleEx)
+    #~ proc Fl_Radio_Round_ButtonExSetHandleCB*( ex:  ptr Fl_Radio_Round_ButtonEx;  cb:  Fl_HandleEx) {.cdecl, importc: "Fl_Radio_Round_ButtonExSetHandleCB", dynlib: fltk, discardable.}
+    #~ ## original: declare sub      Fl_Radio_Round_ButtonExSetResizeCB    (byval ex as Fl_Radio_Round_ButtonEx ptr, byval cb as Fl_ResizeEx)
+    #~ proc Fl_Radio_Round_ButtonExSetResizeCB*( ex:  ptr Fl_Radio_Round_ButtonEx;  cb:  Fl_ResizeEx) {.cdecl, importc: "Fl_Radio_Round_ButtonExSetResizeCB", dynlib: fltk, discardable.}
 
-    ## expand by hand, end
+    #~ ## expand by hand, end
 
 
     ## original: declare function Fl_Radio_Round_ButtonNew(byval x as long, byval y as long, byval w as long, byval h as long, byval label as cstring=0) as Fl_Radio_Round_Button ptr
@@ -4756,24 +4773,24 @@ when not defined(FLTK_MAIN_BI):
     #_ ####################################
     #_ # class Fl_Chart extends Fl_Widget #
     #_ ####################################
-    ## DeclareEx(Fl_Chart)
-    ## expand by hand, begin
-    ## original: declare function Fl_ChartExNew(byval x as long, byval y as long, byval w as long, byval h as long, byval title as cstring=0) as Fl_ChartEx ptr
-    proc Fl_ChartExNew* ( x:  long;  y:  long;  w:  long;  h:  long;  title:  cstring=nil):  ptr Fl_ChartEx {.cdecl, importc: "Fl_ChartExNew", dynlib: fltk, discardable.}
-    ## original: declare sub      Fl_ChartExDelete         (byref ex as Fl_ChartEx ptr)
-    proc Fl_ChartExDelete*( ex:  ptr Fl_ChartEx) {.cdecl, importc: "Fl_ChartExDelete", dynlib: fltk, discardable.}
-    ## original: declare function Fl_ChartExHandleBase     (byval ex as Fl_ChartEx ptr, byval event as FL_EVENT) as long
-    proc Fl_ChartExHandleBase* ( ex:  ptr Fl_ChartEx;  event:  FL_EVENT):  long {.cdecl, importc: "Fl_ChartExHandleBase", dynlib: fltk, discardable.}
-    ## original: declare sub      Fl_ChartExSetDestructorCB(byval ex as Fl_ChartEx ptr, byval cb as Fl_DestructorEx)
-    proc Fl_ChartExSetDestructorCB*( ex:  ptr Fl_ChartEx;  cb:  Fl_DestructorEx) {.cdecl, importc: "Fl_ChartExSetDestructorCB", dynlib: fltk, discardable.}
-    ## original: declare sub      Fl_ChartExSetDrawCB      (byval ex as Fl_ChartEx ptr, byval cb as Fl_DrawEx)
-    proc Fl_ChartExSetDrawCB*( ex:  ptr Fl_ChartEx;  cb:  Fl_DrawEx) {.cdecl, importc: "Fl_ChartExSetDrawCB", dynlib: fltk, discardable.}
-    ## original: declare sub      Fl_ChartExSetHandleCB    (byval ex as Fl_ChartEx ptr, byval cb as Fl_HandleEx)
-    proc Fl_ChartExSetHandleCB*( ex:  ptr Fl_ChartEx;  cb:  Fl_HandleEx) {.cdecl, importc: "Fl_ChartExSetHandleCB", dynlib: fltk, discardable.}
-    ## original: declare sub      Fl_ChartExSetResizeCB    (byval ex as Fl_ChartEx ptr, byval cb as Fl_ResizeEx)
-    proc Fl_ChartExSetResizeCB*( ex:  ptr Fl_ChartEx;  cb:  Fl_ResizeEx) {.cdecl, importc: "Fl_ChartExSetResizeCB", dynlib: fltk, discardable.}
+    DeclareEx(Fl_Chart)
+    #~ ## expand by hand, begin
+    #~ ## original: declare function Fl_ChartExNew(byval x as long, byval y as long, byval w as long, byval h as long, byval title as cstring=0) as Fl_ChartEx ptr
+    #~ proc Fl_ChartExNew* ( x:  long;  y:  long;  w:  long;  h:  long;  title:  cstring=nil):  ptr Fl_ChartEx {.cdecl, importc: "Fl_ChartExNew", dynlib: fltk, discardable.}
+    #~ ## original: declare sub      Fl_ChartExDelete         (byref ex as Fl_ChartEx ptr)
+    #~ proc Fl_ChartExDelete*( ex:  ptr Fl_ChartEx) {.cdecl, importc: "Fl_ChartExDelete", dynlib: fltk, discardable.}
+    #~ ## original: declare function Fl_ChartExHandleBase     (byval ex as Fl_ChartEx ptr, byval event as FL_EVENT) as long
+    #~ proc Fl_ChartExHandleBase* ( ex:  ptr Fl_ChartEx;  event:  FL_EVENT):  long {.cdecl, importc: "Fl_ChartExHandleBase", dynlib: fltk, discardable.}
+    #~ ## original: declare sub      Fl_ChartExSetDestructorCB(byval ex as Fl_ChartEx ptr, byval cb as Fl_DestructorEx)
+    #~ proc Fl_ChartExSetDestructorCB*( ex:  ptr Fl_ChartEx;  cb:  Fl_DestructorEx) {.cdecl, importc: "Fl_ChartExSetDestructorCB", dynlib: fltk, discardable.}
+    #~ ## original: declare sub      Fl_ChartExSetDrawCB      (byval ex as Fl_ChartEx ptr, byval cb as Fl_DrawEx)
+    #~ proc Fl_ChartExSetDrawCB*( ex:  ptr Fl_ChartEx;  cb:  Fl_DrawEx) {.cdecl, importc: "Fl_ChartExSetDrawCB", dynlib: fltk, discardable.}
+    #~ ## original: declare sub      Fl_ChartExSetHandleCB    (byval ex as Fl_ChartEx ptr, byval cb as Fl_HandleEx)
+    #~ proc Fl_ChartExSetHandleCB*( ex:  ptr Fl_ChartEx;  cb:  Fl_HandleEx) {.cdecl, importc: "Fl_ChartExSetHandleCB", dynlib: fltk, discardable.}
+    #~ ## original: declare sub      Fl_ChartExSetResizeCB    (byval ex as Fl_ChartEx ptr, byval cb as Fl_ResizeEx)
+    #~ proc Fl_ChartExSetResizeCB*( ex:  ptr Fl_ChartEx;  cb:  Fl_ResizeEx) {.cdecl, importc: "Fl_ChartExSetResizeCB", dynlib: fltk, discardable.}
 
-    ## expand by hand, end
+    #~ ## expand by hand, end
 
 
 
@@ -4832,24 +4849,24 @@ when not defined(FLTK_MAIN_BI):
     #_ ###########################################
     #_ # class Fl_Clock_Output extends Fl_Widget #
     #_ ###########################################
-    ## DeclareEx(Fl_Clock_Output)
-    ## expand by hand, begin
-    ## original: declare function Fl_Clock_OutputExNew(byval x as long, byval y as long, byval w as long, byval h as long, byval title as cstring=0) as Fl_Clock_OutputEx ptr
-    proc Fl_Clock_OutputExNew* ( x:  long;  y:  long;  w:  long;  h:  long;  title:  cstring=nil):  ptr Fl_Clock_OutputEx {.cdecl, importc: "Fl_Clock_OutputExNew", dynlib: fltk, discardable.}
-    ## original: declare sub      Fl_Clock_OutputExDelete         (byref ex as Fl_Clock_OutputEx ptr)
-    proc Fl_Clock_OutputExDelete*( ex:  ptr Fl_Clock_OutputEx) {.cdecl, importc: "Fl_Clock_OutputExDelete", dynlib: fltk, discardable.}
-    ## original: declare function Fl_Clock_OutputExHandleBase     (byval ex as Fl_Clock_OutputEx ptr, byval event as FL_EVENT) as long
-    proc Fl_Clock_OutputExHandleBase* ( ex:  ptr Fl_Clock_OutputEx;  event:  FL_EVENT):  long {.cdecl, importc: "Fl_Clock_OutputExHandleBase", dynlib: fltk, discardable.}
-    ## original: declare sub      Fl_Clock_OutputExSetDestructorCB(byval ex as Fl_Clock_OutputEx ptr, byval cb as Fl_DestructorEx)
-    proc Fl_Clock_OutputExSetDestructorCB*( ex:  ptr Fl_Clock_OutputEx;  cb:  Fl_DestructorEx) {.cdecl, importc: "Fl_Clock_OutputExSetDestructorCB", dynlib: fltk, discardable.}
-    ## original: declare sub      Fl_Clock_OutputExSetDrawCB      (byval ex as Fl_Clock_OutputEx ptr, byval cb as Fl_DrawEx)
-    proc Fl_Clock_OutputExSetDrawCB*( ex:  ptr Fl_Clock_OutputEx;  cb:  Fl_DrawEx) {.cdecl, importc: "Fl_Clock_OutputExSetDrawCB", dynlib: fltk, discardable.}
-    ## original: declare sub      Fl_Clock_OutputExSetHandleCB    (byval ex as Fl_Clock_OutputEx ptr, byval cb as Fl_HandleEx)
-    proc Fl_Clock_OutputExSetHandleCB*( ex:  ptr Fl_Clock_OutputEx;  cb:  Fl_HandleEx) {.cdecl, importc: "Fl_Clock_OutputExSetHandleCB", dynlib: fltk, discardable.}
-    ## original: declare sub      Fl_Clock_OutputExSetResizeCB    (byval ex as Fl_Clock_OutputEx ptr, byval cb as Fl_ResizeEx)
-    proc Fl_Clock_OutputExSetResizeCB*( ex:  ptr Fl_Clock_OutputEx;  cb:  Fl_ResizeEx) {.cdecl, importc: "Fl_Clock_OutputExSetResizeCB", dynlib: fltk, discardable.}
+    DeclareEx(Fl_Clock_Output)
+    #~ ## expand by hand, begin
+    #~ ## original: declare function Fl_Clock_OutputExNew(byval x as long, byval y as long, byval w as long, byval h as long, byval title as cstring=0) as Fl_Clock_OutputEx ptr
+    #~ proc Fl_Clock_OutputExNew* ( x:  long;  y:  long;  w:  long;  h:  long;  title:  cstring=nil):  ptr Fl_Clock_OutputEx {.cdecl, importc: "Fl_Clock_OutputExNew", dynlib: fltk, discardable.}
+    #~ ## original: declare sub      Fl_Clock_OutputExDelete         (byref ex as Fl_Clock_OutputEx ptr)
+    #~ proc Fl_Clock_OutputExDelete*( ex:  ptr Fl_Clock_OutputEx) {.cdecl, importc: "Fl_Clock_OutputExDelete", dynlib: fltk, discardable.}
+    #~ ## original: declare function Fl_Clock_OutputExHandleBase     (byval ex as Fl_Clock_OutputEx ptr, byval event as FL_EVENT) as long
+    #~ proc Fl_Clock_OutputExHandleBase* ( ex:  ptr Fl_Clock_OutputEx;  event:  FL_EVENT):  long {.cdecl, importc: "Fl_Clock_OutputExHandleBase", dynlib: fltk, discardable.}
+    #~ ## original: declare sub      Fl_Clock_OutputExSetDestructorCB(byval ex as Fl_Clock_OutputEx ptr, byval cb as Fl_DestructorEx)
+    #~ proc Fl_Clock_OutputExSetDestructorCB*( ex:  ptr Fl_Clock_OutputEx;  cb:  Fl_DestructorEx) {.cdecl, importc: "Fl_Clock_OutputExSetDestructorCB", dynlib: fltk, discardable.}
+    #~ ## original: declare sub      Fl_Clock_OutputExSetDrawCB      (byval ex as Fl_Clock_OutputEx ptr, byval cb as Fl_DrawEx)
+    #~ proc Fl_Clock_OutputExSetDrawCB*( ex:  ptr Fl_Clock_OutputEx;  cb:  Fl_DrawEx) {.cdecl, importc: "Fl_Clock_OutputExSetDrawCB", dynlib: fltk, discardable.}
+    #~ ## original: declare sub      Fl_Clock_OutputExSetHandleCB    (byval ex as Fl_Clock_OutputEx ptr, byval cb as Fl_HandleEx)
+    #~ proc Fl_Clock_OutputExSetHandleCB*( ex:  ptr Fl_Clock_OutputEx;  cb:  Fl_HandleEx) {.cdecl, importc: "Fl_Clock_OutputExSetHandleCB", dynlib: fltk, discardable.}
+    #~ ## original: declare sub      Fl_Clock_OutputExSetResizeCB    (byval ex as Fl_Clock_OutputEx ptr, byval cb as Fl_ResizeEx)
+    #~ proc Fl_Clock_OutputExSetResizeCB*( ex:  ptr Fl_Clock_OutputEx;  cb:  Fl_ResizeEx) {.cdecl, importc: "Fl_Clock_OutputExSetResizeCB", dynlib: fltk, discardable.}
 
-    ## expand by hand, end
+    #~ ## expand by hand, end
 
 
     ## original: declare function Fl_Clock_OutputNew(byval x as long, byval y as long, byval w as long, byval h as long, byval label as cstring=0) as Fl_Clock_Output ptr
@@ -4877,24 +4894,24 @@ when not defined(FLTK_MAIN_BI):
     #_ ##########################################
     #_ # class Fl_Clock extends Fl_Clock_Output #
     #_ ##########################################
-    ## DeclareEx(Fl_Clock)
-    ## expand by hand, begin
-    ## original: declare function Fl_ClockExNew(byval x as long, byval y as long, byval w as long, byval h as long, byval title as cstring=0) as Fl_ClockEx ptr
-    proc Fl_ClockExNew* ( x:  long;  y:  long;  w:  long;  h:  long;  title:  cstring=nil):  ptr Fl_ClockEx {.cdecl, importc: "Fl_ClockExNew", dynlib: fltk, discardable.}
-    ## original: declare sub      Fl_ClockExDelete         (byref ex as Fl_ClockEx ptr)
-    proc Fl_ClockExDelete*( ex:  ptr Fl_ClockEx) {.cdecl, importc: "Fl_ClockExDelete", dynlib: fltk, discardable.}
-    ## original: declare function Fl_ClockExHandleBase     (byval ex as Fl_ClockEx ptr, byval event as FL_EVENT) as long
-    proc Fl_ClockExHandleBase* ( ex:  ptr Fl_ClockEx;  event:  FL_EVENT):  long {.cdecl, importc: "Fl_ClockExHandleBase", dynlib: fltk, discardable.}
-    ## original: declare sub      Fl_ClockExSetDestructorCB(byval ex as Fl_ClockEx ptr, byval cb as Fl_DestructorEx)
-    proc Fl_ClockExSetDestructorCB*( ex:  ptr Fl_ClockEx;  cb:  Fl_DestructorEx) {.cdecl, importc: "Fl_ClockExSetDestructorCB", dynlib: fltk, discardable.}
-    ## original: declare sub      Fl_ClockExSetDrawCB      (byval ex as Fl_ClockEx ptr, byval cb as Fl_DrawEx)
-    proc Fl_ClockExSetDrawCB*( ex:  ptr Fl_ClockEx;  cb:  Fl_DrawEx) {.cdecl, importc: "Fl_ClockExSetDrawCB", dynlib: fltk, discardable.}
-    ## original: declare sub      Fl_ClockExSetHandleCB    (byval ex as Fl_ClockEx ptr, byval cb as Fl_HandleEx)
-    proc Fl_ClockExSetHandleCB*( ex:  ptr Fl_ClockEx;  cb:  Fl_HandleEx) {.cdecl, importc: "Fl_ClockExSetHandleCB", dynlib: fltk, discardable.}
-    ## original: declare sub      Fl_ClockExSetResizeCB    (byval ex as Fl_ClockEx ptr, byval cb as Fl_ResizeEx)
-    proc Fl_ClockExSetResizeCB*( ex:  ptr Fl_ClockEx;  cb:  Fl_ResizeEx) {.cdecl, importc: "Fl_ClockExSetResizeCB", dynlib: fltk, discardable.}
+    DeclareEx(Fl_Clock)
+    #~ ## expand by hand, begin
+    #~ ## original: declare function Fl_ClockExNew(byval x as long, byval y as long, byval w as long, byval h as long, byval title as cstring=0) as Fl_ClockEx ptr
+    #~ proc Fl_ClockExNew* ( x:  long;  y:  long;  w:  long;  h:  long;  title:  cstring=nil):  ptr Fl_ClockEx {.cdecl, importc: "Fl_ClockExNew", dynlib: fltk, discardable.}
+    #~ ## original: declare sub      Fl_ClockExDelete         (byref ex as Fl_ClockEx ptr)
+    #~ proc Fl_ClockExDelete*( ex:  ptr Fl_ClockEx) {.cdecl, importc: "Fl_ClockExDelete", dynlib: fltk, discardable.}
+    #~ ## original: declare function Fl_ClockExHandleBase     (byval ex as Fl_ClockEx ptr, byval event as FL_EVENT) as long
+    #~ proc Fl_ClockExHandleBase* ( ex:  ptr Fl_ClockEx;  event:  FL_EVENT):  long {.cdecl, importc: "Fl_ClockExHandleBase", dynlib: fltk, discardable.}
+    #~ ## original: declare sub      Fl_ClockExSetDestructorCB(byval ex as Fl_ClockEx ptr, byval cb as Fl_DestructorEx)
+    #~ proc Fl_ClockExSetDestructorCB*( ex:  ptr Fl_ClockEx;  cb:  Fl_DestructorEx) {.cdecl, importc: "Fl_ClockExSetDestructorCB", dynlib: fltk, discardable.}
+    #~ ## original: declare sub      Fl_ClockExSetDrawCB      (byval ex as Fl_ClockEx ptr, byval cb as Fl_DrawEx)
+    #~ proc Fl_ClockExSetDrawCB*( ex:  ptr Fl_ClockEx;  cb:  Fl_DrawEx) {.cdecl, importc: "Fl_ClockExSetDrawCB", dynlib: fltk, discardable.}
+    #~ ## original: declare sub      Fl_ClockExSetHandleCB    (byval ex as Fl_ClockEx ptr, byval cb as Fl_HandleEx)
+    #~ proc Fl_ClockExSetHandleCB*( ex:  ptr Fl_ClockEx;  cb:  Fl_HandleEx) {.cdecl, importc: "Fl_ClockExSetHandleCB", dynlib: fltk, discardable.}
+    #~ ## original: declare sub      Fl_ClockExSetResizeCB    (byval ex as Fl_ClockEx ptr, byval cb as Fl_ResizeEx)
+    #~ proc Fl_ClockExSetResizeCB*( ex:  ptr Fl_ClockEx;  cb:  Fl_ResizeEx) {.cdecl, importc: "Fl_ClockExSetResizeCB", dynlib: fltk, discardable.}
 
-    ## expand by hand, end
+    #~ ## expand by hand, end
 
 
     ## original: declare function Fl_ClockNew(byval x as long, byval y as long, byval w as long, byval h as long, byval label as cstring=0) as Fl_Clock ptr
@@ -4907,22 +4924,22 @@ when not defined(FLTK_MAIN_BI):
     #_ #########################################
     #_ # class Fl_Round_Clock extends Fl_Clock #
     #_ #########################################
-    ## DeclareEx(Fl_Round_Clock)
-    ## expand by hand, begin
-    ## original: declare function Fl_Round_ClockExNew(byval x as long, byval y as long, byval w as long, byval h as long, byval title as cstring=0) as Fl_Round_ClockEx ptr
-    proc Fl_Round_ClockExNew* ( x:  long;  y:  long;  w:  long;  h:  long;  title:  cstring=nil):  ptr Fl_Round_ClockEx {.cdecl, importc: "Fl_Round_ClockExNew", dynlib: fltk, discardable.}
-    ## original: declare sub      Fl_Round_ClockExDelete         (byref ex as Fl_Round_ClockEx ptr)
-    proc Fl_Round_ClockExDelete*( ex:  ptr Fl_Round_ClockEx) {.cdecl, importc: "Fl_Round_ClockExDelete", dynlib: fltk, discardable.}
-    ## original: declare function Fl_Round_ClockExHandleBase     (byval ex as Fl_Round_ClockEx ptr, byval event as FL_EVENT) as long
-    proc Fl_Round_ClockExHandleBase* ( ex:  ptr Fl_Round_ClockEx;  event:  FL_EVENT):  long {.cdecl, importc: "Fl_Round_ClockExHandleBase", dynlib: fltk, discardable.}
-    ## original: declare sub      Fl_Round_ClockExSetDestructorCB(byval ex as Fl_Round_ClockEx ptr, byval cb as Fl_DestructorEx)
-    proc Fl_Round_ClockExSetDestructorCB*( ex:  ptr Fl_Round_ClockEx;  cb:  Fl_DestructorEx) {.cdecl, importc: "Fl_Round_ClockExSetDestructorCB", dynlib: fltk, discardable.}
-    ## original: declare sub      Fl_Round_ClockExSetDrawCB      (byval ex as Fl_Round_ClockEx ptr, byval cb as Fl_DrawEx)
-    proc Fl_Round_ClockExSetDrawCB*( ex:  ptr Fl_Round_ClockEx;  cb:  Fl_DrawEx) {.cdecl, importc: "Fl_Round_ClockExSetDrawCB", dynlib: fltk, discardable.}
-    ## original: declare sub      Fl_Round_ClockExSetHandleCB    (byval ex as Fl_Round_ClockEx ptr, byval cb as Fl_HandleEx)
-    proc Fl_Round_ClockExSetHandleCB*( ex:  ptr Fl_Round_ClockEx;  cb:  Fl_HandleEx) {.cdecl, importc: "Fl_Round_ClockExSetHandleCB", dynlib: fltk, discardable.}
-    ## original: declare sub      Fl_Round_ClockExSetResizeCB    (byval ex as Fl_Round_ClockEx ptr, byval cb as Fl_ResizeEx)
-    proc Fl_Round_ClockExSetResizeCB*( ex:  ptr Fl_Round_ClockEx;  cb:  Fl_ResizeEx) {.cdecl, importc: "Fl_Round_ClockExSetResizeCB", dynlib: fltk, discardable.}
+    DeclareEx(Fl_Round_Clock)
+    #~ ## expand by hand, begin
+    #~ ## original: declare function Fl_Round_ClockExNew(byval x as long, byval y as long, byval w as long, byval h as long, byval title as cstring=0) as Fl_Round_ClockEx ptr
+    #~ proc Fl_Round_ClockExNew* ( x:  long;  y:  long;  w:  long;  h:  long;  title:  cstring=nil):  ptr Fl_Round_ClockEx {.cdecl, importc: "Fl_Round_ClockExNew", dynlib: fltk, discardable.}
+    #~ ## original: declare sub      Fl_Round_ClockExDelete         (byref ex as Fl_Round_ClockEx ptr)
+    #~ proc Fl_Round_ClockExDelete*( ex:  ptr Fl_Round_ClockEx) {.cdecl, importc: "Fl_Round_ClockExDelete", dynlib: fltk, discardable.}
+    #~ ## original: declare function Fl_Round_ClockExHandleBase     (byval ex as Fl_Round_ClockEx ptr, byval event as FL_EVENT) as long
+    #~ proc Fl_Round_ClockExHandleBase* ( ex:  ptr Fl_Round_ClockEx;  event:  FL_EVENT):  long {.cdecl, importc: "Fl_Round_ClockExHandleBase", dynlib: fltk, discardable.}
+    #~ ## original: declare sub      Fl_Round_ClockExSetDestructorCB(byval ex as Fl_Round_ClockEx ptr, byval cb as Fl_DestructorEx)
+    #~ proc Fl_Round_ClockExSetDestructorCB*( ex:  ptr Fl_Round_ClockEx;  cb:  Fl_DestructorEx) {.cdecl, importc: "Fl_Round_ClockExSetDestructorCB", dynlib: fltk, discardable.}
+    #~ ## original: declare sub      Fl_Round_ClockExSetDrawCB      (byval ex as Fl_Round_ClockEx ptr, byval cb as Fl_DrawEx)
+    #~ proc Fl_Round_ClockExSetDrawCB*( ex:  ptr Fl_Round_ClockEx;  cb:  Fl_DrawEx) {.cdecl, importc: "Fl_Round_ClockExSetDrawCB", dynlib: fltk, discardable.}
+    #~ ## original: declare sub      Fl_Round_ClockExSetHandleCB    (byval ex as Fl_Round_ClockEx ptr, byval cb as Fl_HandleEx)
+    #~ proc Fl_Round_ClockExSetHandleCB*( ex:  ptr Fl_Round_ClockEx;  cb:  Fl_HandleEx) {.cdecl, importc: "Fl_Round_ClockExSetHandleCB", dynlib: fltk, discardable.}
+    #~ ## original: declare sub      Fl_Round_ClockExSetResizeCB    (byval ex as Fl_Round_ClockEx ptr, byval cb as Fl_ResizeEx)
+    #~ proc Fl_Round_ClockExSetResizeCB*( ex:  ptr Fl_Round_ClockEx;  cb:  Fl_ResizeEx) {.cdecl, importc: "Fl_Round_ClockExSetResizeCB", dynlib: fltk, discardable.}
 
     ## expand by hand, end
 
@@ -5056,24 +5073,24 @@ when not defined(FLTK_MAIN_BI):
     #_ ####################################
     #_ # class Fl_Input extends Fl_Input_ #
     #_ ####################################
-    ## DeclareEx(Fl_Input)
-    ## expand by hand, begin
-    ## original: declare function Fl_InputExNew(byval x as long, byval y as long, byval w as long, byval h as long, byval title as cstring=0) as Fl_InputEx ptr
-    proc Fl_InputExNew* ( x:  long;  y:  long;  w:  long;  h:  long;  title:  cstring=nil):  ptr Fl_InputEx {.cdecl, importc: "Fl_InputExNew", dynlib: fltk, discardable.}
-    ## original: declare sub      Fl_InputExDelete         (byref ex as Fl_InputEx ptr)
-    proc Fl_InputExDelete*( ex:  ptr Fl_InputEx) {.cdecl, importc: "Fl_InputExDelete", dynlib: fltk, discardable.}
-    ## original: declare function Fl_InputExHandleBase     (byval ex as Fl_InputEx ptr, byval event as FL_EVENT) as long
-    proc Fl_InputExHandleBase* ( ex:  ptr Fl_InputEx;  event:  FL_EVENT):  long {.cdecl, importc: "Fl_InputExHandleBase", dynlib: fltk, discardable.}
-    ## original: declare sub      Fl_InputExSetDestructorCB(byval ex as Fl_InputEx ptr, byval cb as Fl_DestructorEx)
-    proc Fl_InputExSetDestructorCB*( ex:  ptr Fl_InputEx;  cb:  Fl_DestructorEx) {.cdecl, importc: "Fl_InputExSetDestructorCB", dynlib: fltk, discardable.}
-    ## original: declare sub      Fl_InputExSetDrawCB      (byval ex as Fl_InputEx ptr, byval cb as Fl_DrawEx)
-    proc Fl_InputExSetDrawCB*( ex:  ptr Fl_InputEx;  cb:  Fl_DrawEx) {.cdecl, importc: "Fl_InputExSetDrawCB", dynlib: fltk, discardable.}
-    ## original: declare sub      Fl_InputExSetHandleCB    (byval ex as Fl_InputEx ptr, byval cb as Fl_HandleEx)
-    proc Fl_InputExSetHandleCB*( ex:  ptr Fl_InputEx;  cb:  Fl_HandleEx) {.cdecl, importc: "Fl_InputExSetHandleCB", dynlib: fltk, discardable.}
-    ## original: declare sub      Fl_InputExSetResizeCB    (byval ex as Fl_InputEx ptr, byval cb as Fl_ResizeEx)
-    proc Fl_InputExSetResizeCB*( ex:  ptr Fl_InputEx;  cb:  Fl_ResizeEx) {.cdecl, importc: "Fl_InputExSetResizeCB", dynlib: fltk, discardable.}
+    DeclareEx(Fl_Input)
+    #~ ## expand by hand, begin
+    #~ ## original: declare function Fl_InputExNew(byval x as long, byval y as long, byval w as long, byval h as long, byval title as cstring=0) as Fl_InputEx ptr
+    #~ proc Fl_InputExNew* ( x:  long;  y:  long;  w:  long;  h:  long;  title:  cstring=nil):  ptr Fl_InputEx {.cdecl, importc: "Fl_InputExNew", dynlib: fltk, discardable.}
+    #~ ## original: declare sub      Fl_InputExDelete         (byref ex as Fl_InputEx ptr)
+    #~ proc Fl_InputExDelete*( ex:  ptr Fl_InputEx) {.cdecl, importc: "Fl_InputExDelete", dynlib: fltk, discardable.}
+    #~ ## original: declare function Fl_InputExHandleBase     (byval ex as Fl_InputEx ptr, byval event as FL_EVENT) as long
+    #~ proc Fl_InputExHandleBase* ( ex:  ptr Fl_InputEx;  event:  FL_EVENT):  long {.cdecl, importc: "Fl_InputExHandleBase", dynlib: fltk, discardable.}
+    #~ ## original: declare sub      Fl_InputExSetDestructorCB(byval ex as Fl_InputEx ptr, byval cb as Fl_DestructorEx)
+    #~ proc Fl_InputExSetDestructorCB*( ex:  ptr Fl_InputEx;  cb:  Fl_DestructorEx) {.cdecl, importc: "Fl_InputExSetDestructorCB", dynlib: fltk, discardable.}
+    #~ ## original: declare sub      Fl_InputExSetDrawCB      (byval ex as Fl_InputEx ptr, byval cb as Fl_DrawEx)
+    #~ proc Fl_InputExSetDrawCB*( ex:  ptr Fl_InputEx;  cb:  Fl_DrawEx) {.cdecl, importc: "Fl_InputExSetDrawCB", dynlib: fltk, discardable.}
+    #~ ## original: declare sub      Fl_InputExSetHandleCB    (byval ex as Fl_InputEx ptr, byval cb as Fl_HandleEx)
+    #~ proc Fl_InputExSetHandleCB*( ex:  ptr Fl_InputEx;  cb:  Fl_HandleEx) {.cdecl, importc: "Fl_InputExSetHandleCB", dynlib: fltk, discardable.}
+    #~ ## original: declare sub      Fl_InputExSetResizeCB    (byval ex as Fl_InputEx ptr, byval cb as Fl_ResizeEx)
+    #~ proc Fl_InputExSetResizeCB*( ex:  ptr Fl_InputEx;  cb:  Fl_ResizeEx) {.cdecl, importc: "Fl_InputExSetResizeCB", dynlib: fltk, discardable.}
 
-    ## expand by hand, end
+    #~ ## expand by hand, end
 
 
     #_  Creates a new Fl_Input widget using the given position, size, and label string.
@@ -5689,22 +5706,22 @@ when not defined(FLTK_MAIN_BI):
     #_ #######################################
     #_ # class Fl_Slider extends Fl_Valuator #
     #_ #######################################
-    ## DeclareEx(Fl_Slider)
+    DeclareEx(Fl_Slider)
     ## expand by hand, begin
     ## original: declare function Fl_SliderExNew(byval x as long, byval y as long, byval w as long, byval h as long, byval title as cstring=0) as Fl_SliderEx ptr
-    proc Fl_SliderExNew* ( x:  long;  y:  long;  w:  long;  h:  long;  title:  cstring=nil):  ptr Fl_SliderEx {.cdecl, importc: "Fl_SliderExNew", dynlib: fltk, discardable.}
+    #~ proc Fl_SliderExNew* ( x:  long;  y:  long;  w:  long;  h:  long;  title:  cstring=nil):  ptr Fl_SliderEx {.cdecl, importc: "Fl_SliderExNew", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_SliderExDelete         (byref ex as Fl_SliderEx ptr)
-    proc Fl_SliderExDelete*( ex:  ptr Fl_SliderEx) {.cdecl, importc: "Fl_SliderExDelete", dynlib: fltk, discardable.}
+    #~ proc Fl_SliderExDelete*( ex:  ptr Fl_SliderEx) {.cdecl, importc: "Fl_SliderExDelete", dynlib: fltk, discardable.}
     ## original: declare function Fl_SliderExHandleBase     (byval ex as Fl_SliderEx ptr, byval event as FL_EVENT) as long
-    proc Fl_SliderExHandleBase* ( ex:  ptr Fl_SliderEx;  event:  FL_EVENT):  long {.cdecl, importc: "Fl_SliderExHandleBase", dynlib: fltk, discardable.}
+    #~ proc Fl_SliderExHandleBase* ( ex:  ptr Fl_SliderEx;  event:  FL_EVENT):  long {.cdecl, importc: "Fl_SliderExHandleBase", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_SliderExSetDestructorCB(byval ex as Fl_SliderEx ptr, byval cb as Fl_DestructorEx)
-    proc Fl_SliderExSetDestructorCB*( ex:  ptr Fl_SliderEx;  cb:  Fl_DestructorEx) {.cdecl, importc: "Fl_SliderExSetDestructorCB", dynlib: fltk, discardable.}
+    #~ proc Fl_SliderExSetDestructorCB*( ex:  ptr Fl_SliderEx;  cb:  Fl_DestructorEx) {.cdecl, importc: "Fl_SliderExSetDestructorCB", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_SliderExSetDrawCB      (byval ex as Fl_SliderEx ptr, byval cb as Fl_DrawEx)
-    proc Fl_SliderExSetDrawCB*( ex:  ptr Fl_SliderEx;  cb:  Fl_DrawEx) {.cdecl, importc: "Fl_SliderExSetDrawCB", dynlib: fltk, discardable.}
+    #~ proc Fl_SliderExSetDrawCB*( ex:  ptr Fl_SliderEx;  cb:  Fl_DrawEx) {.cdecl, importc: "Fl_SliderExSetDrawCB", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_SliderExSetHandleCB    (byval ex as Fl_SliderEx ptr, byval cb as Fl_HandleEx)
-    proc Fl_SliderExSetHandleCB*( ex:  ptr Fl_SliderEx;  cb:  Fl_HandleEx) {.cdecl, importc: "Fl_SliderExSetHandleCB", dynlib: fltk, discardable.}
+    #~ proc Fl_SliderExSetHandleCB*( ex:  ptr Fl_SliderEx;  cb:  Fl_HandleEx) {.cdecl, importc: "Fl_SliderExSetHandleCB", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_SliderExSetResizeCB    (byval ex as Fl_SliderEx ptr, byval cb as Fl_ResizeEx)
-    proc Fl_SliderExSetResizeCB*( ex:  ptr Fl_SliderEx;  cb:  Fl_ResizeEx) {.cdecl, importc: "Fl_SliderExSetResizeCB", dynlib: fltk, discardable.}
+    #~ proc Fl_SliderExSetResizeCB*( ex:  ptr Fl_SliderEx;  cb:  Fl_ResizeEx) {.cdecl, importc: "Fl_SliderExSetResizeCB", dynlib: fltk, discardable.}
 
     #~ converter toFl_Window*(x: Fl_SliderEx): Fl_Window = cast[Fl_Window](x)
     #~ converter toFl_HandleEx*(x: FL_EVENT): Fl_HandleEx = cast[Fl_HandleEx](x)
@@ -6827,6 +6844,7 @@ when not defined(FLTK_MAIN_BI):
     #_ #####################################
     #_ # class Fl_TableEx extends Fl_Table #
     #_ #####################################
+    type Fl_TableEx * = ulong
     ## original: declare function Fl_TableExNew(byval x as long, byval y as long, byval w as long, byval h as long, byval label as cstring=0) as Fl_TableEx ptr
     proc Fl_TableExNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=nil):  ptr Fl_TableEx {.cdecl, importc: "Fl_TableExNew", dynlib: fltk, discardable.}
     ## original: declare function Fl_TableExHandleBase   (byval tex as Fl_TableEx ptr, byval event as FL_EVENT) as long
@@ -6875,20 +6893,21 @@ when not defined(FLTK_MAIN_BI):
     #_ #############################################
     #_ # class Fl_Table_RowEx extends Fl_Table_Row #
     #_ #############################################
+    DeclareEx(Fl_Table_Row)
     ## original: declare function Fl_Table_RowExNew(byval x as long, byval y as long, byval w as long, byval h as long, byval label as cstring=0) as Fl_Table_RowEx ptr
-    proc Fl_Table_RowExNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=nil):  ptr Fl_Table_RowEx {.cdecl, importc: "Fl_Table_RowExNew", dynlib: fltk, discardable.}
+    #~ proc Fl_Table_RowExNew* ( x:  long;  y:  long;  w:  long;  h:  long;  label:  cstring=nil):  ptr Fl_Table_RowEx {.cdecl, importc: "Fl_Table_RowExNew", dynlib: fltk, discardable.}
     ## original: declare function Fl_Table_RowExHandleBase   (byval tex as Fl_Table_RowEx ptr, byval event as FL_EVENT) as long
-    proc Fl_Table_RowExHandleBase* ( tex:  ptr Fl_Table_RowEx;  event:  FL_EVENT):  long {.cdecl, importc: "Fl_Table_RowExHandleBase", dynlib: fltk, discardable.}
+    #~ proc Fl_Table_RowExHandleBase* ( tex:  ptr Fl_Table_RowEx;  event:  FL_EVENT):  long {.cdecl, importc: "Fl_Table_RowExHandleBase", dynlib: fltk, discardable.}
     ## original: declare function Fl_Table_RowExFindCell     (byval tex as Fl_Table_RowEx ptr, byval ctx as FL_TABLECONTEXT, byval r as long, byval c as long, byref x as long, byref y as long, byref w as long, byref h as long) as long
     proc Fl_Table_RowExFindCell* ( tex:  ptr Fl_Table_RowEx;  ctx:  FL_TABLECONTEXT;  r:  long;  c:  long;  x:  var long;  y:  var long;  w:  var long;  h:  var long):  long {.cdecl, importc: "Fl_Table_RowExFindCell", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_Table_RowExSetDrawCB    (byval tex as Fl_Table_RowEx ptr, byval cb as Fl_DrawEx)
-    proc Fl_Table_RowExSetDrawCB*( tex:  ptr Fl_Table_RowEx;  cb:  Fl_DrawEx) {.cdecl, importc: "Fl_Table_RowExSetDrawCB", dynlib: fltk, discardable.}
+    #~ proc Fl_Table_RowExSetDrawCB*( tex:  ptr Fl_Table_RowEx;  cb:  Fl_DrawEx) {.cdecl, importc: "Fl_Table_RowExSetDrawCB", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_Table_RowExSetDrawCellCB(byval tex as Fl_Table_RowEx ptr, byval cb as Fl_DrawcellEx)
     proc Fl_Table_RowExSetDrawCellCB*( tex:  ptr Fl_Table_RowEx;  cb:  Fl_DrawcellEx) {.cdecl, importc: "Fl_Table_RowExSetDrawCellCB", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_Table_RowExSetHandleCB  (byval tex as Fl_Table_RowEx ptr, byval cb as Fl_HandleEx)
-    proc Fl_Table_RowExSetHandleCB*( tex:  ptr Fl_Table_RowEx;  cb:  Fl_HandleEx) {.cdecl, importc: "Fl_Table_RowExSetHandleCB", dynlib: fltk, discardable.}
+    #~ proc Fl_Table_RowExSetHandleCB*( tex:  ptr Fl_Table_RowEx;  cb:  Fl_HandleEx) {.cdecl, importc: "Fl_Table_RowExSetHandleCB", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_Table_RowExSetResizeCB  (byval tex as Fl_Table_RowEx ptr, byval cb as Fl_ResizeEx)
-    proc Fl_Table_RowExSetResizeCB*( tex:  ptr Fl_Table_RowEx;  cb:  Fl_ResizeEx) {.cdecl, importc: "Fl_Table_RowExSetResizeCB", dynlib: fltk, discardable.}
+    #~ proc Fl_Table_RowExSetResizeCB*( tex:  ptr Fl_Table_RowEx;  cb:  Fl_ResizeEx) {.cdecl, importc: "Fl_Table_RowExSetResizeCB", dynlib: fltk, discardable.}
 
     ##################################
     # class Fl_Tabs extends Fl_Group #
@@ -8423,6 +8442,7 @@ when not defined(FLTK_MAIN_BI):
     #_ #######################################
     #_ # class Fl_WindowEx extends Fl_Window #
     #_ #######################################
+    type Fl_WindowEx * = ulong
     ## original: declare function Fl_WindowExNew(byval w as long, byval h as long, byval title as cstring=0) as Fl_WindowEx ptr
     proc Fl_WindowExNew* ( w:  long;  h:  long;  title:  cstring=nil):  ptr Fl_WindowEx {.cdecl, importc: "Fl_WindowExNew", dynlib: fltk, discardable.}
     ## original: declare function Fl_WindowExNew2(byval x as long, byval y as long, byval w as long, byval h as long, byval title as cstring=0) as Fl_WindowEx ptr
@@ -8464,24 +8484,25 @@ when not defined(FLTK_MAIN_BI):
     #_ #####################################################
     #_ # class Fl_Single_WindowEx extends Fl_Single_Window #
     #_ #####################################################
+    DeclareEx( Fl_Single_Window)
     ## original: declare function Fl_Single_WindowExNew(byval w as long, byval h as long, byval title as cstring=0) as Fl_Single_WindowEx ptr
-    proc Fl_Single_WindowExNew* ( w:  long;  h:  long;  title:  cstring=nil):  ptr Fl_Single_WindowEx {.cdecl, importc: "Fl_Single_WindowExNew", dynlib: fltk, discardable.}
+    #~ proc Fl_Single_WindowExNew* ( w:  long;  h:  long;  title:  cstring=nil):  ptr Fl_Single_WindowEx {.cdecl, importc: "Fl_Single_WindowExNew", dynlib: fltk, discardable.}
     ## original: declare function Fl_Single_WindowExNew2(byval x as long, byval y as long, byval w as long, byval h as long, byval title as cstring=0) as Fl_Single_WindowEx ptr
     proc Fl_Single_WindowExNew2* ( x:  long;  y:  long;  w:  long;  h:  long;  title:  cstring=nil):  ptr Fl_Single_WindowEx {.cdecl, importc: "Fl_Single_WindowExNew2", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_Single_WindowExDelete         (byref ex as Fl_Single_WindowEx ptr)
-    proc Fl_Single_WindowExDelete*( ex:  var ptr Fl_Single_WindowEx) {.cdecl, importc: "Fl_Single_WindowExDelete", dynlib: fltk, discardable.}
+    #~ proc Fl_Single_WindowExDelete*( ex:  var ptr Fl_Single_WindowEx) {.cdecl, importc: "Fl_Single_WindowExDelete", dynlib: fltk, discardable.}
 
     ## original: declare function Fl_Single_WindowExHandleBase     (byval ex as Fl_Single_WindowEx ptr, byval event as FL_EVENT) as long
-    proc Fl_Single_WindowExHandleBase* ( ex:  ptr Fl_Single_WindowEx;  event:  FL_EVENT):  long {.cdecl, importc: "Fl_Single_WindowExHandleBase", dynlib: fltk, discardable.}
+    #~ proc Fl_Single_WindowExHandleBase* ( ex:  ptr Fl_Single_WindowEx;  event:  FL_EVENT):  long {.cdecl, importc: "Fl_Single_WindowExHandleBase", dynlib: fltk, discardable.}
 
     ## original: declare sub      Fl_Single_WindowExSetDestructorCB(byval ex as Fl_Single_WindowEx ptr, byval cb as Fl_DestructorEx)
-    proc Fl_Single_WindowExSetDestructorCB*( ex:  ptr Fl_Single_WindowEx;  cb:  Fl_DestructorEx) {.cdecl, importc: "Fl_Single_WindowExSetDestructorCB", dynlib: fltk, discardable.}
+    #~ proc Fl_Single_WindowExSetDestructorCB*( ex:  ptr Fl_Single_WindowEx;  cb:  Fl_DestructorEx) {.cdecl, importc: "Fl_Single_WindowExSetDestructorCB", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_Single_WindowExSetDrawCB      (byval ex as Fl_Single_WindowEx ptr, byval cb as Fl_DrawEx)
-    proc Fl_Single_WindowExSetDrawCB*( ex:  ptr Fl_Single_WindowEx;  cb:  Fl_DrawEx) {.cdecl, importc: "Fl_Single_WindowExSetDrawCB", dynlib: fltk, discardable.}
+    #~ proc Fl_Single_WindowExSetDrawCB*( ex:  ptr Fl_Single_WindowEx;  cb:  Fl_DrawEx) {.cdecl, importc: "Fl_Single_WindowExSetDrawCB", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_Single_WindowExSetHandleCB    (byval ex as Fl_Single_WindowEx ptr, byval cb as Fl_HandleEx)
-    proc Fl_Single_WindowExSetHandleCB*( ex:  ptr Fl_Single_WindowEx;  cb:  Fl_HandleEx) {.cdecl, importc: "Fl_Single_WindowExSetHandleCB", dynlib: fltk, discardable.}
+    #~ proc Fl_Single_WindowExSetHandleCB*( ex:  ptr Fl_Single_WindowEx;  cb:  Fl_HandleEx) {.cdecl, importc: "Fl_Single_WindowExSetHandleCB", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_Single_WindowExSetResizeCB    (byval ex as Fl_Single_WindowEx ptr, byval cb as Fl_ResizeEx)
-    proc Fl_Single_WindowExSetResizeCB*( ex:  ptr Fl_Single_WindowEx;  cb:  Fl_ResizeEx) {.cdecl, importc: "Fl_Single_WindowExSetResizeCB", dynlib: fltk, discardable.}
+    #~ proc Fl_Single_WindowExSetResizeCB*( ex:  ptr Fl_Single_WindowEx;  cb:  Fl_ResizeEx) {.cdecl, importc: "Fl_Single_WindowExSetResizeCB", dynlib: fltk, discardable.}
 
     #_ #################################################
     #_ # class Fl_Menu_Window extends Fl_Single_Window #
@@ -8517,24 +8538,25 @@ when not defined(FLTK_MAIN_BI):
     #_ #################################################
     #_ # class Fl_Menu_WindowEx extends Fl_Menu_Window #
     #_ #################################################
+    DeclareEx(Fl_Menu_Window)
     ## original: declare function Fl_Menu_WindowExNew(byval w as long, byval h as long, byval title as cstring=0) as Fl_Menu_WindowEx ptr
-    proc Fl_Menu_WindowExNew* ( w:  long;  h:  long;  title:  cstring=nil):  ptr Fl_Menu_WindowEx {.cdecl, importc: "Fl_Menu_WindowExNew", dynlib: fltk, discardable.}
+    #~ proc Fl_Menu_WindowExNew* ( w:  long;  h:  long;  title:  cstring=nil):  ptr Fl_Menu_WindowEx {.cdecl, importc: "Fl_Menu_WindowExNew", dynlib: fltk, discardable.}
     ## original: declare function Fl_Menu_WindowExNew2(byval x as long, byval y as long, byval w as long, byval h as long, byval title as cstring=0) as Fl_Menu_WindowEx ptr
     proc Fl_Menu_WindowExNew2* ( x:  long;  y:  long;  w:  long;  h:  long;  title:  cstring=nil):  ptr Fl_Menu_WindowEx {.cdecl, importc: "Fl_Menu_WindowExNew2", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_Menu_WindowExDelete         (byref ex as Fl_Menu_WindowEx ptr)
-    proc Fl_Menu_WindowExDelete*( ex:  var ptr Fl_Menu_WindowEx) {.cdecl, importc: "Fl_Menu_WindowExDelete", dynlib: fltk, discardable.}
+    #~ proc Fl_Menu_WindowExDelete*( ex:  var ptr Fl_Menu_WindowEx) {.cdecl, importc: "Fl_Menu_WindowExDelete", dynlib: fltk, discardable.}
 
     ## original: declare function Fl_Menu_WindowExHandleBase     (byval ex as Fl_Menu_WindowEx ptr, byval event as FL_EVENT) as long
-    proc Fl_Menu_WindowExHandleBase* ( ex:  ptr Fl_Menu_WindowEx;  event:  FL_EVENT):  long {.cdecl, importc: "Fl_Menu_WindowExHandleBase", dynlib: fltk, discardable.}
+    #~ proc Fl_Menu_WindowExHandleBase* ( ex:  ptr Fl_Menu_WindowEx;  event:  FL_EVENT):  long {.cdecl, importc: "Fl_Menu_WindowExHandleBase", dynlib: fltk, discardable.}
 
     ## original: declare sub      Fl_Menu_WindowExSetDestructorCB(byval ex as Fl_Menu_WindowEx ptr, byval cb as Fl_DestructorEx)
-    proc Fl_Menu_WindowExSetDestructorCB*( ex:  ptr Fl_Menu_WindowEx;  cb:  Fl_DestructorEx) {.cdecl, importc: "Fl_Menu_WindowExSetDestructorCB", dynlib: fltk, discardable.}
+    #~ proc Fl_Menu_WindowExSetDestructorCB*( ex:  ptr Fl_Menu_WindowEx;  cb:  Fl_DestructorEx) {.cdecl, importc: "Fl_Menu_WindowExSetDestructorCB", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_Menu_WindowExSetDrawCB      (byval ex as Fl_Menu_WindowEx ptr, byval cb as Fl_DrawEx)
-    proc Fl_Menu_WindowExSetDrawCB*( ex:  ptr Fl_Menu_WindowEx;  cb:  Fl_DrawEx) {.cdecl, importc: "Fl_Menu_WindowExSetDrawCB", dynlib: fltk, discardable.}
+    #~ proc Fl_Menu_WindowExSetDrawCB*( ex:  ptr Fl_Menu_WindowEx;  cb:  Fl_DrawEx) {.cdecl, importc: "Fl_Menu_WindowExSetDrawCB", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_Menu_WindowExSetHandleCB    (byval ex as Fl_Menu_WindowEx ptr, byval cb as Fl_HandleEx)
-    proc Fl_Menu_WindowExSetHandleCB*( ex:  ptr Fl_Menu_WindowEx;  cb:  Fl_HandleEx) {.cdecl, importc: "Fl_Menu_WindowExSetHandleCB", dynlib: fltk, discardable.}
+    #~ proc Fl_Menu_WindowExSetHandleCB*( ex:  ptr Fl_Menu_WindowEx;  cb:  Fl_HandleEx) {.cdecl, importc: "Fl_Menu_WindowExSetHandleCB", dynlib: fltk, discardable.}
     ## original: declare sub      Fl_Menu_WindowExSetResizeCB    (byval ex as Fl_Menu_WindowEx ptr, byval cb as Fl_ResizeEx)
-    proc Fl_Menu_WindowExSetResizeCB*( ex:  ptr Fl_Menu_WindowEx;  cb:  Fl_ResizeEx) {.cdecl, importc: "Fl_Menu_WindowExSetResizeCB", dynlib: fltk, discardable.}
+    #~ proc Fl_Menu_WindowExSetResizeCB*( ex:  ptr Fl_Menu_WindowEx;  cb:  Fl_ResizeEx) {.cdecl, importc: "Fl_Menu_WindowExSetResizeCB", dynlib: fltk, discardable.}
 
     #_ ############################################
     #_ # class Fl_Double_Window extends Fl_Window #
@@ -8564,6 +8586,7 @@ when not defined(FLTK_MAIN_BI):
     #_ #####################################################
     #_ # class Fl_Double_WindowEx extends Fl_Double_Window #
     #_ #####################################################
+    type Fl_Double_WindowEx * = ulong
     ## original: declare function Fl_Double_WindowExNew(byval w as long, byval h as long, byval title as cstring=0) as Fl_Double_WindowEx ptr
     proc Fl_Double_WindowExNew* ( w:  long;  h:  long;  title:  cstring=nil):  ptr Fl_Double_WindowEx {.cdecl, importc: "Fl_Double_WindowExNew", dynlib: fltk, discardable.}
     ## original: declare function Fl_Double_WindowExNew2(byval x as long, byval y as long, byval w as long, byval h as long, byval title as cstring=0) as Fl_Double_WindowEx ptr
@@ -8610,6 +8633,7 @@ when not defined(FLTK_MAIN_BI):
     #_ #######################################################
     #_ # class Fl_Overlay_WindowEx extends Fl_Overlay_Window #
     #_ #######################################################
+    type Fl_Overlay_WindowEx* = ulong
     ## original: declare function Fl_Overlay_WindowExNew(byval w as long, byval h as long, byval title as cstring=0) as Fl_Overlay_WindowEx ptr
     proc Fl_Overlay_WindowExNew* ( w:  long;  h:  long;  title:  cstring=nil):  ptr Fl_Overlay_WindowEx {.cdecl, importc: "Fl_Overlay_WindowExNew", dynlib: fltk, discardable.}
     ## original: declare function Fl_Overlay_WindowExNew2(byval x as long, byval y as long, byval w as long, byval h as long, byval title as cstring=0) as Fl_Overlay_WindowEx ptr

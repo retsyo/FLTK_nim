@@ -2,7 +2,7 @@ import fltk_main
 #test of:
 # Fl_TabsGetValue()  http://www.fltk.org/doc-1.3/classFl__Tabs.html#aa76c3a292bf992a319849dec3beaa825
 
-proc TabCB  (self: ptr FL_WIDGET, tabs: ptr Fl_Tabs){.cdecl.} =
+proc TabCB  (self: ptr FL_WIDGET, tabs: pointer){.cdecl.} =
   var grp = Fl_TabsGetValue(tabs)
   echo "TabCB: " & $Fl_WidgetGetLabel(grp)
 

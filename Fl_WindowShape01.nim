@@ -21,7 +21,7 @@ proc createShape(self: ptr Fl_Widget): ptr Fl_RGB_Image {.cdecl.} =
   DrawSetColor FL_WHITE
   DrawPie 2, 2, w-4, h-4, 0, 360
   DrawSetColor FL_BLACK
-  DrawPie long(0.7*w), h/2, w/4, h/4, 0, 360
+  DrawPie long(7*w/10), h/2, w/4, h/4, 0, 360
 
   # restore old render target
   Fl_Surface_DeviceSetCurrent curSurface

@@ -9,7 +9,7 @@ proc ChoiceCB(self: ptr Fl_Widget, cho: pointer) {.cdecl.} =
   # get index of selected item
   var ind = Fl_ChoiceGetValue(cho)
   # copy label from item to window caption
-  Fl_WindowCopyLabel win, Fl_Menu_GetMenu(cast[ptr Fl_Menu_TT](cho))[ind].text
+  Fl_WindowCopyLabel win, Fl_Menu_GetMenu(cast[Fl_Menu_TT ptr](cho))[ind].text
 
 
 #

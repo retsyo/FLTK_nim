@@ -3,7 +3,7 @@ import fltk_main
 #test of:
 # Fl_Tree  http://www.fltk.org/doc-1.3/classFl__Tree.html
 
-proc TreeCB  (self: ptr Fl_Widget, tree: ptr Fl_Tree){.cdecl.} =
+proc TreeCB  (self: ptr Fl_Widget, tree: pointer){.cdecl.} =
     var item = Fl_TreeGetCallbackItem(tree)
     #~ if (item == cast[ptr Fl_Tree_Item](0) then exit sub
     echo Fl_Tree_ItemGetLabel(item);

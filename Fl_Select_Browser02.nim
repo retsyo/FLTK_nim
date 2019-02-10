@@ -7,7 +7,7 @@ import fltk_main
 # Fl_BrowserGetValue
 # Fl_BrowserGetText
 
-proc BrowserCB (self: ptr Fl_Widget, browser: ptr Fl_Select_Browser) {.cdecl.} =
+proc BrowserCB (self: ptr Fl_Widget, browser: pointer) {.cdecl.} =
   var index = Fl_BrowserGetValue(browser)
   Fl_WidgetCopyLabel browser, Fl_BrowserGetText(browser, index)
 

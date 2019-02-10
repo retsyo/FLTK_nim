@@ -4,17 +4,17 @@ import fltk_main
 # Fl_Wizard    http://www.fltk.org/doc-1.3/classFl__Wizard.html
 
 #~ proc CloseCB(self: ptr Fl_Widget, win: ptr any){.cdecl.} =
-proc CloseCB(self: ptr Fl_Widget, win: ptr Fl_WizardPage){.cdecl.} =
+proc CloseCB(self: ptr Fl_Widget, win: pointer){.cdecl.} =
   Fl_WindowHide win
 
 
 #~ proc PrevCB(self: ptr Fl_Widget, wiz: ptr any){.cdecl.} =
-proc PrevCB(self: ptr Fl_Widget, wiz: ptr Fl_WizardPage){.cdecl.} =
+proc PrevCB(self: ptr Fl_Widget, wiz: pointer){.cdecl.} =
   Fl_WizardPrev wiz
 
 
 #~ proc NextCB(self: ptr Fl_Widget, wiz: ptr any){.cdecl.} =
-proc NextCB(self: ptr Fl_Widget, wiz: ptr Fl_WizardPage){.cdecl.} =
+proc NextCB(self: ptr Fl_Widget, wiz: pointer){.cdecl.} =
   Fl_WizardNext wiz
 
 

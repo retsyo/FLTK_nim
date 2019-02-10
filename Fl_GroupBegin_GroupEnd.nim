@@ -7,7 +7,8 @@ import fltk_main
 #~ ' Fl_GroupEnd()      http://www.fltk.org/doc-1.3/classFl__Group.html#a029653337efa0cb2ec52852519293ba8
 #~ ' Fl_WidgetRedraw()  http://www.fltk.org/doc-1.3/classFl__Widget.html#aa63ce68cbf4620cf8750b868368ea02b
 
-converter toInt(x: int64): int = int(x)
+proc rand(x:int64):int64=
+    return rand(float(x)).int64
 
 proc AddChild  (button: ptr Fl_Button, parent: pointer) {.cdecl.} =
     #~ ' open the widget list of the parent

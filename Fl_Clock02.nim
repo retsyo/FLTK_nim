@@ -1,4 +1,4 @@
-import fltk_c
+import fltk_main
 
 #~ ' test of:
 #~ ' Fl_Clock       http://www.fltk.org/doc-1.3/classFl__Clock.html
